@@ -1,0 +1,19 @@
+$main-background-color: #cbd4db;
+$secondary-background-color: #21212b;
+
+$primary-color: #06192e;
+$secondary-color: #cbd4db;
+
+$main-text-color: #000000;
+$secondary-text-color: #ffffff;
+
+:export {
+    main-background-color: $main-background-color;
+    secondary-background-color: $secondary-background-color;
+    
+    primary-color: $primary-color;
+    secondary-color: $secondary-color;
+    
+    main-text-color: $main-text-color;
+    secondary-text-color: $secondary-text-color;
+}

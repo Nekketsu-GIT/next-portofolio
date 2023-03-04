@@ -1,0 +1,48 @@
+@import '../../../styles/variables.scss';
+
+.article_card{
+
+    border : 2px solid #02142c;
+    border-radius: 10px;
+    padding: 20px;
+    overflow: hidden;
+    margin: 10px;
+
+    &:hover{
+        box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.2);
+        border: 2px solid red;
+    }
+
+    .article_card_title{
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: $primary-color;
+        margin-bottom: 0.5rem;
+    }
+
+    .article_card_description{
+        font-size: 1rem;
+        font-weight: 400;
+        color: #02142c;
+        margin-bottom: 0.5rem;
+    }
+
+    .article_card_link{
+        font-size: 1rem;
+        font-weight: 400;
+        color: $primary-color;
+
+        a{
+            float: right;
+            color: $primary-color;
+            text-decoration-color: red;
+
+
+            &:hover{
+                color: red;
+                text-decoration: underline;
+            }
+        }
+    }
+
+}

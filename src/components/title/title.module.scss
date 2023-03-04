@@ -1,0 +1,24 @@
+@import '../../styles/variables.scss';
+
+.title{
+
+    display: flex;
+    flex-direction: row;
+    vertical-align: middle;
+    align-items: center;
+    color: $primary-color;
+
+
+
+    &:hover{
+        cursor: pointer;
+        color: red;
+    }
+
+
+    .title_text{
+        font-size: 2rem;
+        font-weight: 600;
+        margin-left: 5px;
+    }
+}

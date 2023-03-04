@@ -1,91 +1,100 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
-import styles from './page.module.css'
+import styles from './home.module.scss'
+import Presentation from '@/components/presentation/presentation'
+import ArticleCard from '@/components/articles/article-card/article-card'
+import Title from '@/components/title/title'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'  
+import { faBook, faCode } from '@fortawesome/free-solid-svg-icons'
+import ProjectCard from '@/components/projects/project-card/project-card'
+import {sanityClient} from '@/lib/sanity'
+import { Article, Project } from '@/lib/model'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+
+
+
+export default async function Home() {
+  const lastArticles = await getLastArticles();
+  const lastProjects = await getLastProjects();
+
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+       <Presentation
+          image="/avatar-jose.png"
+          title="Software Engineer"
+          description="I'm a software engineer with a passion for learning and creating new things. I'm currently working at a startup called Viz.ai as a software engineer. I'm also a student at the University of Texas at Austin studying Computer Science. I'm always looking for new opportunities to learn and grow as a developer."
+          socialMediaLinks={{
+            github: '',
+            linkedin: '',
+            twitter: ''
+          }}
         />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
+        {lastArticles && lastArticles.length > 0 && (
+          <div className={styles.articles}>
+            <Title title="Articles" link='/blog' icon={<FontAwesomeIcon icon={faBook}   />} />
+            {lastArticles.map((article) => (
+              <ArticleCard
+                key={article.slug.current}
+                title={article.title}
+                description={article.description}
+                link={`/blog/${article.slug.current}`}
+              />
+            ))
+            }      
+          </div>
+        )}
+        {lastProjects && lastProjects.length > 0 && (
+        <div className={styles.projects}>
+          <Title title="Projects" link='/projects' icon={<FontAwesomeIcon icon={faCode}   />} />
+          {lastProjects.map((project) => (
+            <ProjectCard
+              key={project.slug.current}
+              title={project.title}
+              tags={project.tags}
+              image={project.image}
+              link={project.url}
+            />
+          ))
+          }
+
+          {lastProjects.length < 1 && lastArticles.length < 1 && (
+            <div className={styles.noContent}>
+              <p>There is no content to show</p>
+            </div>
+          )}
+    
         </div>
-      </div>
+        )}
 
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
     </main>
   )
+}
+
+const getLastArticles = async () : Promise<Article[]> => {
+  const lastArcticles = await sanityClient.fetch(`
+    *[_type == "article"] | order(publishedAt desc) [0..3] {
+      title,
+      slug,
+      description,
+    }
+  `);
+
+  return lastArcticles;
+}
+
+const getLastProjects = async () : Promise<Project[]> => {
+  const lastProjects = await sanityClient.fetch(`
+    *[_type == "project"] | order(publishedAt desc) [0..3] {
+      title,
+      tags,
+      image,
+      url,
+      slug,
+    }
+  `);
+
+  return lastProjects;
 }

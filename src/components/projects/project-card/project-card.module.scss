@@ -1,0 +1,43 @@
+@import '../../../styles/variables';
+
+.project_card{
+
+    /* square div */
+    width: 250px;
+    height: 300px;
+    border: 1px solid $primary-color;
+    margin: 10px;
+    padding: 10px;
+    overflow: hidden;
+    display : flex;
+    flex-direction: column;
+    text-align: center;
+    display: inline-block;
+
+    &:hover{
+        border-color: red;
+    }
+
+    .tags{
+        display: flex;
+        flex-direction: row;
+        margin: 1rem;
+    
+
+        .tag{
+            background-color: #02142c;
+            color: #fff;
+            padding: 2px 5px;
+            border-radius: 5px;
+            margin-right: auto;
+        }
+    }
+
+    a{
+        color: $primary-color;
+        
+        &:hover{
+            color: red;
+        }
+    }
+}

@@ -1,0 +1,58 @@
+@import '../../styles/variables.scss';
+
+.presentation{
+
+    text-align: center;
+    padding: 20px;
+
+    .welcome{
+        font-size: 3rem;
+        font-weight: 600;
+        color: #02142c;
+        margin-bottom: 1rem;
+    }
+
+    h1{
+        font-size: 2rem;
+        font-weight: 600;
+        color: $primary-color;
+        margin-bottom: 1rem;
+    }
+
+
+    .image_and_links{
+
+        display: inline-flex;
+        flex-direction: row;
+        vertical-align: middle;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        border : 2px solid #02142c;
+        border-radius: 10px;
+
+
+        img{
+            border-radius: 50%;
+        }
+
+        .links{
+            display: flex;
+            flex-direction: column;
+            margin-left: 2rem;
+
+            a{
+                font-size: 1.5rem;
+                font-weight: 600;
+                margin-bottom: 1rem;
+
+                &:hover{
+                    color: red;
+                }
+            }
+        }
+    }
+
+
+
+}
