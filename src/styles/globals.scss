@@ -18,7 +18,20 @@ body {
   margin: 0;
   padding: 0;
 
+  main {
+    min-height: 75vh;
+    padding: 0 1rem;
+
+    /* permit children to be full width and height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+  }
+
   footer {
+    position: sticky;
+    bottom: 0;
     margin-top: 2rem;
     background-color: $primary-color;
     color: #fff;

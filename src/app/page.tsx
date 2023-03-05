@@ -1,13 +1,12 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
-import styles from './home.module.scss'
 import Presentation from '@/components/presentation/presentation'
 import ArticleCard from '@/components/articles/article-card/article-card'
 import Title from '@/components/title/title'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'  
 import { faBook, faCode } from '@fortawesome/free-solid-svg-icons'
 import ProjectCard from '@/components/projects/project-card/project-card'
-import {sanityClient} from '@/lib/sanity'
+import sanityClient from '@/lib/sanity'
 import { Article, Project } from '@/lib/model'
 import { urlFor } from '@/lib/sanity'
 
@@ -22,7 +21,8 @@ export default async function Home() {
   const lastProjects = await getLastProjects();
 
   return (
-    <main className={styles.main}>
+    <main>
+      <section>
        <Presentation
           image="/avatar-jose.png"
           title="Software Engineer"
@@ -33,8 +33,9 @@ export default async function Home() {
             twitter: ''
           }}
         />
+      </section>
         {lastArticles && lastArticles.length > 0 && (
-          <div className={styles.articles}>
+          <section>
             <Title title="Articles" link='/blog' icon={<FontAwesomeIcon icon={faBook}   />} />
             {lastArticles.map((article) => (
               <ArticleCard
@@ -45,30 +46,31 @@ export default async function Home() {
               />
             ))
             }      
-          </div>
+          </section>
         )}
         {lastProjects && lastProjects.length > 0 && (
-        <div className={styles.projects}>
-          <Title title="Projects" link='/projects' icon={<FontAwesomeIcon icon={faCode}   />} />
-          {lastProjects.map((project) => (
-            <ProjectCard
-              key={project.slug.current}
-              title={project.title}
-              tags={project.tags}
-              image={urlFor(project.image).url()}
-              link={project.url}
-            />
-          ))
-          }
-
-          {lastProjects.length < 1 && lastArticles.length < 1 && (
-            <div className={styles.noContent}>
+          <section>
+            <Title title="Projects" link='/projects' icon={<FontAwesomeIcon icon={faCode}   />} />
+            {lastProjects.map((project) => (
+              <ProjectCard
+                key={project.slug.current}
+                title={project.title}
+                tags={project.tags}
+                image={urlFor(project.image).url()}
+                link={project.url}
+              />
+            
+            ))
+            }
+          </section>    
+        )}
+        <section>
+        {lastProjects.length < 1 && lastArticles.length < 1 && (
+            <div>
               <p>There is no content to show</p>
             </div>
           )}
-    
-        </div>
-        )}
+        </section>
 
     </main>
   )
