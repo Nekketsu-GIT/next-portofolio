@@ -43,9 +43,11 @@ export default function RootLayout({
         } />
         {children}
         <footer>
+          {/*
           <a href="https://buttercms.com" target="_blank" rel="noopener noreferrer">
             <Image src="/butter-w.png" alt="ButterCMS logo" width={150} height={100} />
           </a>
+          */}
           <div className="copiright">
             Created by <a href="/">Jose Dacosta</a>
           </div>
