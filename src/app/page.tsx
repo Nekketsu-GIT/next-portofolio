@@ -9,6 +9,7 @@ import { faBook, faCode } from '@fortawesome/free-solid-svg-icons'
 import ProjectCard from '@/components/projects/project-card/project-card'
 import {sanityClient} from '@/lib/sanity'
 import { Article, Project } from '@/lib/model'
+import { urlFor } from '@/lib/sanity'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -54,7 +55,7 @@ export default async function Home() {
               key={project.slug.current}
               title={project.title}
               tags={project.tags}
-              image={project.image}
+              image={urlFor(project.image).url()}
               link={project.url}
             />
           ))

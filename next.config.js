@@ -4,6 +4,9 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  images: {
+    domains: ['cdn.sanity.io'],
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
