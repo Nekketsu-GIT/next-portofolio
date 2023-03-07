@@ -24,30 +24,27 @@ export default function RootLayout({
   return (
     <html lang="en" className={poppins.className}>
       <body>
-        <Menu menuItems={
-          [
-            {
-              name: 'Home',
-              link: '/'
-            },
-            {
-              name: 'Blog',
-              link: '/blog'
-            },
-            {
-              name: 'Projects',
-              link: '/projects'
-            },
-          ]
+        <header>
+          <Menu menuItems={
+            [
+              {
+                name: 'Home',
+                link: '/'
+              },
+              {
+                name: 'Blog',
+                link: '/blog'
+              },
+              {
+                name: 'Projects',
+                link: '/projects'
+              },
+            ]
 
-        } />
-        {children}
+          } />
+        </header>
+        <main>{children}</main>
         <footer>
-          {/*
-          <a href="https://buttercms.com" target="_blank" rel="noopener noreferrer">
-            <Image src="/butter-w.png" alt="ButterCMS logo" width={150} height={100} />
-          </a>
-          */}
           <div className="copiright">
             Created by <a href="/">Jose Dacosta</a>
           </div>

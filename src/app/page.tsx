@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook, faCode } from '@fortawesome/free-solid-svg-icons'
 import ProjectCard from '@/components/projects/project-card/project-card'
 import sanityClient from '@/lib/sanity'
-import { Article, Project } from '@/lib/model'
+import { ArticleModel, ProjectModel } from '@/lib/model'
 import { urlFor } from '@/lib/sanity'
 
 
@@ -21,7 +21,7 @@ export default async function Home() {
   const lastProjects = await getLastProjects();
 
   return (
-    <main>
+    <>
       <section>
        <Presentation
           image="/avatar-jose.png"
@@ -71,12 +71,11 @@ export default async function Home() {
             </div>
           )}
         </section>
-
-    </main>
+    </>
   )
 }
 
-const getLastArticles = async () : Promise<Article[]> => {
+const getLastArticles = async () : Promise<ArticleModel[]> => {
   const lastArcticles = await sanityClient.fetch(`
     *[_type == "article"] | order(publishedAt desc) [0..3] {
       title,
@@ -88,7 +87,7 @@ const getLastArticles = async () : Promise<Article[]> => {
   return lastArcticles;
 }
 
-const getLastProjects = async () : Promise<Project[]> => {
+const getLastProjects = async () : Promise<ProjectModel[]> => {
   const lastProjects = await sanityClient.fetch(`
     *[_type == "project"] | order(publishedAt desc) [0..3] {
       title,

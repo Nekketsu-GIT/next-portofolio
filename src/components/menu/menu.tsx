@@ -18,7 +18,7 @@ const Menu = ({ menuItems }: Props) => {
     
 
     return (
-        <div className={styles.menu}>
+        <div className={styles.menu_container}>
             <div className={styles.menu_items}>
                 {menuItems.map((item, index) => (
                     <Link href={item.link} key={index}>

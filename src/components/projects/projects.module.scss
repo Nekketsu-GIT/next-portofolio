@@ -1,0 +1,13 @@
+.projects{
+    padding: 2rem 0;
+    display: grid;
+    /* display auto-fit */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 1rem;
+    justify-items: center;
+    align-items: center;
+    
+
+
+    
+}

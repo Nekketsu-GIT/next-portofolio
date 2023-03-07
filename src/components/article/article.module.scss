@@ -1,0 +1,16 @@
+.article{
+
+    padding: 2rem;
+
+    .article_image{
+        position: relative;
+        height: 100% !important;
+
+        img{
+            object-fit: contain;
+            width: 80vw !important;
+            position: relative !important;
+            height: 50vh !important;
+        }
+    }
+}

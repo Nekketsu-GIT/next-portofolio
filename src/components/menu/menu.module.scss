@@ -1,9 +1,8 @@
 @import '../../styles/variables.scss';
 
-.menu{
-    position: sticky;
-    top: 0;
-    z-index: 100;
+.menu_container{
+
+    width: 100%;
 
     .menu_items{
         padding: 1rem 2rem;
@@ -11,7 +10,6 @@
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
-        padding: 1rem 2rem;
         background-color: $primary-color;
         border-bottom: 1px solid red;
         border-radius: 0 0 10px 10px;

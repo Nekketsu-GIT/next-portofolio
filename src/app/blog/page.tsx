@@ -5,9 +5,7 @@ const Blog = async () => {
 
     const categories = await getCategories();
     return (
-        <main>
-            <Articles categories={categories} articlesByPage={10} />
-        </main>
+        <Articles categories={categories} articlesByPage={10} />
     );
 };
 

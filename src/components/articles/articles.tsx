@@ -2,7 +2,7 @@
 
 import styles from './articles.module.scss'
 import { createClient } from "next-sanity";
-import { Article } from '../../lib/model'
+import { ArticleModel } from '../../lib/model'
 import ArticleCard from '../../components/articles/article-card/article-card'
 import { useState } from 'react'
 import Pagination from '../pagination/pagination'
@@ -26,7 +26,7 @@ type ArticlesContainerProps = {
 
 const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
 
-    const [articles, setArticles] = useState<Article[]>([]);
+    const [articles, setArticles] = useState<ArticleModel[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<boolean>(false);
     const [total, setTotal] = useState<number>(0);
@@ -151,7 +151,7 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
 
 
 type ArticlesResult = {
-    articles : Article[];
+    articles : ArticleModel[];
     total: number;
 }
 const getArticles = async ({filters, order, offset, limit}: queryParams) : Promise<ArticlesResult> => {
@@ -163,7 +163,7 @@ const getArticles = async ({filters, order, offset, limit}: queryParams) : Promi
     });
 
 
-    const articles : Article[] = await sanityClient.fetch(`
+    const articles : ArticleModel[] = await sanityClient.fetch(`
         *[_type == "article"] | order(publishedAt ${order}) [${offset}..${offset + limit}] {
             title,
             slug,

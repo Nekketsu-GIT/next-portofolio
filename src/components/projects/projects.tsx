@@ -1,6 +1,6 @@
 'use client'
 
-import { Project } from "@/lib/model";
+import { ProjectModel } from "@/lib/model";
 import { createClient, SanityClient } from "next-sanity";
 import { useState } from "react";
 import ProjectCard from "./project-card/project-card"
@@ -16,7 +16,7 @@ const Projects = () => {
         useCdn: true,
     });
 
-    const [projects, setProjects] = useState<Project[]>([]);
+    const [projects, setProjects] = useState<ProjectModel[]>([]);
     getProjects(sanityClient).then((projects) => setProjects(projects));
   
     const urlFor = (source: SanityImageSource) => {
@@ -25,7 +25,7 @@ const Projects = () => {
 
     return (
         <main>
-            <div className="projects">
+            <div className={styles.projects}>
                 {projects.map((project) => (
                     <ProjectCard
                         key={project.slug.current}
@@ -40,11 +40,11 @@ const Projects = () => {
     )
 }
 
-const getProjects = async (sanityClient: SanityClient) : Promise<Project[]> => {
+const getProjects = async (sanityClient: SanityClient) : Promise<ProjectModel[]> => {
 
 
 
-    const projects : Project[] = await sanityClient.fetch(`
+    const projects : ProjectModel[] = await sanityClient.fetch(`
         *[_type == "project"] | order(publishedAt desc) [0..3] {
             title,
             tags,
