@@ -38,12 +38,16 @@ const Article =  ({slug} : {slug: string}) => {
         }
     }, [sanityClient, slug]);
 
-    if (!article) {
+    if (loading) {
         return <div>Loading...</div>
     }
 
     if (error) {
         return <div>Something went wrong</div>
+    }
+
+    if (!article) {
+        return <div>Article not found</div>
     }
 
     return (

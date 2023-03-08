@@ -24,13 +24,13 @@ export default async function Home() {
     <>
       <section>
        <Presentation
-          image="/avatar-jose.png"
-          title="Software Engineer"
-          description="I'm a software engineer with a passion for learning and creating new things. I'm currently working at a startup called Viz.ai as a software engineer. I'm also a student at the University of Texas at Austin studying Computer Science. I'm always looking for new opportunities to learn and grow as a developer."
+          image={process.env.NEXT_PUBLIC_AVATAR}
+          title={process.env.NEXT_PUBLIC_JOB_TITLE}
+          description={process.env.NEXT_PUBLIC_DESCRIPTION}
           socialMediaLinks={{
-            github: '',
-            linkedin: '',
-            twitter: ''
+            github: process.env.NEXT_PUBLIC_GITHUB,
+            linkedin: process.env.NEXT_PUBLIC_LINKEDIN,
+            twitter: process.env.NEXT_PUBLIC_TWITTER,
           }}
         />
       </section>

@@ -1,17 +1,27 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import styles from './pagination.module.scss'
 
 type Props = {
-    current: number
+    current?: number
     total: number
     onChange: (page: number) => void
 }
 
 const Pagination = ({ current, total, onChange }: Props) => {
-    const [currentPage, setCurrentPage] = useState<number>(current);
+    const [currentPage, setCurrentPage] = useState<number>(current ?? 1);
+
+    const isControlled = useMemo(() => current !== undefined, [current]);
+
+    useMemo(() => {
+        if (isControlled) {
+            setCurrentPage(current ?? 1);
+        }
+    }, [current, isControlled]);
 
     const handlePageChange = (page: number) => {
-        setCurrentPage(page);
+        if(!isControlled){
+            setCurrentPage(page);
+        }
         onChange(page);
     }
 

@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
 
 type queryParams = {
-    filters:{
+    filters ?:{
         category: string;
     }
     order: 'desc' | 'asc';
@@ -26,14 +26,12 @@ type ArticlesContainerProps = {
 
 const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
 
+
     const [articles, setArticles] = useState<ArticleModel[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<boolean>(false);
     const [total, setTotal] = useState<number>(0);
     const [queryParams, setQueryParams] = useState<queryParams>({
-        filters: {
-            category: 'all'
-        },
         order: 'desc',
         offset: 0,
         limit: articlesByPage
@@ -90,11 +88,11 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
                     <select
                         name="category"
                         id="category"
-                        value={queryParams.filters.category}
+                        value={'all'}
                         onChange={(e) => {
                             setQueryParams({
                                 ...queryParams,
-                                filters: {
+                                filters: e.target.value == "all" ? undefined : {
                                     ...queryParams.filters,
                                     category: e.target.value
                                 }
@@ -160,20 +158,26 @@ const getArticles = async ({filters, order, offset, limit}: queryParams) : Promi
         projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
         dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
         useCdn: true,
+        apiVersion: '2023-03-07',
     });
 
 
     const articles : ArticleModel[] = await sanityClient.fetch(`
-        *[_type == "article"] | order(publishedAt ${order}) [${offset}..${offset + limit}] {
+        *[_type == "article" ${
+            filters ? `&& category == ${filters.category}` : ''
+        }] | order(publishedAt ${order}) [${offset}..${offset + limit}] {
             title,
             slug,
             description,
         }
     `);
 
+
     const total : number = (await  sanityClient.fetch(
         `
-        *[_type == "article"] {
+        *[_type == "article" ${
+            filters ? `&& category == ${filters.category}` : ''
+        }] {
             title,
             slug,
             description,
