@@ -4,7 +4,7 @@ import styles from './articles.module.scss'
 import { createClient } from "next-sanity";
 import { ArticleModel } from '../../lib/model'
 import ArticleCard from '../../components/articles/article-card/article-card'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import Pagination from '../pagination/pagination'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
@@ -39,24 +39,22 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
         limit: articlesByPage
     });
 
-    useMemo(async () => {
-
-        setLoading(true);
-        try {
-            const articles = await getArticles(queryParams);
-            setArticles(articles.articles);
-            setTotal(articles.total);
-        } catch (error) {
-            setError(true);
-        } finally {
-            setLoading(false);
-        }
-    }, [queryParams]);
-
 
 
     /* if loading is true, then we fetch the articles */
     if (loading) {
+        getArticles(queryParams).then((result) => {
+
+            setArticles(result.articles);
+            setTotal(result.total)
+            setLoading(false);
+        }).catch((error) => {
+            console.error(error);
+            setError(true);
+            setLoading(false);
+        }
+        )
+
         return (
             <div className={styles.articles}>
                 <h1>Loading...</h1>
@@ -197,5 +195,3 @@ const getArticles = async ({filters, order, offset, limit}: queryParams) : Promi
 
 
 export default Articles;
-
-

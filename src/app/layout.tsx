@@ -1,6 +1,7 @@
 import Menu from '@/components/menu/menu'
 import '../styles/globals.scss'
 import { Poppins } from '@next/font/google';
+import Image from 'next/image'
 
 
 export const metadata = {
