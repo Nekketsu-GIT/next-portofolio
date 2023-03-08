@@ -1,4 +1,6 @@
-import Image from 'next/image'
+'use client'
+
+
 import { Inter } from 'next/font/google'
 import Presentation from '@/components/presentation/presentation'
 import ArticleCard from '@/components/articles/article-card/article-card'
@@ -6,9 +8,12 @@ import Title from '@/components/title/title'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'  
 import { faBook, faCode } from '@fortawesome/free-solid-svg-icons'
 import ProjectCard from '@/components/projects/project-card/project-card'
-import sanityClient from '@/lib/sanity'
 import { ArticleModel, ProjectModel } from '@/lib/model'
-import { urlFor } from '@/lib/sanity'
+import { useMemo, useState } from 'react'
+import { createClient } from '@sanity/client'
+import { SanityImageSource } from '@sanity/image-url/lib/types/types'
+import imageUrlBuilder from '@sanity/image-url'
+import { SanityClient } from 'next-sanity'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -17,8 +22,27 @@ const inter = Inter({ subsets: ['latin'] })
 
 
 export default async function Home() {
-  const lastArticles = await getLastArticles();
-  const lastProjects = await getLastProjects();
+ 
+  const [lastArticles, setLastArticles] = useState<ArticleModel[]>([]);
+  const [lastProjects, setLastProjects] = useState<ProjectModel[]>([]);
+
+  const sanityClient = useMemo(() => createClient({
+    projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+    dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+    useCdn: true,
+    apiVersion: '2021-03-07',
+  }), []);
+
+  const urlFor = (source: SanityImageSource) => {
+    return imageUrlBuilder(sanityClient).image(source);
+  }
+
+  useMemo(async () => {
+    const lastArticles = await getLastArticles(sanityClient);
+    const lastProjects = await getLastProjects(sanityClient);
+    setLastArticles(lastArticles);
+    setLastProjects(lastProjects);
+  }, [sanityClient]);
 
   return (
     <>
@@ -75,7 +99,7 @@ export default async function Home() {
   )
 }
 
-const getLastArticles = async () : Promise<ArticleModel[]> => {
+const getLastArticles = async (sanityClient : SanityClient ) : Promise<ArticleModel[]> => {
   const lastArcticles = await sanityClient.fetch(`
     *[_type == "article"] | order(publishedAt desc) [0..3] {
       title,
@@ -87,7 +111,7 @@ const getLastArticles = async () : Promise<ArticleModel[]> => {
   return lastArcticles;
 }
 
-const getLastProjects = async () : Promise<ProjectModel[]> => {
+const getLastProjects = async (sanityClient : SanityClient ) : Promise<ProjectModel[]> => {
   const lastProjects = await sanityClient.fetch(`
     *[_type == "project"] | order(publishedAt desc) [0..3] {
       title,

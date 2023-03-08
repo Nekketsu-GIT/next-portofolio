@@ -20,7 +20,7 @@ const Article =  ({slug} : {slug: string}) => {
         projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
         dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
         useCdn: true,
-        apiVersion: '2021-03-25',
+        apiVersion: '2021-03-07',
     }), []);
 
     const urlFor = (source: SanityImageSource) => {
@@ -38,12 +38,16 @@ const Article =  ({slug} : {slug: string}) => {
         }
     }, [sanityClient, slug]);
 
-    if (!article) {
+    if (loading) {
         return <div>Loading...</div>
     }
 
     if (error) {
         return <div>Something went wrong</div>
+    }
+
+    if (!article) {
+        return <div>Article not found</div>
     }
 
     return (

@@ -2,7 +2,7 @@
 
 import { ProjectModel } from "@/lib/model";
 import { createClient, SanityClient } from "next-sanity";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import ProjectCard from "./project-card/project-card"
 import styles from './projects.module.scss'
 import imageUrlBuilder from '@sanity/image-url'
@@ -14,10 +14,16 @@ const Projects = () => {
         projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
         dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
         useCdn: true,
+        apiVersion: '2021-03-07'
     });
 
     const [projects, setProjects] = useState<ProjectModel[]>([]);
-    getProjects(sanityClient).then((projects) => setProjects(projects));
+    
+    useMemo(async () => {
+        const projects = await getProjects(sanityClient);
+        setProjects(projects);
+    }, [sanityClient]);
+    
   
     const urlFor = (source: SanityImageSource) => {
         return imageUrlBuilder(sanityClient).image(source);
