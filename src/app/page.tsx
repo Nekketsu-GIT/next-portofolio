@@ -77,7 +77,7 @@ export default async function Home() {
 
 const getLastArticles = async () : Promise<ArticleModel[]> => {
   const lastArcticles = await sanityClient.fetch(`
-    *[_type == "article"] | order(publishedAt desc) [0..3] {
+    *[_type == "article"] | order(publishedAt desc) [0..2] {
       title,
       slug,
       description,
@@ -89,7 +89,7 @@ const getLastArticles = async () : Promise<ArticleModel[]> => {
 
 const getLastProjects = async () : Promise<ProjectModel[]> => {
   const lastProjects = await sanityClient.fetch(`
-    *[_type == "project"] | order(publishedAt desc) [0..3] {
+    *[_type == "project"] | order(publishedAt desc) [0..2] {
       title,
       tags,
       image,

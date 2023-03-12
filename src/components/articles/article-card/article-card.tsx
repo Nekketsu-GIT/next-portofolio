@@ -16,7 +16,7 @@ const ArticleCard = ({ title, description, link }: Props) => {
                 {title}
             </div>
             <div className={styles.article_card_description}>
-                {description.substring(0, 200)}...
+                {description}
             </div>
             <div className={styles.article_card_link}>
                 <Link href={link}>

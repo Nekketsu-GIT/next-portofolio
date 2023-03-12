@@ -13,6 +13,11 @@ const ProjectCard = ({ title,image, tags, link }: Props) => {
     return (
         <div className={styles.project_card}>
             <Image src={image} alt="avatar of the author" width={200} height={150} />
+            <div className={styles.title}>
+                <Link href={link}>
+                    {title}
+                </Link>
+            </div>
             <div className={styles.tags}>
                 {tags.map((tag, index) => (
                     <div key={index} className={styles.tag}>
@@ -20,9 +25,7 @@ const ProjectCard = ({ title,image, tags, link }: Props) => {
                     </div>
                 ))}
             </div>
-            <Link href={link}>
-                Visit
-            </Link>
+
         </div>
     )
 }

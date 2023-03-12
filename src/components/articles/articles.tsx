@@ -19,7 +19,10 @@ type queryParams = {
 }
 
 type ArticlesContainerProps = {
-    categories: string[];
+    categories: {
+        title: string;
+        slug: string;
+    }[];
     articlesByPage: number;
 }
 
@@ -34,7 +37,7 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
     const [queryParams, setQueryParams] = useState<queryParams>({
         order: 'desc',
         offset: 0,
-        limit: articlesByPage
+        limit: articlesByPage-1
     });
 
 
@@ -83,17 +86,16 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
     return (
         <div className={styles.articles_container}>
             <div className={styles.filters}>
-                <div className={styles.categories}>
+               {/*  <div className={styles.categories}>
                     <label htmlFor="category">Category</label>
                     <select
                         name="category"
                         id="category"
-                        value={'all'}
+                        value={queryParams.filters?.category || "all"}
                         onChange={(e) => {
                             setQueryParams({
                                 ...queryParams,
-                                filters: e.target.value == "all" ? undefined : {
-                                    ...queryParams.filters,
+                                filters: e.target.value == "all" ? undefined : {  
                                     category: e.target.value
                                 }
                             });
@@ -102,11 +104,11 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
                     >
                         <option value="all">All</option>
                         {categories.map((category) => (
-                            <option key={category} value={category}>{category}</option>
+                            <option key={category.slug} value={category.slug}>{category.title}</option>
                         ))}
                     </select>
                     
-                </div>
+                </div> */}
                 <div className={styles.order}>
                     Date
                     <button
@@ -134,7 +136,7 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
             </div>
             <Pagination
                 current={queryParams.offset/articlesByPage +1}
-                total={Number((total/articlesByPage).toFixed(0)) +1}
+                total={Math.ceil((total/articlesByPage))}
                 onChange={(page) => {
                     setQueryParams({
                         ...queryParams,
@@ -154,6 +156,7 @@ type ArticlesResult = {
 }
 const getArticles = async ({filters, order, offset, limit}: queryParams) : Promise<ArticlesResult> => {
 
+
     const sanityClient = createClient({
         projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
         dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
@@ -164,22 +167,28 @@ const getArticles = async ({filters, order, offset, limit}: queryParams) : Promi
 
     const articles : ArticleModel[] = await sanityClient.fetch(`
         *[_type == "article" ${
-            filters ? `&& category == ${filters.category}` : ''
+            filters ? `&& ${filters.category} in categories[]->slug.current` : ''
         }] | order(publishedAt ${order}) [${offset}..${offset + limit}] {
             title,
             slug,
+            categories,
             description,
         }
     `);
 
+    
 
     const total : number = (await  sanityClient.fetch(
         `
         *[_type == "article" ${
-            filters ? `&& category == ${filters.category}` : ''
+            filters ? `&& ${filters.category} in categories[]->slug.current` : ''
         }] {
             title,
             slug,
+            categories[] -> {
+                title,
+                slug
+            },
             description,
         }
     `)).length;

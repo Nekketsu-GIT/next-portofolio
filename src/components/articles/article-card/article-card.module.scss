@@ -6,7 +6,8 @@
     border-radius: 10px;
     padding: 20px;
     overflow: hidden;
-    margin: 10px;
+    margin: 10px 0;
+    
 
     &:hover{
         box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.2);
@@ -28,14 +29,16 @@
     }
 
     .article_card_link{
+        float: right;
         font-size: 1rem;
         font-weight: 400;
         color: $primary-color;
+        background-color: $primary-color;
+        padding: 5px 10px;
+        border-radius: 5px;
 
         a{
-            float: right;
-            color: $primary-color;
-            text-decoration-color: red;
+            color: red;
 
 
             &:hover{
