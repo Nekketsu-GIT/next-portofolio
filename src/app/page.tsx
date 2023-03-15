@@ -46,7 +46,8 @@ export default async function Home() {
                 image={urlFor(article.mainImage).url()}
               />
             ))
-            }      
+            } 
+            <hr />     
           </section>
         )}
         {lastProjects && lastProjects.length > 0 && (

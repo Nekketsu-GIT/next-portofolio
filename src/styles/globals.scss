@@ -20,6 +20,16 @@ body {
   position: relative;
   min-height: 100vh;
 
+  a{
+
+    text-decoration: none;
+    color: $primary-color;
+
+    &:hover{
+      color: $main-background-color;
+    }
+  }
+
 
 
 
@@ -44,6 +54,11 @@ body {
       flex-direction: column;
       justify-content: center;
       align-items: center;
+
+      hr{
+        width: 100%;
+        margin: 1rem 0;
+      }
 
     }
     
@@ -70,16 +85,3 @@ body {
   }
 }
 
-a {
-  text-decoration: none;
-  color: $main-text-color;
-  &:hover {
-    color: $primary-color;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}

@@ -1,5 +1,6 @@
 import styles from './presentation.module.scss'
 import Image from 'next/image'
+import { SocialIcon } from 'react-social-icons';
 
 
 type Props = {
@@ -13,6 +14,7 @@ type Props = {
     }
 }
 
+
 const Presentation = ({ image, title, description, socialMediaLinks }: Props) => {
     return (
 
@@ -20,22 +22,30 @@ const Presentation = ({ image, title, description, socialMediaLinks }: Props) =>
             <div className={styles.welcome}>
                 Welcome to my Portfolio!
             </div>
-            <div className={styles.image_and_links}>
-                <Image src={image?? '/hacker.png'} alt="avatar of the author" width={100} height={100} />
+            <div className={styles.me}>
+                <div className={styles.description}>
+                    <h1>{title ?? 'JOB TITLE' }</h1>
+                    <p 
+                        dangerouslySetInnerHTML={{ __html: description ?? 'YOUR DESCRIPTION' }}
+                    />
+                    <div className={styles.contact_me}>
+                        <a href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}>Contact me</a>
+                    </div>
+                </div>
+                <div className={styles.image_container}>
+                    <div className={styles.circle}>
+                        <Image src={image ?? '/hacker.png'} alt="avatar of the author" fill />
+                    </div>
+                </div>
                 <div className={styles.links}>
-                    <a href={socialMediaLinks.github}>Github</a>
-                    <a href={socialMediaLinks.linkedin}>Linkedin</a>
-                    <a href={socialMediaLinks.twitter}>Twitter</a>
+                     <SocialIcon url={socialMediaLinks.github } />
+                    <SocialIcon url={socialMediaLinks.linkedin }/>
+                    <SocialIcon url={socialMediaLinks.twitter }/>
+
                 </div>
             </div>
-            <h1>{title ?? 'JOB TITLE' }</h1>
-            <p 
-                dangerouslySetInnerHTML={{ __html: description ?? 'YOUR DESCRIPTION' }}
-            />
-        </div>
-
-
-                    
+            <hr />
+        </div>         
     )
 }
 
