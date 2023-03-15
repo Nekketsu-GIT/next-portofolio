@@ -2,50 +2,63 @@
 
 .article_card{
 
-    border : 2px solid #02142c;
+    border : 2px solid;
     border-radius: 10px;
-    padding: 20px;
-    overflow: hidden;
     margin: 10px 0;
-    
+    display: inline-flex;
+    flex-direction: row;
 
-    &:hover{
-        box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.2);
-        border: 2px solid red;
+    @media screen and (max-width: 768px){
+        flex-direction: column;
     }
 
-    .article_card_title{
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: $primary-color;
-        margin-bottom: 0.5rem;
+
+    .article_card_image{
+        position: relative;
+        width: 250px;
+        height: 200px;
     }
 
-    .article_card_description{
-        font-size: 1rem;
-        font-weight: 400;
-        color: #02142c;
-        margin-bottom: 0.5rem;
-    }
+    .article_card_content{
 
-    .article_card_link{
-        float: right;
-        font-size: 1rem;
-        font-weight: 400;
-        color: $primary-color;
-        background-color: $primary-color;
-        padding: 5px 10px;
-        border-radius: 5px;
+        padding: 20px;
+        overflow: hidden;
+        background-color: $secondary-color;
+        position: relative;
+        color: #fff;
+        width: 600px;
 
-        a{
-            color: red;
+        @media screen and (max-width: 768px){
+            width: 250px;
+        }
 
 
-            &:hover{
-                color: red;
-                text-decoration: underline;
-            }
+        
+        .article_card_title{
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: $main-background-color;
+        }
+
+        .article_card_description{
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .article_card_link{
+            font-size: 1rem;
+            font-weight: 400;
+            display: inline-block;
+            margin-top: 20px;
+            color: $primary-color;
+            background-color: $main-background-color;
+            padding: 5px 10px;
+            border-radius: 5px;
         }
     }
+    
+
 
 }

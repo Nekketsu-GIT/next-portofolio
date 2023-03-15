@@ -10,20 +10,10 @@
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
-        background-color: $primary-color;
-        border-bottom: 1px solid red;
+        background-color: $main-background-color;
+        border-bottom: 1px solid ;
         border-radius: 0 0 10px 10px;
         
-        a{
-            color: white;
-            text-decoration: none;
-            font-size: 1.5rem;
-            font-weight: 600;
-            transition: all 0.3s ease-in-out;
-            &:hover{
-                color: red;
-            }
-        }
 
 
         @media screen and (max-width: 768px){
@@ -33,7 +23,7 @@
 
     .menu_hamburger{
         display: none;
-        background-color: $primary-color;
+        background-color: $main-background-color;
         padding: 1rem 1rem;
         position: relative;
         @media screen and (max-width: 768px){
@@ -56,16 +46,6 @@
                 display: flex;
             }
 
-            a{
-                color: $secondary-text-color;
-                text-decoration: none;
-                font-size: 2rem;
-                font-weight: 600;
-                transition: all 0.3s ease-in-out;
-                &:hover{
-                    color: red;
-                }
-            }
         }
     }
 }

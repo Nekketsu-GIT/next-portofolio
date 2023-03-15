@@ -19,7 +19,6 @@ body {
 
   position: relative;
   min-height: 100vh;
-  background-color: #f8f8f8;
 
 
 
@@ -39,8 +38,14 @@ body {
     padding: 0 1rem;
     min-height: 86vh;
 
-   
+    section{
+      // center the content
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
+    }
     
   }
 
@@ -60,14 +65,17 @@ body {
     
     
     a {
-      color: red;
+      color: $primary-color ;
     }
   }
 }
 
 a {
-  color: inherit;
   text-decoration: none;
+  color: $main-text-color;
+  &:hover {
+    color: $primary-color;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

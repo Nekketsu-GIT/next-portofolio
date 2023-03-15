@@ -3,6 +3,7 @@ import { SanityImageObject } from "@sanity/image-url/lib/types/types"
 export type ArticleCardModel = {
     title: string,
     description: string,
+    mainImage: SanityImageObject,
     slug: {
       current: string
     }

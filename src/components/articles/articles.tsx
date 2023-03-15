@@ -1,13 +1,16 @@
 'use client'
 
 import styles from './articles.module.scss'
-import { createClient } from "next-sanity";
+import { createClient, SanityClient } from "next-sanity";
 import { ArticleModel } from '../../lib/model'
 import ArticleCard from '../../components/articles/article-card/article-card'
 import { useState } from 'react'
 import Pagination from '../pagination/pagination'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
+import { SanityImageSource } from '@sanity/image-url/lib/types/types';
+import imageUrlBuilder from '@sanity/image-url'
+
 
 type queryParams = {
     filters ?:{
@@ -30,7 +33,7 @@ type ArticlesContainerProps = {
 const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
 
 
-    const [articles, setArticles] = useState<ArticleModel[]>([]);
+    const [articles, setArticles] = useState<ArticleResult[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<boolean>(false);
     const [total, setTotal] = useState<number>(0);
@@ -131,6 +134,7 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
                         title={article.title}
                         description={article.description}
                         link={`/blog/${article.slug.current}`}  
+                        image={article.imageUrl}
                     />
                 ))}
             </div>
@@ -149,11 +153,19 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
     )
 }
 
+type ArticleResult =  Omit<ArticleModel, 'mainImage'> &
+    {
+        imageUrl: string;
+    };
+
 
 type ArticlesResult = {
-    articles : ArticleModel[];
+    articles :ArticleResult[];
     total: number;
 }
+
+
+
 const getArticles = async ({filters, order, offset, limit}: queryParams) : Promise<ArticlesResult> => {
 
 
@@ -164,6 +176,10 @@ const getArticles = async ({filters, order, offset, limit}: queryParams) : Promi
         apiVersion: '2023-03-07',
     });
 
+    const urlFor = (source: SanityImageSource) => {
+        return imageUrlBuilder(sanityClient).image(source);
+    }
+
 
     const articles : ArticleModel[] = await sanityClient.fetch(`
         *[_type == "article" ${
@@ -172,6 +188,7 @@ const getArticles = async ({filters, order, offset, limit}: queryParams) : Promi
             title,
             slug,
             categories,
+            mainImage,
             description,
         }
     `);
@@ -195,7 +212,10 @@ const getArticles = async ({filters, order, offset, limit}: queryParams) : Promi
     
 
     const result :ArticlesResult = {
-        articles: articles,
+        articles: articles.map((article) => ({
+            ...article,
+            imageUrl: urlFor(article.mainImage).url()
+        })),
         total: total
     };
 
@@ -208,3 +228,4 @@ const getArticles = async ({filters, order, offset, limit}: queryParams) : Promi
 
 
 export default Articles;
+

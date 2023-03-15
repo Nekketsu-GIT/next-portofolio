@@ -16,7 +16,6 @@
     .title{
 
         a{
-            color: red;
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
@@ -29,7 +28,7 @@
     }
 
     &:hover{
-        border-color: red;
+        border-color: $primary-color ;
     }
 
     .tags{
@@ -47,11 +46,4 @@
         }
     }
 
-    a{
-        color: $primary-color;
-        
-        &:hover{
-            color: red;
-        }
-    }
 }

@@ -1,19 +1,15 @@
-$main-background-color: #cbd4db;
-$secondary-background-color: #21212b;
+$main-background-color: #ffae03;
 
-$primary-color: #06192e;
-$secondary-color: #cbd4db;
+$primary-color: #E9190F;
+$secondary-color: lightslategrey;
+$third-color: #fe4e00;
 
-$main-text-color: #000000;
-$secondary-text-color: #ffffff;
+$main-text-color: #080708;
 
 :export {
-    main-background-color: $main-background-color;
-    secondary-background-color: $secondary-background-color;
-    
-    primary-color: $primary-color;
-    secondary-color: $secondary-color;
-    
-    main-text-color: $main-text-color;
-    secondary-text-color: $secondary-text-color;
+    mainBackgroundColor: $main-background-color;
+    primaryColor: $primary-color;
+    secondaryColor: $secondary-color;
+    thirdColor: $third-color;
+    mainTextColor: $main-text-color;
 }

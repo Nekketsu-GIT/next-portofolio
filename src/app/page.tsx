@@ -35,7 +35,7 @@ export default async function Home() {
         />
       </section>
         {lastArticles && lastArticles.length > 0 && (
-          <section>
+          <section className="last_articles">
             <Title title="Articles" link='/blog' icon={<FontAwesomeIcon icon={faBook}   />} />
             {lastArticles.map((article) => (
               <ArticleCard
@@ -43,6 +43,7 @@ export default async function Home() {
                 title={article.title}
                 description={article.description}
                 link={`/blog/${article.slug.current}`}
+                image={urlFor(article.mainImage).url()}
               />
             ))
             }      
@@ -81,6 +82,7 @@ const getLastArticles = async () : Promise<ArticleModel[]> => {
       title,
       slug,
       description,
+      mainImage,
     }
   `);
 
