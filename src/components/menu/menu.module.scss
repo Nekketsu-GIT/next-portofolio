@@ -10,7 +10,7 @@
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
-        background-color: $main-background-color;
+        background-color: $fourth-color;
         border-bottom: 1px solid ;
         border-radius: 0 0 10px 10px;
         
@@ -23,7 +23,7 @@
 
     .menu_hamburger{
         display: none;
-        background-color: $main-background-color;
+        background-color: $fourth-color;
         padding: 1rem 1rem;
         position: relative;
         @media screen and (max-width: 768px){

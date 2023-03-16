@@ -35,7 +35,7 @@ export default async function Home() {
         />
       </section>
         {lastArticles && lastArticles.length > 0 && (
-          <section className="last_articles">
+          <section>
             <Title title="Articles" link='/blog' icon={<FontAwesomeIcon icon={faBook}   />} />
             {lastArticles.map((article) => (
               <ArticleCard

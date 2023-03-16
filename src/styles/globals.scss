@@ -26,7 +26,7 @@ body {
     color: $primary-color;
 
     &:hover{
-      color: $main-background-color;
+      color: $third-color;
     }
   }
 
@@ -54,11 +54,14 @@ body {
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      border-radius: 10px;
 
       hr{
         width: 100%;
         margin: 1rem 0;
       }
+
+      
 
     }
     
@@ -80,7 +83,7 @@ body {
     
     
     a {
-      color: $primary-color ;
+      color: $secondary-color ;
     }
   }
 }
