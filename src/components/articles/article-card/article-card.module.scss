@@ -6,17 +6,12 @@
     border-radius: 10px;
     display: inline-flex;
     flex-direction: column;
-    flex-direction: row;
     margin: 1rem;
-
-    @media screen and (max-width: 768px){
-        flex-direction: column;
-    }
 
 
     .article_card_image{
         position: relative;
-        width: 400px;
+        width: 350px;
 
         @media screen and (max-width: 768px){
             width: 250px;
@@ -31,7 +26,7 @@
         background-color: $third-color;
         position: relative;
         color: #fff;
-        width: 400px;
+        width: 350px;
 
         @media screen and (max-width: 768px){
             width: 250px;
