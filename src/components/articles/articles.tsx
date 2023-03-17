@@ -135,6 +135,7 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
                         description={article.description}
                         link={`/blog/${article.slug.current}`}  
                         image={article.imageUrl}
+                        className={styles.article_card}
                     />
                 ))}
             </div>

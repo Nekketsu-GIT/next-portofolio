@@ -44,6 +44,7 @@ export default async function Home() {
                 description={article.description}
                 link={`/blog/${article.slug.current}`}
                 image={urlFor(article.mainImage).url()}
+                className={"article"}
               />
             ))
             } 

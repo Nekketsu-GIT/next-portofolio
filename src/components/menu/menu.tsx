@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
+import Image from 'next/image'
 
 type Props = {
     menuItems: {
@@ -19,28 +20,36 @@ const Menu = ({ menuItems }: Props) => {
 
     return (
         <div className={styles.menu_container}>
-            <div className={styles.menu_items}>
-                {menuItems.map((item, index) => (
-                    <Link href={item.link} key={index}>
-                        {item.name}
+            <div className={styles.menu_bar}>
+                <div className={styles.logo}>
+                    <Link href="/">
+                        <Image src="/hacker.png" alt="logo" fill />
                     </Link>
-                ))}
+                </div>
+                <div className={styles.links}>
+                    {menuItems.map((item, index) => (
+                        <Link href={item.link} key={index}>
+                            {item.name}
+                        </Link>
+                    ))}
+                </div>
+                <div className={styles.menu_hamburger+ " " + (menuOpen ? styles.opened : "")}>    
+                    <button onClick={() => setMenuOpen(!menuOpen)}>
+                        <FontAwesomeIcon icon={faBars} />
+                    </button>
+                </div>
             </div>
-            <div className={styles.menu_hamburger}>
-                
-                <button onClick={() => setMenuOpen(!menuOpen)}>
-                    <FontAwesomeIcon icon={faBars} />
-                </button>
-                {menuOpen && (
-                    <div className={styles.menu_mobile}>
-                        {menuItems.map((item, index) => (
-                            <Link href={item.link} key={index}>
-                                {item.name}
-                            </Link>
-                        ))}
+            {menuOpen && (
+                <div className={styles.full_screen}>
+                    <div className={styles.links}>
+                    {menuItems.map((item, index) => (
+                        <Link href={item.link} key={index}>
+                            {item.name}
+                        </Link>
+                    ))}
                     </div>
-                )}
-            </div>
+                </div>
+            )}
         </div>
     )
 }
