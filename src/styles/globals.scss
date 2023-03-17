@@ -59,6 +59,13 @@ body {
         width: 100%;
         margin: 1rem 0;
       }
+
+      .articles_or_projects__container{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
     }
     
   }

@@ -37,23 +37,26 @@ export default async function Home() {
         {lastArticles && lastArticles.length > 0 && (
           <section>
             <Title title="Articles" link='/blog' icon={<FontAwesomeIcon icon={faBook}   />} />
-            {lastArticles.map((article) => (
-              <ArticleCard
-                key={article.slug.current}
-                title={article.title}
-                description={article.description}
-                link={`/blog/${article.slug.current}`}
-                image={urlFor(article.mainImage).url()}
-                className={"article"}
-              />
-            ))
-            } 
+            <div className="articles_or_projects__container">
+              {lastArticles.map((article) => (
+                <ArticleCard
+                  key={article.slug.current}
+                  title={article.title}
+                  description={article.description}
+                  link={`/blog/${article.slug.current}`}
+                  image={urlFor(article.mainImage).url()}
+                  className={"article"}
+                />
+              ))
+              }
+            </div>
             <hr />     
           </section>
         )}
         {lastProjects && lastProjects.length > 0 && (
           <section>
             <Title title="Projects" link='/projects' icon={<FontAwesomeIcon icon={faCode}   />} />
+            <div className="articles_or_projects__container">
             {lastProjects.map((project) => (
               <ProjectCard
                 key={project.slug.current}
@@ -65,6 +68,7 @@ export default async function Home() {
             
             ))
             }
+            </div>
           </section>    
         )}
         <section>

@@ -3,7 +3,7 @@ import styles from './menu.module.scss'
 import Link from 'next/link'
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faClose } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
 
 type Props = {
@@ -35,7 +35,7 @@ const Menu = ({ menuItems }: Props) => {
                 </div>
                 <div className={styles.menu_hamburger+ " " + (menuOpen ? styles.opened : "")}>    
                     <button onClick={() => setMenuOpen(!menuOpen)}>
-                        <FontAwesomeIcon icon={faBars} />
+                        <FontAwesomeIcon icon={menuOpen ? faClose : faBars} />
                     </button>
                 </div>
             </div>

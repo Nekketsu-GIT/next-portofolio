@@ -12,7 +12,9 @@ type Props = {
 const ProjectCard = ({ title,image, tags, link }: Props) => {
     return (
         <div className={styles.project_card}>
-            <Image src={image} alt="avatar of the author" width={200} height={150} />
+            <div className={styles.image}>
+                <Image src={image} alt="avatar of the author" fill />
+            </div>
             <div className={styles.title}>
                 <Link href={link}>
                     {title}
