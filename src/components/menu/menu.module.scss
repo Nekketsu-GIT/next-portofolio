@@ -1,51 +1,97 @@
 @import '../../styles/variables.scss';
 
-.menu_container{
-
-    width: 100%;
-
-    .menu_items{
-        padding: 1rem 2rem;
+.menu_container {
+    .menu_bar{
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        background-color: $fourth-color;
-        border-bottom: 1px solid ;
-        border-radius: 0 0 10px 10px;
-        
+        justify-content: space-between;
+        border-bottom: 1px solid;
+        padding: 10px;
+        background-color: $third-color;
+
+        .logo {
+            
+            width: 100px;
+            position: relative;
+
+            img{
+                object-fit: cover;
+            }
+            
+        }
+
+    
+
+        .links {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem;
+
+            a {
+                margin: 0 1rem;
+
+                &:hover {
+                    color: $fourth-color;
+                }
+            }
 
 
-        @media screen and (max-width: 768px){
+
+            @media (max-width: 768px) {
+                display: none;
+            }
+        }
+
+        .menu_hamburger {
             display: none;
+            margin: 1rem;
+            cursor: pointer;
+
+            &.opened {
+                z-index: 1001;
+            }
+
+            @media (max-width: 768px) {
+                display: block;
+            }
         }
     }
+    
 
-    .menu_hamburger{
-        display: none;
-        background-color: $fourth-color;
-        padding: 1rem 1rem;
-        position: relative;
-        @media screen and (max-width: 768px){
-            display: block;
-            font-size: 2rem;
+    .full_screen{
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: $third-color;
+        height: 100vh;
+        width: 100vw;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+
+        .close{
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 1rem;
             cursor: pointer;
         }
 
-        .menu_mobile{
-            position: relative;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
+        .links{
+            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 100;
-            @media screen and (max-width: 768px){
-                display: flex;
-            }
 
+            a{
+                margin: 1rem;
+            }
         }
     }
+
 }

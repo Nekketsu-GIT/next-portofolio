@@ -19,9 +19,6 @@ const Presentation = ({ image, title, description, socialMediaLinks }: Props) =>
     return (
 
         <div className={styles.presentation}>
-            <div className={styles.welcome}>
-                Welcome to my Portfolio!
-            </div>
             <div className={styles.me}>
                 <div className={styles.description}>
                     <h1>{title ?? 'JOB TITLE' }</h1>

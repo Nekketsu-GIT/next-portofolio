@@ -9,11 +9,12 @@ type Props = {
     description: string
     link: string
     image: string
+    className?: string
 }
 
-const ArticleCard = ({ title, description, link, image }: Props) => {
+const ArticleCard = ({ title, description, link, image, className }: Props) => {
     return (
-        <div className={styles.article_card}>
+        <div className={styles.article_card + " " + className}>
             <div className={styles.article_card_image}>
                 <Image src={image} alt={title} fill/>
             </div>
