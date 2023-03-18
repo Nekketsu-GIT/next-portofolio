@@ -4,7 +4,7 @@
 
     /* square div */
     width: 350px;
-    height: 350px;
+    height: 300px;
     border: 1px solid $primary-color;
     overflow: hidden;
     display : flex;
@@ -25,6 +25,7 @@
 
     .title{
 
+        margin-top: 20px;
         a{
             font-size: 1.2rem;
             font-weight: 600;

@@ -6,7 +6,20 @@ export default {
     title: 'Components/Articles',
     component: Articles,
     args: {
-        categories : ['all', 'web', 'mobile', 'design'],
+        categories : [  
+            {
+            title: 'Category 1',
+            slug: 'category-1',
+            },
+            {
+                title: 'Category 2',
+                slug: 'category-2',
+            },
+            {
+            title: 'Category 3',
+            slug: 'category-3',
+            }
+        ],
         articlesByPage: 10,
     },
 } as ComponentMeta<typeof Articles>;
