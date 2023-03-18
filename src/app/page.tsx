@@ -9,6 +9,7 @@ import ProjectCard from '@/components/projects/project-card/project-card'
 import sanityClient from '@/lib/sanity'
 import { ArticleModel, ProjectModel } from '@/lib/model'
 import { urlFor } from '@/lib/sanity'
+import Service from '@/components/service/service'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -34,8 +35,14 @@ export default async function Home() {
           }}
         />
       </section>
+      <section className="services">
+        <Service title="Web development" description="I can create a website for you, with the technology you want." image='/code.webp' />
+        <Service title="Data science" description="I can create a website for you, with the technology you want." image='/data-science.png' />
+        <Service title="SEO" description="I can create a website for you, with the technology you want." image='/seo.png' />
+      </section>
         {lastArticles && lastArticles.length > 0 && (
           <section>
+            <hr />     
             <Title title="Articles" link='/blog' icon={<FontAwesomeIcon icon={faBook}   />} />
             <div className="articles_or_projects__container">
               {lastArticles.map((article) => (
@@ -50,11 +57,11 @@ export default async function Home() {
               ))
               }
             </div>
-            <hr />     
           </section>
         )}
         {lastProjects && lastProjects.length > 0 && (
           <section>
+            <hr />     
             <Title title="Projects" link='/projects' icon={<FontAwesomeIcon icon={faCode}   />} />
             <div className="articles_or_projects__container">
             {lastProjects.map((project) => (
@@ -63,7 +70,9 @@ export default async function Home() {
                 title={project.title}
                 tags={project.tags}
                 image={urlFor(project.image).url()}
-                link={project.url}
+                links={{
+                  sourceCode: project.url,
+                }}
               />
             
             ))
@@ -73,9 +82,10 @@ export default async function Home() {
         )}
         <section>
         {lastProjects.length < 1 && lastArticles.length < 1 && (
-            <div>
+            <section>
+              <hr />     
               <p>There is no content to show</p>
-            </div>
+            </section>
           )}
         </section>
     </>

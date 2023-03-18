@@ -55,6 +55,12 @@ body {
       align-items: center;
       border-radius: 10px;
 
+      &.services{
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+      }
+
       hr{
         width: 100%;
         margin: 1rem 0;

@@ -47,7 +47,9 @@ const Projects = () => {
                         title={project.title}
                         tags={project.tags}
                         image={project.imageURL}
-                        link={project.url}
+                        links={{
+                            sourceCode: project.url,
+                        }}
                     />
                 ))}
             </div>
