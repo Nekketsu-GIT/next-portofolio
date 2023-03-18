@@ -71,7 +71,8 @@ export default async function Home() {
                 tags={project.tags}
                 image={urlFor(project.image).url()}
                 links={{
-                  sourceCode: project.url,
+                  liveDemo: project.previewUrl,
+                  sourceCode: project.sourceUrl,
                 }}
               />
             
@@ -111,7 +112,8 @@ const getLastProjects = async () : Promise<ProjectModel[]> => {
       title,
       tags,
       image,
-      url,
+      previewURL,
+      sourceURL,
       slug,
     }
   `);

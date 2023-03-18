@@ -48,7 +48,8 @@ const Projects = () => {
                         tags={project.tags}
                         image={project.imageURL}
                         links={{
-                            sourceCode: project.url,
+                            sourceCode: project.sourceUrl,
+                            liveDemo: project.previewUrl,
                         }}
                     />
                 ))}
@@ -77,7 +78,8 @@ const getProjects = async () : Promise<Project[]> => {
             title,
             tags,
             image,
-            url,
+            sourceUrl,
+            previewUrl,
             slug,
         }
     `);

@@ -11,6 +11,7 @@
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    margin: 1rem;
  
 
     @media screen and (max-width: 1024px){
@@ -42,6 +43,9 @@
     .content{
 
         height: 50%;
+        border-top: 1px solid $third-color;
+
+       
 
         .title{
             margin-top: 10px;

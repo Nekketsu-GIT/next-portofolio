@@ -29,18 +29,24 @@ const ProjectCard = ({ title,image, tags, links }: Props) => {
                         </div>
                     ))}
                 </div>
+                {(links && (links.sourceCode || links.liveDemo ) )? (
                 <div className={styles.links}>
-                    {links?.sourceCode && (
+                    {links.sourceCode && (
                         <Link href={links.sourceCode}>
                             Source Code
                         </Link>
                     )}
-                    {links?.liveDemo && (
+                    {links.liveDemo && (
                         <Link href={links.liveDemo}>
                                 Live Demo
                         </Link>
                     )}
                 </div>
+                ) : (
+                    <div className={styles.coming_soon}>
+                        Coming Soon
+                    </div>
+                )}
             </div>
         </div>
     )
