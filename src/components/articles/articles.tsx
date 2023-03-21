@@ -87,7 +87,7 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
     /* if there are articles, then we show them */
     /* show filter options and pagination */
     return (
-        <div className={styles.articles_container}>
+        <div className={styles.articles}>
             <div className={styles.filters}>
                {/*  <div className={styles.categories}>
                     <label htmlFor="category">Category</label>
