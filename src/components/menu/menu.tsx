@@ -23,7 +23,7 @@ const Menu = ({ menuItems }: Props) => {
             <div className={styles.menu_bar}>
                 <div className={styles.logo}>
                     <Link href="/">
-                        <Image src="/logo.png" alt="logo" fill />
+                        <Image src={process.env.NEXT_PUBLIC_LOGO_URL ?? '/logo.png'} alt="logo" fill />
                     </Link>
                 </div>
                 <div className={styles.links}>

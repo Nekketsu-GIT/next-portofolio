@@ -7,7 +7,7 @@ type Props = {
     image?: string
     title?: string
     description?: string
-    socialMediaLinks: {
+    socialMediaLinks?: {
         github?: string
         linkedin?: string
         twitter?: string
@@ -34,12 +34,13 @@ const Presentation = ({ image, title, description, socialMediaLinks }: Props) =>
                         <Image src={image ?? '/hacker.png'} alt="avatar of the author" fill />
                     </div>
                 </div>
+                { socialMediaLinks && (
                 <div className={styles.links}>
-                     <SocialIcon url={socialMediaLinks.github } />
+                    <SocialIcon url={socialMediaLinks.github } />
                     <SocialIcon url={socialMediaLinks.linkedin }/>
                     <SocialIcon url={socialMediaLinks.twitter }/>
-
                 </div>
+                )}
             </div>
             <hr />
         </div>         
