@@ -112,8 +112,8 @@ const getLastProjects = async () : Promise<ProjectModel[]> => {
       title,
       tags,
       image,
-      previewURL,
-      sourceURL,
+      previewUrl,
+      sourceUrl,
       slug,
     }
   `);

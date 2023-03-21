@@ -6,6 +6,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    position: relative;
 
 
     .filters{
@@ -14,6 +16,9 @@
         justify-content: space-between;
         align-items: center;
         margin: 1rem;
+        position: absolute;
+        top: 0;
+        left: 0;
 
         .categories{
             display: flex;
