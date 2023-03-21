@@ -194,6 +194,8 @@ const getArticles = async ({filters, order, offset, limit}: queryParams) : Promi
         }
     `);
 
+    console.log(articles);
+
     
 
     const total : number = (await  sanityClient.fetch(

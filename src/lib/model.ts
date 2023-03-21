@@ -29,7 +29,8 @@ export type ArticleModel = {
 export type ProjectModel = {
     title: string,
     tags: string[],
-    url : string,
+    previewUrl : string,
+    sourceUrl: string,
     image: SanityImageObject,
     slug: {
         current: string
