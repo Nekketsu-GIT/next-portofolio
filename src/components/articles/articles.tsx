@@ -79,7 +79,7 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
     if (articles.length === 0) {
         return (
             <div className={styles.articles}>
-                <h1>No articles</h1>
+                <h1>No articles yet</h1>
             </div>
         )
     }
@@ -194,7 +194,6 @@ const getArticles = async ({filters, order, offset, limit}: queryParams) : Promi
         }
     `);
 
-    console.log(articles);
 
     
 
