@@ -15,13 +15,14 @@ type Props = {
 const ProjectCard = ({ title,image, tags, links }: Props) => {
     return (
         <div className={styles.project_card}>
+
+            <div className={styles.title}>
+                {title}
+            </div>
             <div className={styles.image}>
                 <Image src={image} alt="avatar of the author" fill />
             </div>
             <div className={styles.content}>
-                <div className={styles.title}>
-                    {title}
-                </div>
                 <div className={styles.tags}>
                     {tags.map((tag, index) => (
                         <div key={index} className={styles.tag}>
