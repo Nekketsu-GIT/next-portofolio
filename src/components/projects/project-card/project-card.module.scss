@@ -43,7 +43,7 @@
     .content{
 
         height: 50%;
-        border-top: 1px solid $third-color;
+        border-top: 1px solid $secondary-color;
 
        
 
@@ -59,10 +59,10 @@
 
             a{
                 padding: 0.5rem;
-                border: 1px solid $third-color;
+                border: 1px solid $secondary-color;
                 border-radius: 5px;
                 background-color: $primary-color;
-                color: $third-color;
+                color: $secondary-color;
 
                 &:hover{
                     background-color: $secondary-color;

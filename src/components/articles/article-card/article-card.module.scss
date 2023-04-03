@@ -35,7 +35,7 @@
 
         padding: 20px;
         overflow: hidden;
-        background-color: $third-color;
+        background-color: $secondary-color;
         position: relative;
         color: #fff;
         height: 60%;
@@ -47,7 +47,7 @@
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
-            color: $fourth-color;
+            color: $secondary-color;
         }
 
         .article_card_description{
@@ -71,7 +71,7 @@
             bottom: 10px;
             right: 10px;
             a{
-                color: $third-color;
+                color: $secondary-color;
             }
 
             &:hover{
