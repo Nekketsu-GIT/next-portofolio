@@ -28,11 +28,11 @@ const Projects = () => {
             setLoading(false);
         });
 
-        return <div>Loading...</div>
+        return <div className={styles.projects}>Loading...</div>
     }
 
     if (error) {
-        return <div>Something went wrong</div>
+        return <div className={styles.projects}>Something went wrong</div>
     }
 
     

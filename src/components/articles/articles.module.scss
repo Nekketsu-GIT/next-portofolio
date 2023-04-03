@@ -1,16 +1,14 @@
 .articles {
-    
-    margin: 1rem;
-
-
-}
-
-.articles_container {
 
 
     height: 100%;
-
     padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+
 
     .filters{
         display: flex;
@@ -18,6 +16,9 @@
         justify-content: space-between;
         align-items: center;
         margin: 1rem;
+        position: absolute;
+        top: 0;
+        left: 0;
 
         .categories{
             display: flex;

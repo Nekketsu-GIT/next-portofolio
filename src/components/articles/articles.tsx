@@ -79,7 +79,7 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
     if (articles.length === 0) {
         return (
             <div className={styles.articles}>
-                <h1>No articles</h1>
+                <h1>No articles yet</h1>
             </div>
         )
     }
@@ -87,7 +87,7 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
     /* if there are articles, then we show them */
     /* show filter options and pagination */
     return (
-        <div className={styles.articles_container}>
+        <div className={styles.articles}>
             <div className={styles.filters}>
                {/*  <div className={styles.categories}>
                     <label htmlFor="category">Category</label>
@@ -194,7 +194,6 @@ const getArticles = async ({filters, order, offset, limit}: queryParams) : Promi
         }
     `);
 
-    console.log(articles);
 
     
 

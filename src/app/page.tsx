@@ -4,12 +4,13 @@ import Presentation from '@/components/presentation/presentation'
 import ArticleCard from '@/components/articles/article-card/article-card'
 import Title from '@/components/title/title'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'  
-import { faBook, faCode } from '@fortawesome/free-solid-svg-icons'
+import { faBook, faCode, faBriefcase } from '@fortawesome/free-solid-svg-icons'
 import ProjectCard from '@/components/projects/project-card/project-card'
 import sanityClient from '@/lib/sanity'
 import { ArticleModel, ProjectModel } from '@/lib/model'
 import { urlFor } from '@/lib/sanity'
 import Service from '@/components/service/service'
+import { Skills } from '@/components/skills/skills'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -36,9 +37,79 @@ export default async function Home() {
         />
       </section>
       <section className="services">
-        <Service title="Web development" description="I can create a website for you, with the technology you want." image='/code.webp' />
-        <Service title="Data science" description="I can create a website for you, with the technology you want." image='/data-science.png' />
-        <Service title="SEO" description="I can create a website for you, with the technology you want." image='/seo.png' />
+        <Service title="Web development" description="I can create custom websites, web applications, and e-commerce solutions using programming languages." image='/code.webp' />
+        <Service title="Machine Learning" description="Apply machine learning algorithms to build models that can recognize patterns and make predictions." image='/data-science.png' />
+        <Service title="DevOps" description="I can offer DevOps services, including continuous integration and delivery, and automated testing." image='/devOps.png' />
+        {/* <Service title="Formation" description="I can offer training courses on various topics, including web development, machine learning, and data science." image='/training.png' /> */}
+      </section>
+      <section className="skills">
+        <hr />
+        <Title title="Skills" icon={<FontAwesomeIcon icon={faCode}   />} />
+        <Skills blocs={
+          [
+            {
+              name: "Languages",
+              skills: [
+                "Python",
+                "JavaScript",
+                "TypeScript",
+                "PHP",
+                "SQL",
+                "HTML",
+                "CSS",
+              ]
+            },
+            {
+              name: "Frameworks & libraries",
+              skills: [
+                "React",
+                "Next.js",
+                "Django",
+                "Bootstrap",
+                "JQuery",
+                "Node.js",
+                "Laravel",
+                "Symfony",
+                "Nest.js",
+                "Tensorflow",
+                "Scikit-learn",
+              ]
+            },
+            {
+              name: "Databases",
+              skills: [
+                "MongoDB",
+                "MySQL",
+                "PostgreSQL",
+                "SQLite",
+              ]
+            },
+            {
+              name: "Tools",
+              skills: [
+                "Git",
+                "Docker",
+                "AWS",
+                "Linux",
+                "Windows",
+              ]
+            }, 
+            {
+              name: "Others",
+              skills: [
+                "Agile",
+                "Scrum",
+                "TDD",
+                "CI/CD",
+                "REST",
+                "GraphQL",
+                "Design patterns",
+                "Data structures",
+                "Algorithms",
+              ]
+            },
+          ]
+        } />
       </section>
         {lastArticles && lastArticles.length > 0 && (
           <section>
@@ -62,7 +133,7 @@ export default async function Home() {
         {lastProjects && lastProjects.length > 0 && (
           <section>
             <hr />     
-            <Title title="Projects" link='/projects' icon={<FontAwesomeIcon icon={faCode}   />} />
+            <Title title="Projects" link='/projects' icon={<FontAwesomeIcon icon={faBriefcase}   />} />
             <div className="articles_or_projects__container">
             {lastProjects.map((project) => (
               <ProjectCard
@@ -112,8 +183,8 @@ const getLastProjects = async () : Promise<ProjectModel[]> => {
       title,
       tags,
       image,
-      previewURL,
-      sourceURL,
+      previewUrl,
+      sourceUrl,
       slug,
     }
   `);
