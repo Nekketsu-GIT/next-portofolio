@@ -103,10 +103,12 @@
 
         a{
             transition: all 0.3s ease-in-out;
+            background-color: $secondary-color;
+            color: $primary-color;
 
             &:hover{
-                background-color: $secondary-color;
-                color: $primary-color;
+                background-color: $primary-color;
+                color: $secondary-color;
             }
         }
     }

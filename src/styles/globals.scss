@@ -46,6 +46,11 @@ body {
     margin-top: 4rem;
     padding: 0 1rem;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
 
     section{
       // center the content
@@ -58,7 +63,7 @@ body {
       &.services{
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: space-evenly;
+        justify-content: space-between;
       }
 
       hr{
