@@ -6,13 +6,13 @@
     flex-direction: row;
     vertical-align: middle;
     align-items: center;
-    color: $primary-color;
+    color: $secondary-color;
 
 
 
     &:hover{
         cursor: pointer;
-        color: $secondary-color;
+        color: $primary-color;
     }
 
 

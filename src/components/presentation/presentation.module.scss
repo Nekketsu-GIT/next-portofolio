@@ -97,12 +97,7 @@
             justify-content: center;
             padding: 0 1rem;
 
-            a{
-
-                &:hover{
-                    color: $secondary-color;
-                }
-            }
+     
 
             .contact_me{
                 display: flex;
@@ -110,11 +105,10 @@
                 margin-top: 1rem;
 
                 a{
-                    border: 1px solid $primary-color;
                     padding: 10px 20px;
                     border-radius: 5px;
                     background-color: $primary-color;
-                    color: $secondary-color;
+                    color: white;
                     font-size: 1.5rem;
 
                     &:hover{

@@ -23,12 +23,14 @@ const Menu = ({ menuItems }: Props) => {
             <div className={styles.menu_bar}>
                 <div className={styles.logo}>
                     <Link href="/">
-                        <Image src={process.env.NEXT_PUBLIC_LOGO_URL ?? '/logo.png'} alt="logo" fill />
+                        {/* <Image src={process.env.NEXT_PUBLIC_LOGO_URL ?? '/logo.png'} alt="logo" fill /> */}
+
+                        {`J</>se`}{" "} <span>Dacosta</span>
                     </Link>
                 </div>
                 <div className={styles.links}>
                     {menuItems.map((item, index) => (
-                        <Link href={item.link} key={index}>
+                        <Link onClick={()=>setMenuOpen(!menuOpen)} href={item.link} key={index}>
                             {item.name}
                         </Link>
                     ))}
@@ -43,7 +45,7 @@ const Menu = ({ menuItems }: Props) => {
                 <div className={styles.full_screen}>
                     <div className={styles.links}>
                     {menuItems.map((item, index) => (
-                        <Link href={item.link} key={index}>
+                        <Link onClick={()=>setMenuOpen(!menuOpen)} href={item.link} key={index}>
                             {item.name}
                         </Link>
                     ))}
