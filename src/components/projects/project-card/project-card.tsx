@@ -15,38 +15,29 @@ type Props = {
 const ProjectCard = ({ title,image, tags, links }: Props) => {
     return (
         <div className={styles.project_card}>
-
-            <div className={styles.title}>
-                {title}
-            </div>
-            <div className={styles.image}>
-                <Image src={image} alt="avatar of the author" fill />
-            </div>
             <div className={styles.content}>
+                <div className={styles.title}>
+                <h3>{title}</h3>
+                </div>
                 <div className={styles.tags}>
                     {tags.map((tag, index) => (
-                        <div key={index} className={styles.tag}>
-                            {tag}
-                        </div>
+                        <span key={index}>{tag}</span>
                     ))}
                 </div>
-                {(links && (links.sourceCode || links.liveDemo ) )? (
-                <div className={styles.links}>
-                    {links.sourceCode && (
-                        <Link href={links.sourceCode}>
-                            Source Code
-                        </Link>
-                    )}
-                    {links.liveDemo && (
-                        <Link href={links.liveDemo}>
-                                Live Demo
-                        </Link>
-                    )}
+                <div className={styles.image}>
+                    <Image src={image} alt={title} fill/>
                 </div>
-                ) : (
-                    <div className={styles.coming_soon}>
-                        Coming Soon
-                    </div>
+            </div>
+            <hr/>
+            <div className={styles.links}>
+                {links?.sourceCode && (
+                    <Link href={links.sourceCode}>Source code</Link>
+                )}
+                {links?.liveDemo && (
+                    <Link href={links.liveDemo}>Live demo</Link>
+                )}
+                {!links?.liveDemo && !links?.sourceCode && (
+                    <span>Coming soon</span>
                 )}
             </div>
         </div>

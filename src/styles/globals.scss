@@ -82,18 +82,10 @@ body {
     position: sticky;
     bottom: 0;
     margin-top: 2rem;
-    background-color: rgba($primary-color, 0.5);
-    color: #fff;
-    padding: 10px;
-
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    
-    a {
-      color: $secondary-color ;
-    }
+  
   }
 }
 

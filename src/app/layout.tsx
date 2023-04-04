@@ -45,9 +45,7 @@ export default function RootLayout({
         </header>
         <main>{children}</main>
         <footer>
-          <div className="copiright">
-            Created by <a href="/">Jose Dacosta</a>
-          </div>
+          Made with ❤️ by&nbsp;<a href="/">Jose Dacosta</a>
         </footer>
       </body>
     </html>

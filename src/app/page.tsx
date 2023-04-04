@@ -11,6 +11,13 @@ import { ArticleModel, ProjectModel } from '@/lib/model'
 import { urlFor } from '@/lib/sanity'
 import Service from '@/components/service/service'
 import { Skills } from '@/components/skills/skills'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'José DACOSTA - IT Engineer & Fullstack Developer',
+  description: 'I offer services in web development, machine learning, and DevOps.',
+  keywords: 'web development, machine learning, devops, python, javascript, typescript, react, next.js, django, bootstrap, jquery, node.js, laravel, symfony, nest.js, tensorflow, scikit-learn, mongodb, mysql, postgresql, sqlite, git, docker, aws, linux, windows, agile, scrum, tdd, ci/cd, rest, graphql, design patterns, data structures, algorithms',
+};
 
 
 const inter = Inter({ subsets: ['latin'] })
