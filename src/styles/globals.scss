@@ -49,7 +49,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     
 
     section{
@@ -63,7 +62,7 @@ body {
       &.services{
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: space-evenly;
       }
 
       hr{
