@@ -30,7 +30,7 @@ const Menu = ({ menuItems }: Props) => {
                 </div>
                 <div className={styles.links}>
                     {menuItems.map((item, index) => (
-                        <Link onClick={()=>setMenuOpen(!menuOpen)} href={item.link} key={index}>
+                        <Link href={item.link} key={index}>
                             {item.name}
                         </Link>
                     ))}
