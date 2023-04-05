@@ -29,7 +29,7 @@ const Presentation = ({ image, title, description, socialMediaLinks }: Props) =>
                         <a href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}>Contact me</a>
                     </div>
                 </div>
-                <div className={styles.image_container }>
+                <div className={styles.image_container}>
                     <div className={styles.circle}>
                         <Image src={image ?? '/hacker.png'} alt="avatar of the author" fill />
                     </div>
