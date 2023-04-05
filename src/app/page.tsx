@@ -43,14 +43,18 @@ export default async function Home() {
           }}
         />
       </section>
-      <section className="services">
-        <Service title="Web development" description="I can create custom websites, web applications, and e-commerce solutions using programming languages." image='/code.webp' />
-        <Service title="Machine Learning" description="Apply machine learning algorithms to build models that can recognize patterns and make predictions." image='/data-science.png' />
-        <Service title="DevOps" description="I can offer DevOps services, including continuous integration and delivery, and automated testing." image='/devOps.png' />
-        {/* <Service title="Formation" description="I can offer training courses on various topics, including web development, machine learning, and data science." image='/training.png' /> */}
+      <hr />
+      <section>
+        <Title title="Services" icon={<FontAwesomeIcon icon={faBook} />} />
+        <div className="row">
+          <Service title="Web development" description="I can create custom websites, web applications, and e-commerce solutions using programming languages." image='/code.webp' />
+          <Service title="Machine Learning" description="Apply machine learning algorithms to build models that can recognize patterns and make predictions." image='/data-science.png' />
+          <Service title="DevOps" description="I can offer DevOps services, including continuous integration and delivery, and automated testing." image='/devOps.png' />
+          {/* <Service title="Formation" description="I can offer training courses on various topics, including web development, machine learning, and data science." image='/training.png' /> */}
+        </div>
       </section>
+      <hr />
       <section className="skills">
-        <hr />
         <Title title="Skills" icon={<FontAwesomeIcon icon={faCode}   />} />
         <Skills blocs={
           [
@@ -119,10 +123,11 @@ export default async function Home() {
         } />
       </section>
         {lastArticles && lastArticles.length > 0 && (
+          <>
+          <hr />     
           <section>
-            <hr />     
             <Title title="Articles" link='/blog' icon={<FontAwesomeIcon icon={faBook}   />} />
-            <div className="articles_or_projects__container">
+            <div className="row">
               {lastArticles.map((article) => (
                 <ArticleCard
                   key={article.slug.current}
@@ -136,12 +141,14 @@ export default async function Home() {
               }
             </div>
           </section>
+          </>
         )}
         {lastProjects && lastProjects.length > 0 && (
+          <>
+          <hr />
           <section>
-            <hr />     
             <Title title="Projects" link='/projects' icon={<FontAwesomeIcon icon={faBriefcase}   />} />
-            <div className="articles_or_projects__container">
+            <div className="row">
             {lastProjects.map((project) => (
               <ProjectCard
                 key={project.slug.current}
@@ -157,16 +164,17 @@ export default async function Home() {
             ))
             }
             </div>
-          </section>    
+          </section>
+          </>    
         )}
-        <section>
         {lastProjects.length < 1 && lastArticles.length < 1 && (
+            <>
+            <hr />
             <section>
-              <hr />     
               <p>There is no content to show</p>
             </section>
+            </>
           )}
-        </section>
     </>
   )
 }

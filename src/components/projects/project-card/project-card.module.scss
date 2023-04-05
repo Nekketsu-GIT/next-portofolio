@@ -12,6 +12,7 @@
     width: 400px;
 
 
+
     // on mobile, make the card full width
     @media only screen and (max-width: 600px) {
         width: 100%;
@@ -20,7 +21,7 @@
     // on tablet, and small desktop, make the cardbe 50% of the width
 
     @media only screen and (min-width: 600px) and (max-width: 1024px) {
-        width: 50%;
+        width: 75%;
     }
 
 

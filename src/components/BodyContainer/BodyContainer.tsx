@@ -10,29 +10,28 @@ const BodyContainer = ({children} : { children: React.ReactNode } )=> {
 
     return (
         <body className={isDark ? "dark" : ""}>
-        <header>
-          <Menu menuItems={
-            [
-              {
-                name: 'Home',
-                link: '/'
-              },
-              {
-                name: 'Blog',
-                link: '/blog'
-              },
-              {
-                name: 'Projects',
-                link: '/projects'
-              },
-            ]
-
-          } />
-        </header>
-        <main>{children}</main>
-        <footer>
-          Made with ❤️ by&nbsp;<a href="/">Jose Dacosta</a>
-        </footer>
+          <header>
+            <Menu menuItems={
+              [
+                {
+                  name: 'Home',
+                  link: '/'
+                },
+                {
+                  name: 'Blog',
+                  link: '/blog'
+                },
+                {
+                  name: 'Projects',
+                  link: '/projects'
+                },
+              ]}
+            />
+          </header>
+          <main>{children}</main>
+          <footer>
+            Made with ❤️ by&nbsp;<a href="/">Jose Dacosta</a>
+          </footer>
       </body>
     )
 }

@@ -17,8 +17,6 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
-  position: relative;
   min-height: 100vh;
 
   &.dark {
@@ -49,12 +47,12 @@ body {
 
   main {
     position: relative;
-    margin-top: 4rem;
-    padding: 0 1rem;
+    padding: 0 2rem;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-top: 60px;
     
 
     section{
@@ -64,23 +62,14 @@ body {
       justify-content: center;
       align-items: center;
       border-radius: 10px;
+      padding: 1rem;
 
-      &.services{
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-      }
-
-      hr{
-        width: 100%;
-        margin: 1rem 0;
-      }
-
-      .articles_or_projects__container{
+      .row{
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
+        width: 100%;
       }
     }
     

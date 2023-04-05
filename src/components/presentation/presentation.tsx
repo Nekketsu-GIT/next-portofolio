@@ -18,8 +18,7 @@ type Props = {
 const Presentation = ({ image, title, description, socialMediaLinks }: Props) => {
     return (
 
-        <div className={styles.presentation}>
-            <div className={styles.me}>
+            <div className={styles.presentation}>
                 <div className={styles.description}>
                     <h1>{title ?? 'JOB TITLE' }</h1>
                     <p 
@@ -42,8 +41,6 @@ const Presentation = ({ image, title, description, socialMediaLinks }: Props) =>
                 </div>
                 )}
             </div>
-            <hr />
-        </div>         
     )
 }
 
