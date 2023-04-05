@@ -41,9 +41,13 @@ const Menu = ({ menuItems }: Props) => {
                     ))}
                 </div>
                 <div className={styles.menu_hamburger+ " " + (menuOpen ? styles.opened : "")}>    
+                    <>
+                    <button onClick={toggleTheme}>
+                        <FontAwesomeIcon icon={isDark ? faSun : faMoon} />
+                    </button>
                     <button onClick={() => setMenuOpen(!menuOpen)}>
                         <FontAwesomeIcon icon={menuOpen ? faClose : faBars} />
-                    </button>
+                    </button></>
                 </div>
             </div>
             {menuOpen && (
