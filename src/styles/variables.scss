@@ -1,2 +1,24 @@
-$primary-color: #FD5D5D;
-$secondary-color: #107E7D;
+$color1: #191308;
+$color2: #FFFFFF;
+$color3: #FD5D5D;
+$color4: #345995;
+$color5: #6A7062;
+
+$primary-color: $color3;
+$secondary-color: $color4;
+
+// light theme
+.light {
+  --main-color: $color1;
+  --background-color: $color2;
+  --primary-color: $color3;
+  --secondary-color: $color2;
+}
+
+// dark theme
+.dark {
+  --main-color: $color2;
+  --background-color: $color1;
+  --primary-color: $color3;
+  --secondary-color: $color2;
+}
