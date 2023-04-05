@@ -12,8 +12,11 @@
     .image{
 
         position: relative;
-        height: 200px;
-        width: 200px;
+        height: 250px;
+        width: 250px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: rgba($color3, 0.5);
         img{
             object-fit: contain;
         }
