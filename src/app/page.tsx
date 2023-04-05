@@ -4,7 +4,7 @@ import Presentation from '@/components/presentation/presentation'
 import ArticleCard from '@/components/articles/article-card/article-card'
 import Title from '@/components/title/title'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'  
-import { faBook, faCode, faBriefcase } from '@fortawesome/free-solid-svg-icons'
+import { faBook, faCode, faBriefcase, faBrain, faBlog } from '@fortawesome/free-solid-svg-icons'
 import ProjectCard from '@/components/projects/project-card/project-card'
 import sanityClient from '@/lib/sanity'
 import { ArticleModel, ProjectModel } from '@/lib/model'
@@ -45,7 +45,7 @@ export default async function Home() {
       </section>
       <hr />
       <section>
-        <Title title="Services" icon={<FontAwesomeIcon icon={faBook} />} />
+        <Title title="Services" icon={<FontAwesomeIcon icon={faBrain} />} />
         <div className="row">
           <Service title="Web development" description="I can create custom websites, web applications, and e-commerce solutions using programming languages." image='/code.webp' />
           <Service title="Machine Learning" description="Apply machine learning algorithms to build models that can recognize patterns and make predictions." image='/data-science.png' />
@@ -126,7 +126,7 @@ export default async function Home() {
           <>
           <hr />     
           <section id="blog">
-            <Title title="Articles" link='/blog' icon={<FontAwesomeIcon icon={faBook}   />} />
+            <Title title="Articles" link='/blog' icon={<FontAwesomeIcon icon={faBlog}   />} />
             <div className="row">
               {lastArticles.map((article) => (
                 <ArticleCard
@@ -194,7 +194,7 @@ const getLastArticles = async () : Promise<ArticleModel[]> => {
 
 const getLastProjects = async () : Promise<ProjectModel[]> => {
   const lastProjects = await sanityClient.fetch(`
-    *[_type == "project"] | order(publishedAt desc) [0..2] {
+    *[_type == "project"] | order(publishedAt desc) [0..3] {
       title,
       tags,
       image,
