@@ -1,7 +1,6 @@
 @import '../../styles/variables.scss';
 
 .title{
-
     display: flex;
     flex-direction: row;
     vertical-align: middle;
@@ -9,13 +8,10 @@
     color: $color4;
     margin-bottom: 1rem;
 
-
-
     &:hover{
         cursor: pointer;
         color: $color3;
     }
-
 
     .title_text{
         font-size: 2rem;

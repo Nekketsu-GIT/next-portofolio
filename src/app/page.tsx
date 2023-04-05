@@ -125,7 +125,7 @@ export default async function Home() {
         {lastArticles && lastArticles.length > 0 && (
           <>
           <hr />     
-          <section>
+          <section id="blog">
             <Title title="Articles" link='/blog' icon={<FontAwesomeIcon icon={faBook}   />} />
             <div className="row">
               {lastArticles.map((article) => (
@@ -146,7 +146,7 @@ export default async function Home() {
         {lastProjects && lastProjects.length > 0 && (
           <>
           <hr />
-          <section>
+          <section id="projects">
             <Title title="Projects" link='/projects' icon={<FontAwesomeIcon icon={faBriefcase}   />} />
             <div className="row">
             {lastProjects.map((project) => (
