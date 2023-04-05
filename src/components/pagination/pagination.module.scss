@@ -9,7 +9,7 @@
     margin: 1rem;
 
     button{
-        background-color: $primary-color;
+        background-color: $color3;
         color: #fff;
         border: none;
         padding: 0.5rem 1rem;
@@ -19,7 +19,7 @@
         transition: all 0.2s ease-in-out;
 
         &:hover{
-            background-color: $secondary-color;
+            background-color: $color4;
         }
 
         &:disabled{

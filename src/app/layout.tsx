@@ -2,6 +2,8 @@ import Menu from '@/components/menu/menu'
 import '../styles/globals.scss'
 import { Poppins } from "next/font/google";
 import Image from 'next/image'
+import  { ThemeProvider } from '@/components/ThemeContext/ThemeContext';
+import BodyContainer from '@/components/BodyContainer/BodyContainer';
 
 
 export const metadata = {
@@ -23,31 +25,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={poppins.className}>
-      <body>
-        <header>
-          <Menu menuItems={
-            [
-              {
-                name: 'Home',
-                link: '/'
-              },
-              {
-                name: 'Blog',
-                link: '/blog'
-              },
-              {
-                name: 'Projects',
-                link: '/projects'
-              },
-            ]
-
-          } />
-        </header>
-        <main>{children}</main>
-        <footer>
-          Made with ❤️ by&nbsp;<a href="/">Jose Dacosta</a>
-        </footer>
-      </body>
+      <ThemeProvider>
+      <BodyContainer>{children}</BodyContainer>
+      </ThemeProvider>
     </html>
   )
 }

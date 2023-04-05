@@ -1,10 +1,11 @@
 "use client"
 import styles from './menu.module.scss'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faClose } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faClose, faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
+import ThemeContext from '../ThemeContext/ThemeContext'
 
 type Props = {
     menuItems: {
@@ -16,6 +17,7 @@ type Props = {
 const Menu = ({ menuItems }: Props) => {
 
     const [menuOpen, setMenuOpen] = useState(false)
+    const { isDark, toggleTheme } = useContext(ThemeContext);
     
 
     return (
@@ -28,7 +30,10 @@ const Menu = ({ menuItems }: Props) => {
                         {`J</>se`}{" "} <span>Dacosta</span>
                     </Link>
                 </div>
-                <div className={styles.links}>
+                <div className={styles.links_and_toogle}>
+                    {<button onClick={toggleTheme}>
+                        <FontAwesomeIcon icon={isDark ? faSun : faMoon} />
+                    </button>}
                     {menuItems.map((item, index) => (
                         <Link href={item.link} key={index}>
                             {item.name}

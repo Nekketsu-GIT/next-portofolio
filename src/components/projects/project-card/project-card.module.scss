@@ -5,11 +5,12 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 0 10px 0 $color3;
     border-radius: 0.5rem;
     overflow: hidden;
     margin: 1rem;
     width: 400px;
+
 
     // on mobile, make the card full width
     @media only screen and (max-width: 600px) {
@@ -32,15 +33,10 @@
         
         .title{
 
-            height: 80px;
-
+            height: 65px;
             // do not permit text to overflow
             overflow: hidden;
 
-            h3{
-                font-size: 1.5rem;
-
-            }
         }
         .tags{
             display: flex;
@@ -75,7 +71,6 @@
         border: 0;
         border-top: 1px solid;
         margin: 0;
-        color: aliceblue;
     }
 
     .links{
@@ -103,12 +98,12 @@
 
         a{
             transition: all 0.3s ease-in-out;
-            background-color: $secondary-color;
-            color: $primary-color;
+            background-color: $color4;
+            color: $color3;
 
             &:hover{
-                background-color: $primary-color;
-                color: $secondary-color;
+                background-color: $color3;
+                color: $color4;
             }
         }
     }
