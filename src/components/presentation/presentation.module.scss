@@ -4,7 +4,6 @@
  
     display: flex;
     flex-direction: row;
-    justify-content: center;
     align-items: center;
     min-height: 50vh;
     position: relative;
@@ -73,7 +72,6 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 0 1rem;
         .contact_me{
             display: flex;
             flex-direction: row;

@@ -45,7 +45,7 @@ export default async function Home() {
       </section>
       <hr />
       <section>
-        <Title title="Services" icon={<FontAwesomeIcon icon={faBrain} />} />
+        <Title title="Services" icon={<FontAwesomeIcon icon={faBrain} pulse size='lg'/>} />
         <div className="row">
           <Service title="Web development" description="I can create custom websites, web applications, and e-commerce solutions using programming languages." image='/code.webp' />
           <Service title="Machine Learning" description="Apply machine learning algorithms to build models that can recognize patterns and make predictions." image='/data-science.png' />
@@ -55,7 +55,7 @@ export default async function Home() {
       </section>
       <hr />
       <section className="skills">
-        <Title title="Skills" icon={<FontAwesomeIcon icon={faCode}   />} />
+        <Title title="Skills" icon={<FontAwesomeIcon icon={faCode}  pulse size='lg' />} />
         <Skills blocs={
           [
             {
@@ -126,7 +126,7 @@ export default async function Home() {
           <>
           <hr />     
           <section id="blog">
-            <Title title="Articles" link='/blog' icon={<FontAwesomeIcon icon={faBlog}   />} />
+            <Title title="Articles" link='/blog' icon={<FontAwesomeIcon icon={faBlog}  pulse size='lg' />} />
             <div className="row">
               {lastArticles.map((article) => (
                 <ArticleCard
@@ -147,7 +147,7 @@ export default async function Home() {
           <>
           <hr />
           <section id="projects">
-            <Title title="Projects" link='/projects' icon={<FontAwesomeIcon icon={faBriefcase}   />} />
+            <Title title="Projects" link='/projects' icon={<FontAwesomeIcon icon={faBriefcase}  pulse size='lg' />} />
             <div className="row">
             {lastProjects.map((project) => (
               <ProjectCard

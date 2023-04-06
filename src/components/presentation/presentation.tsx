@@ -35,7 +35,7 @@ const Presentation = ({ image, title, description, socialMediaLinks }: Props) =>
                 </div>
                 { socialMediaLinks && (
                 <div className={styles.links}>
-                    <SocialIcon url={socialMediaLinks.github } />
+                    <SocialIcon url={socialMediaLinks.github } bgColor='#345995' />
                     <SocialIcon url={socialMediaLinks.linkedin }/>
                     <SocialIcon url={socialMediaLinks.twitter }/>
                 </div>

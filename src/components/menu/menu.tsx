@@ -32,7 +32,7 @@ const Menu = ({ menuItems }: Props) => {
                 </div>
                 <div className={styles.links_and_toogle}>
                     {<button onClick={toggleTheme}>
-                        <FontAwesomeIcon icon={isDark ? faSun : faMoon} />
+                        <FontAwesomeIcon icon={isDark ? faSun : faMoon} size='lg' />
                     </button>}
                     {menuItems.map((item, index) => (
                         <Link href={item.link} key={index}>
@@ -43,7 +43,7 @@ const Menu = ({ menuItems }: Props) => {
                 <div className={styles.menu_hamburger+ " " + (menuOpen ? styles.opened : "")}>    
                     <>
                     <button onClick={toggleTheme}>
-                        <FontAwesomeIcon icon={isDark ? faSun : faMoon} />
+                        <FontAwesomeIcon icon={isDark ? faSun : faMoon}   />
                     </button>
                     <button onClick={() => setMenuOpen(!menuOpen)}>
                         <FontAwesomeIcon icon={menuOpen ? faClose : faBars} />
