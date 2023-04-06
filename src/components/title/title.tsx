@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import styles from './title.module.scss'
 
+
 type Props = {
     title: string
     icon? : React.ReactNode
@@ -8,6 +9,7 @@ type Props = {
 }
 
 const Title = ({ title, icon, link }: Props) => {
+
     return (
         <div className={styles.title}>
                 {icon}

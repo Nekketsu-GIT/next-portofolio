@@ -68,7 +68,7 @@
 
     hr{
         border: 0;
-        border-top: 1px solid;
+        border-top: 1px solid $color4;
         margin: 0;
     }
 
@@ -85,7 +85,7 @@
 
         span,a{
         
-            border-left: 1px solid aliceblue;
+            border-left: 1px solid $color3;	
             height: 100%;
             display: flex;
             justify-content: center;
