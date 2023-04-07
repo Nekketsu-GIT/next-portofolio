@@ -8,16 +8,19 @@ type Props = {
     title: string
     description: string
     link: string
-    image: string
+    image?: string
     className?: string
 }
 
 const ArticleCard = ({ title, description, link, image, className }: Props) => {
+
     return (
         <div className={styles.article_card + " " + className}>
+            {image && (
             <div className={styles.article_card_image}>
                 <Image src={image} alt={title} fill/>
             </div>
+            )}
             <div className={styles.article_card_content}>
                 <div className={styles.article_card_title}>
                     {title}

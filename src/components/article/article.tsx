@@ -5,9 +5,8 @@ import Image from 'next/image'
 import {PortableText} from '@portabletext/react'
 import { useMemo, useState } from 'react'
 import { ArticleModel } from '@/lib/model'
-import { createClient, SanityClient } from 'next-sanity'
-import { SanityImageSource } from '@sanity/image-url/lib/types/types'
-import imageUrlBuilder from '@sanity/image-url'
+import { urlForImage } from '../../../sanity/lib/image'
+import { client } from '../../../sanity/lib/client'
 
 
 const Article =  ({slug} : {slug: string}) => {
@@ -16,27 +15,17 @@ const Article =  ({slug} : {slug: string}) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState <Error | null>(null);
 
-    const sanityClient = useMemo(() => createClient({
-        projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-        dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-        useCdn: true,
-        apiVersion: '2021-03-25',
-    }), []);
-
-    const urlFor = (source: SanityImageSource) => {
-        return imageUrlBuilder(sanityClient).image(source);
-    }
 
     useMemo(async () => {
         try {
-            const article = await getArticle(sanityClient, slug);
+            const article = await getArticle(slug);
             setArticle(article);
         } catch (error : any) {
             setError(error);
         } finally {
             setLoading(false);
         }
-    }, [sanityClient, slug]);
+    }, [slug]);
 
     if (loading) {
         return <div>Loading...</div>
@@ -55,14 +44,14 @@ const Article =  ({slug} : {slug: string}) => {
             <h1>{article.title}</h1>
             <div className={styles.article_image}>
                 <Image
-                    src={urlFor(article.mainImage).url()}
+                    src={urlForImage(article.mainImage)?.url() || ''}
                     alt={article.title}
                     fill
 
                 />
             </div>
             <div className={styles.article_meta}>
-                <p>{article.publishedAt}</p>
+                <p>{new Date(article.publishedAt).toLocaleDateString()}</p>
                 <p>{article.categories.map((category:any) => category.title).join(', ')}</p>
             </div>
             <div className={styles.article_body}>
@@ -72,7 +61,7 @@ const Article =  ({slug} : {slug: string}) => {
     )
 }
 
-const getArticle = async (sanityClient: SanityClient, slug: string) => {
+const getArticle = async (slug: string) => {
 
 
 
@@ -84,7 +73,7 @@ const getArticle = async (sanityClient: SanityClient, slug: string) => {
         categories,
         body
     }`
-    const article = await sanityClient.fetch(query, {slug})
+    const article = await client.fetch(query, {slug})
     return article
 }
 

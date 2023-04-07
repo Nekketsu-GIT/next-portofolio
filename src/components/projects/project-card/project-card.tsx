@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 type Props = {
     title: string
-    image: string
+    image?: string
     tags: string[]
     links?:{
         sourceCode?: string
@@ -24,9 +24,11 @@ const ProjectCard = ({ title,image, tags, links }: Props) => {
                         <span key={index}>{tag}</span>
                     ))}
                 </div>
+                {image && (
                 <div className={styles.image}>
                     <Image src={image} alt={title} fill/>
                 </div>
+                )}
             </div>
             <hr/>
             <div className={styles.links}>

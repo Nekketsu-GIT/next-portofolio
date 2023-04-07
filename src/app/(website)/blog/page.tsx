@@ -1,6 +1,6 @@
 import Articles from "@/components/articles/articles";
-import sanityClient from "@/lib/sanity";
 import { Metadata } from "next";
+import { client } from "../../../../sanity/lib/client";
 
 export const metadata: Metadata = {
     title: 'José DACOSTA - IT Engineer & Fullstack Developer - Blog',
@@ -20,7 +20,7 @@ const getCategories = async () : Promise<{
     title: string;
     slug: string;
 }[]> => {
-    const categories = await sanityClient.fetch(`
+    const categories = await client.fetch(`
         *[_type == "category"] {
             title,
             slug

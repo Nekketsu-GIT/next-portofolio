@@ -1,9 +1,9 @@
-import { SanityImageObject } from "@sanity/image-url/lib/types/types"
+import type { Image } from 'sanity'
 
 export type ArticleCardModel = {
     title: string,
     description: string,
-    mainImage: SanityImageObject,
+    mainImage: Image,
     slug: {
       current: string
     }
@@ -16,7 +16,7 @@ export type ArticleModel = {
     slug: {
         current: string
     },
-    mainImage: SanityImageObject,
+    mainImage: Image,
     publishedAt: string,
     categories: {
         title: string,
@@ -31,7 +31,7 @@ export type ProjectModel = {
     tags: string[],
     previewUrl : string,
     sourceUrl: string,
-    image: SanityImageObject,
+    image: Image,
     slug: {
         current: string
     }

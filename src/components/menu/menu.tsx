@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useContext, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faClose, faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
-import Image from 'next/image'
 import ThemeContext from '../ThemeContext/ThemeContext'
 
 type Props = {

@@ -6,16 +6,21 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    width: 350px;
+    width: 400px;
     height: 450px;
-    @media screen and (max-width: 1024px){
-        width: 400px;
-        height: 500px;
+
+    // on mobile, make the card full width
+    @media only screen and (max-width: 600px) {
+        width: 100%;
     }
-    @media screen and (max-width: 425px){
-        width: 250px;
-        height: 250px;
+
+    // on tablet, and small desktop, make the cardbe 50% of the width
+
+    @media only screen and (min-width: 600px) and (max-width: 1024px) {
+        width: 75%;
+        height: 350px;
     }
+
     margin: 1rem;
 
 
@@ -36,14 +41,15 @@
         padding: 20px;
         overflow: hidden;
         position: relative;
-        color: #fff;
         height: 60%;
 
         .article_card_title{
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
-            color: $color4;
+            color: $color3;
+
+    
         }
 
         .article_card_description{

@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import Presentation from '@/components/presentation/presentation'
 import ArticleCard from '@/components/articles/article-card/article-card'
@@ -6,12 +5,12 @@ import Title from '@/components/title/title'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'  
 import { faBook, faCode, faBriefcase, faBrain, faBlog } from '@fortawesome/free-solid-svg-icons'
 import ProjectCard from '@/components/projects/project-card/project-card'
-import sanityClient from '@/lib/sanity'
 import { ArticleModel, ProjectModel } from '@/lib/model'
-import { urlFor } from '@/lib/sanity'
 import Service from '@/components/service/service'
 import { Skills } from '@/components/skills/skills'
 import { Metadata } from 'next'
+import { client } from '../../../sanity/lib/client'
+import { urlForImage } from '../../../sanity/lib/image'
 
 export const metadata: Metadata = {
   title: 'José DACOSTA - IT Engineer & Fullstack Developer',
@@ -134,7 +133,7 @@ export default async function Home() {
                   title={article.title}
                   description={article.description}
                   link={`/blog/${article.slug.current}`}
-                  image={urlFor(article.mainImage).url()}
+                  image={urlForImage(article.mainImage)?.url()}
                   className={"article"}
                 />
               ))
@@ -154,7 +153,7 @@ export default async function Home() {
                 key={project.slug.current}
                 title={project.title}
                 tags={project.tags}
-                image={urlFor(project.image).url()}
+                image={urlForImage(project.image)?.url()}
                 links={{
                   liveDemo: project.previewUrl,
                   sourceCode: project.sourceUrl,
@@ -180,8 +179,8 @@ export default async function Home() {
 }
 
 const getLastArticles = async () : Promise<ArticleModel[]> => {
-  const lastArcticles = await sanityClient.fetch(`
-    *[_type == "article"] | order(publishedAt desc) [0..2] {
+  const lastArcticles = await client.fetch(`
+    *[_type == "article"] | order(publishedAt desc) [0..3] {
       title,
       slug,
       description,
@@ -193,7 +192,7 @@ const getLastArticles = async () : Promise<ArticleModel[]> => {
 }
 
 const getLastProjects = async () : Promise<ProjectModel[]> => {
-  const lastProjects = await sanityClient.fetch(`
+  const lastProjects = await client.fetch(`
     *[_type == "project"] | order(publishedAt desc) [0..3] {
       title,
       tags,
