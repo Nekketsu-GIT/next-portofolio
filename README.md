@@ -87,11 +87,9 @@ __Note:__ This project uses [Sanity.io](https://sanity.io) as a CMS. You will ne
 ## Roadmap
 
 - [ ] fix the filter in the blog page
-- [ ] style the blog page
-- [ ] style the project page
 - [ ] Add support for multiple CMS
-- [ ] documentation for models in Sanity
-- [ ] Add More Components
+- [ ] Add Experiences component
+- [ ] Add Studies component
 
 See the [open issues](https://github.com/Nekketsu-GIT/next-portofolio/issues) for a full list of proposed features (and known issues).
 
