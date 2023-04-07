@@ -43,24 +43,6 @@
         position: relative;
         height: 60%;
 
-        .article_card_title{
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: $color3;
-
-    
-        }
-
-        .article_card_description{
-            font-size: 1rem;
-            font-weight: 400;
-            margin-bottom: 0.5rem;
-
-            @media screen and (max-width: 425px){
-                display: none;
-            }
-        }
 
         .article_card_link{
             font-size: 1rem;

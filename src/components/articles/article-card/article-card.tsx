@@ -22,10 +22,8 @@ const ArticleCard = ({ title, description, link, image, className }: Props) => {
             </div>
             )}
             <div className={styles.article_card_content}>
-                <div className={styles.article_card_title}>
-                    {title}
-                </div>
-                <div className={styles.article_card_description}>
+                <h3>{title}</h3>
+                <div className="low_contrast">
                     {description.substring(0, 120)}...
                 </div>
                 <div className={styles.article_card_link}>

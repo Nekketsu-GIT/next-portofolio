@@ -22,6 +22,15 @@ body {
   &.dark {
     background-color: $color1;
     color: $color2;
+  
+    .low_contrast{
+      color: rgba($color2, 0.7);
+    }
+  }
+
+
+  .low_contrast{
+    color:$color4;
   }
 
   a{
