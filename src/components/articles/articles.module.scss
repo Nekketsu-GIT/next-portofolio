@@ -2,7 +2,7 @@
 
 
     height: 100%;
-    padding: 2rem;
+    padding: 2rem 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,8 +31,7 @@
         }
     }
 
-    .articles{
-        margin: 1rem 0px;
+    .list{
         
         display: flex;
         flex-direction: row;

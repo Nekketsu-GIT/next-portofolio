@@ -127,7 +127,7 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
                     </button>
                 </div>
             </div>
-            <div className={styles.articles}>
+            <div className={styles.list}>
                 {articles.map((article) => (
                     <ArticleCard
                         key={article.slug.current}
