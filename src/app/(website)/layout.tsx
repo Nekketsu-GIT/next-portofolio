@@ -4,6 +4,7 @@ import { Poppins } from "next/font/google";
 import Image from 'next/image'
 import  { ThemeProvider } from '@/components/ThemeContext/ThemeContext';
 import BodyContainer from '@/components/BodyContainer/BodyContainer';
+import { Analytics } from '@vercel/analytics/react';
 
 
 export const metadata = {
@@ -28,6 +29,7 @@ export default function RootLayout({
       <ThemeProvider>
       <BodyContainer>{children}</BodyContainer>
       </ThemeProvider>
+      <Analytics/>
     </html>
   )
 }
