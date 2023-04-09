@@ -84,7 +84,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: rgba($color4, 0.8);
+        background-color: rgba($color1, 0.8);
         height: 100vh;
         width: 100vw;
         position: absolute;
@@ -111,7 +111,7 @@
                 color: white;
 
                 &:hover{
-                    color: $color3;
+                    color: $color4;
                 }
             }
         }
