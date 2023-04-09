@@ -1,12 +1,13 @@
 'use client'
 
 import { ProjectModel } from "@/lib/model";
-import { createClient, SanityClient } from "next-sanity";
 import { useState } from "react";
 import ProjectCard from "./project-card/project-card"
 import styles from './projects.module.scss'
 import imageUrlBuilder from '@sanity/image-url'
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { client } from "../../../sanity/lib/client";
+import { urlForImage } from "../../../sanity/lib/image";
 
 const Projects = () => {
 
@@ -66,14 +67,9 @@ type Project = Omit<ProjectModel, 'image'> & {
 
 const getProjects = async () : Promise<Project[]> => {
 
-    const sanityClient = createClient({
-        projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-        dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-        useCdn: true,
-        apiVersion: '2023-03-07',
-    });
+  
 
-    const projects : ProjectModel[] = await sanityClient.fetch(`
+    const projects : ProjectModel[] = await client.fetch(`
         *[_type == "project"] | order(publishedAt desc) [0..3] {
             title,
             tags,
@@ -85,9 +81,7 @@ const getProjects = async () : Promise<Project[]> => {
     `);
 
 
-    const urlFor = (source: SanityImageSource) => {
-        return imageUrlBuilder(sanityClient).image(source);
-    }
+
 
     
 
@@ -95,7 +89,7 @@ const getProjects = async () : Promise<Project[]> => {
 
     return projects.map((project) => ({
         ...project,
-        imageURL: urlFor(project.image).url(),
+        imageURL: urlForImage(project.image)?.url() || '',
     }));
     
 }

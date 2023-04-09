@@ -1,7 +1,6 @@
 'use client'
 
 import styles from './articles.module.scss'
-import { createClient, SanityClient } from "next-sanity";
 import { ArticleModel } from '../../lib/model'
 import ArticleCard from '../../components/articles/article-card/article-card'
 import { useState } from 'react'
@@ -10,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 import imageUrlBuilder from '@sanity/image-url'
+import { client } from '../../../sanity/lib/client'
+import { urlForImage } from '../../../sanity/lib/image'
 
 
 type queryParams = {
@@ -171,19 +172,10 @@ type ArticlesResult = {
 const getArticles = async ({filters, order, offset, limit}: queryParams) : Promise<ArticlesResult> => {
 
 
-    const sanityClient = createClient({
-        projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-        dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-        useCdn: true,
-        apiVersion: '2023-03-07',
-    });
-
-    const urlFor = (source: SanityImageSource) => {
-        return imageUrlBuilder(sanityClient).image(source);
-    }
+   
 
 
-    const articles : ArticleModel[] = await sanityClient.fetch(`
+    const articles : ArticleModel[] = await client.fetch(`
         *[_type == "article" ${
             filters ? `&& ${filters.category} in categories[]->slug.current` : ''
         }] | order(publishedAt ${order}) [${offset}..${offset + limit}] {
@@ -198,7 +190,7 @@ const getArticles = async ({filters, order, offset, limit}: queryParams) : Promi
 
     
 
-    const total : number = (await  sanityClient.fetch(
+    const total : number = (await  client.fetch(
         `
         *[_type == "article" ${
             filters ? `&& ${filters.category} in categories[]->slug.current` : ''
@@ -217,7 +209,7 @@ const getArticles = async ({filters, order, offset, limit}: queryParams) : Promi
     const result :ArticlesResult = {
         articles: articles.map((article) => ({
             ...article,
-            imageUrl: urlFor(article.mainImage).url()
+            imageUrl: urlForImage(article.mainImage)?.url() || ''
         })),
         total: total
     };

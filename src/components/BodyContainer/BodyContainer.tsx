@@ -1,5 +1,5 @@
 "use client";
-import { FunctionComponent, useContext } from "react";
+import {useContext } from "react";
 import Menu from "../menu/menu";
 import ThemeContext from "../ThemeContext/ThemeContext";
 
