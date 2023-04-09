@@ -31,6 +31,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       title: 'José DACOSTA - IT Engineer & Fullstack Developer - Blog - ' + article.title,
       description: article.description,
       keywords: article.categories.map((category: any) => category.title).join(', '),
+      manifest: '/manifest.json',
+      themeColor: [
+        { media: '(prefers-color-scheme: light)', color: '#eeeee' },
+        { media: '(prefers-color-scheme: dark)', color: '#222831' },
+      ],
+      colorScheme: 'dark light'
     };
   }
 

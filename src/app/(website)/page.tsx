@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   title: 'José DACOSTA - IT Engineer & Fullstack Developer',
   description: 'I offer services in web development, machine learning, and DevOps.',
   keywords: 'web development, machine learning, devops, python, javascript, typescript, react, next.js, django, bootstrap, jquery, node.js, laravel, symfony, nest.js, tensorflow, scikit-learn, mongodb, mysql, postgresql, sqlite, git, docker, aws, linux, windows, agile, scrum, tdd, ci/cd, rest, graphql, design patterns, data structures, algorithms',
+  manifest: '/manifest.json',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#eeeeee' },
+    { media: '(prefers-color-scheme: dark)', color: '#222831' },
+  ],
 };
 
 
@@ -42,9 +47,8 @@ export default async function Home() {
           }}
         />
       </section>
-      <hr />
       <section>
-        <Title title="Services" icon={<FontAwesomeIcon icon={faBrain} pulse size='lg'/>} />
+        <Title title={<h2>Services</h2>}  icon={<FontAwesomeIcon icon={faBrain} pulse size='lg'/>} />
         <div className="row">
           <Service title="Web development" description="I can create custom websites, web applications, and e-commerce solutions using programming languages." image='/code.webp' />
           <Service title="Machine Learning" description="Apply machine learning algorithms to build models that can recognize patterns and make predictions." image='/data-science.png' />
@@ -52,9 +56,8 @@ export default async function Home() {
           {/* <Service title="Formation" description="I can offer training courses on various topics, including web development, machine learning, and data science." image='/training.png' /> */}
         </div>
       </section>
-      <hr />
-      <section className="skills">
-        <Title title="Skills" icon={<FontAwesomeIcon icon={faCode}  pulse size='lg' />} />
+      <section>
+        <Title title={<h2>Skills</h2>} icon={<FontAwesomeIcon icon={faCode}  pulse size='lg' />} />
         <Skills blocs={
           [
             {
@@ -122,10 +125,8 @@ export default async function Home() {
         } />
       </section>
         {lastArticles && lastArticles.length > 0 && (
-          <>
-          <hr />     
-          <section id="blog">
-            <Title title="Articles" link='/blog' icon={<FontAwesomeIcon icon={faBlog}  pulse size='lg' />} />
+          <section>
+            <Title title={<h2>Articles</h2>} link='/blog' icon={<FontAwesomeIcon icon={faBlog}  pulse size='lg' />} />
             <div className="row">
               {lastArticles.map((article) => (
                 <ArticleCard
@@ -140,13 +141,10 @@ export default async function Home() {
               }
             </div>
           </section>
-          </>
         )}
         {lastProjects && lastProjects.length > 0 && (
-          <>
-          <hr />
-          <section id="projects">
-            <Title title="Projects" link='/projects' icon={<FontAwesomeIcon icon={faBriefcase}  pulse size='lg' />} />
+          <section>
+            <Title title={<h2>Projects</h2>} link='/projects' icon={<FontAwesomeIcon icon={faBriefcase}  pulse size='lg' />} />
             <div className="row">
             {lastProjects.map((project) => (
               <ProjectCard
@@ -164,15 +162,11 @@ export default async function Home() {
             }
             </div>
           </section>
-          </>    
         )}
         {lastProjects.length < 1 && lastArticles.length < 1 && (
-            <>
-            <hr />
             <section>
               <p>There is no content to show</p>
             </section>
-            </>
           )}
     </>
   )

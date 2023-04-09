@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
+
+const withPWA = require('next-pwa')({
+  dest: 'public',
+})
+
 const path = require('path')
 const nextConfig = {
   experimental: {
@@ -12,4 +17,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+module.exports = withPWA(nextConfig)

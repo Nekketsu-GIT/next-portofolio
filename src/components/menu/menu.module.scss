@@ -6,7 +6,7 @@
         flex-direction: row;
         justify-content: space-between;
 
-        background-color: $color4;
+        background-color: $color1;
         
 
 
@@ -19,12 +19,13 @@
             margin: 0 1rem;
             a{
                 color: white;
+                
 
                 span {
                     font-size: 1.5rem;
                     font-weight: 700;
 
-                    color: $color3;
+                    color: $color4;
                 }
             }
             
@@ -41,9 +42,9 @@
 
             a {
                 margin: 0 1rem;
-                color: white;
+                color: $color2;
                 &:hover {
-                    color: $color3;
+                    color: $color4;
                 }
             }
 

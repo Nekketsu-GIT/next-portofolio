@@ -27,8 +27,8 @@ const ArticleCard = ({ title, description, link, image, className }: Props) => {
                     {description.substring(0, 120)}...
                 </div>
                 <div className={styles.article_card_link}>
-                    <Link href={link}>
-                        Read more <FontAwesomeIcon icon={faArrowRight} />
+                    <Link href={link} aria-label={`Read more about ${title}`}>
+                        Read the article <FontAwesomeIcon icon={faArrowRight} />
                     </Link>
                 </div>
             </div>

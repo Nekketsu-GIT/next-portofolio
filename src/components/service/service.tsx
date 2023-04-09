@@ -15,9 +15,9 @@ const Service = ({ title, description, image }: ServiceProps) => {
                 <Image src={image} alt={title} fill />
             </div>
             <div className={styles.content}>
-                <div className={styles.title}>
+                <h3>
                     {title}
-                </div>
+                </h3>
                 <div className={styles.description}>
                     {description}
                 </div>

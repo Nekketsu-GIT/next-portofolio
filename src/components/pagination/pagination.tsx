@@ -39,13 +39,13 @@ const Pagination = ({ current, total, onChange }: Props) => {
 
     return (
         <div className={styles.pagination}>
-            <button onClick={handlePrevious} disabled={currentPage == 1}>
+            <button onClick={handlePrevious} disabled={currentPage == 1} aria-label="Previous page">
                 Previous
             </button>
             <span>
                 {currentPage} of {total}
             </span>
-            <button onClick={handleNext} disabled={currentPage == total}>
+            <button onClick={handleNext} disabled={currentPage == total} aria-label="Next page">
                 Next
             </button>
         </div>

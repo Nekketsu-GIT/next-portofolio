@@ -20,7 +20,7 @@ const Presentation = ({ image, title, description, socialMediaLinks }: Props) =>
 
             <div className={styles.presentation}>
                 <div className={styles.description}>
-                    <h1>{title ?? 'JOB TITLE' }</h1>
+                    <h2>{title ?? 'JOB TITLE' }</h2>
                     <p 
                         dangerouslySetInnerHTML={{ __html: description ?? 'YOUR DESCRIPTION' }}
                     />

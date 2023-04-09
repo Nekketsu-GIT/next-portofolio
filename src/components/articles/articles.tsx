@@ -122,6 +122,7 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
                             });
                             setLoading(true);
                         }}
+                        aria-label="Order by date"
                     >
                         <FontAwesomeIcon icon={queryParams.order == "asc" ? faArrowDown : faArrowUp} />
                     </button>

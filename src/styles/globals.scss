@@ -18,10 +18,39 @@ body {
   padding: 0;
   box-sizing: border-box;
   min-height: 100vh;
+  color: $color1;
+  background-color: $color2;
+
+  h1, h2, h3, h4, h5, h6{
+    color: $color3;
+    margin-right: 0.5rem;
+  }
+
+  .iconTitle{
+    color: $color3;
+    margin-right: 0.5rem;
+  }
 
   &.dark {
     background-color: $color1;
     color: $color2;
+
+    h1, h2, h3, h4, h5, h6{
+      color: $color4;
+    }
+
+    .iconTitle{
+      color: $color4;
+    }
+
+    a{
+
+      color: $color6;
+  
+      &:hover{
+        color: $color4;
+      }
+    }
   
     .low_contrast{
       color: rgba($color2, 0.7);
@@ -30,16 +59,16 @@ body {
 
 
   .low_contrast{
-    color:$color4;
+    color:rgba($color1, 0.7);
   }
 
   a{
 
+    color: $color3;
     text-decoration: none;
-    color: $color5;
 
     &:hover{
-      color: $color3;
+      color: $color5;
     }
   }
 
