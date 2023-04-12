@@ -10,28 +10,26 @@ const Article =  ({description, title, mainImage, categories, body, publishedAt}
 
 
     return (
-        <BodyContainer>
-            <article className={styles.article}>
-                <h1>{title}</h1>
-                <p>{description}</p>
-                <div className={styles.article_image}>
-                    <Image
-                        src={urlForImage(mainImage)?.url() || ''}
-                        alt={title}
-                        fill
+        <article className={styles.article}>
+            <h1>{title}</h1>
+            <p>{description}</p>
+            <div className={styles.article_image}>
+                <Image
+                    src={urlForImage(mainImage)?.url() || ''}
+                    alt={title}
+                    fill
 
-                    />
-                </div>
-                <div className={styles.article_meta}>
-                    <p>{new Date(publishedAt).toLocaleDateString()}</p>
-                    <p>{categories.map((category:any) => category.title).join(', ')}</p>
-                </div>
-                <div className={styles.article_body}>
-                    <PortableText value={body} />
-                </div>
-            </article>
-        </BodyContainer>
-    )
+                />
+            </div>
+            <div className={styles.article_meta}>
+                <p>{new Date(publishedAt).toLocaleDateString()}</p>
+                <p>{categories.map((category:any) => category.title).join(', ')}</p>
+            </div>
+            <div className={styles.article_body}>
+                <PortableText value={body} />
+            </div>
+        </article>
+            );
 }
 
 export default Article
