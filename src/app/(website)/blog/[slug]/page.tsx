@@ -1,4 +1,5 @@
 import Article from '@/components/article/article'
+import BodyContainer from '@/components/BodyContainer/BodyContainer'
 import { client } from '../../../../../sanity/lib/client'
 
 
@@ -49,7 +50,9 @@ const SingleArticle = async ({params} : {params: {slug: string}}) => {
     }
 
     return (
+      <BodyContainer>
         <Article {...article} />
+      </BodyContainer>
     )
 }
 

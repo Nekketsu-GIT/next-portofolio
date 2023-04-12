@@ -1,4 +1,5 @@
 import Articles from "@/components/articles/articles";
+import BodyContainer from "@/components/BodyContainer/BodyContainer";
 import { Metadata } from "next";
 import { client } from "../../../../sanity/lib/client";
 
@@ -18,7 +19,9 @@ const Blog = async () => {
 
     const categories = await getCategories();
     return (
-        <Articles categories={categories} articlesByPage={5} />
+        <BodyContainer>
+            <Articles categories={categories} articlesByPage={5} />
+        </BodyContainer>
     );
 };
 
