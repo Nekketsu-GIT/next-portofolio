@@ -49,7 +49,7 @@ export default async function Home() {
       </section>
       <section>
         <Title title={<h2>Services</h2>}  icon={<FontAwesomeIcon icon={faBrain} pulse size='lg'/>} />
-        <div className="row">
+        <div className="grid">
           <Service title="Web development" description="I can create custom websites, web applications, and e-commerce solutions using programming languages." image='/code.webp' />
           <Service title="Machine Learning" description="Apply machine learning algorithms to build models that can recognize patterns and make predictions." image='/data-science.png' />
           <Service title="DevOps" description="I can offer DevOps services, including continuous integration and delivery, and automated testing." image='/devOps.png' />
@@ -127,7 +127,7 @@ export default async function Home() {
         {lastArticles && lastArticles.length > 0 && (
           <section>
             <Title title={<h2>Articles</h2>} link='/blog' icon={<FontAwesomeIcon icon={faBlog}  pulse size='lg' />} />
-            <div className="row">
+            <div className="grid">
               {lastArticles.map((article) => (
                 <ArticleCard
                   key={article.slug.current}
@@ -135,7 +135,6 @@ export default async function Home() {
                   description={article.description}
                   link={`/blog/${article.slug.current}`}
                   image={urlForImage(article.mainImage)?.url()}
-                  className={"article"}
                 />
               ))
               }
@@ -145,7 +144,7 @@ export default async function Home() {
         {lastProjects && lastProjects.length > 0 && (
           <section>
             <Title title={<h2>Projects</h2>} link='/projects' icon={<FontAwesomeIcon icon={faBriefcase}  pulse size='lg' />} />
-            <div className="row">
+            <div className="grid">
             {lastProjects.map((project) => (
               <ProjectCard
                 key={project.slug.current}
@@ -174,7 +173,7 @@ export default async function Home() {
 
 const getLastArticles = async () : Promise<ArticleModel[]> => {
   const lastArcticles = await client.fetch(`
-    *[_type == "article"] | order(publishedAt desc) [0..3] {
+    *[_type == "article"] | order(publishedAt desc) [0..2] {
       title,
       slug,
       description,
@@ -187,7 +186,7 @@ const getLastArticles = async () : Promise<ArticleModel[]> => {
 
 const getLastProjects = async () : Promise<ProjectModel[]> => {
   const lastProjects = await client.fetch(`
-    *[_type == "project"] | order(publishedAt desc) [0..3] {
+    *[_type == "project"] | order(publishedAt desc) [0..2] {
       title,
       tags,
       image,

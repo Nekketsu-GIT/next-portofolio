@@ -1,4 +1,3 @@
-import BodyContainer from "@/components/BodyContainer/BodyContainer"
 import Projects from "@/components/projects/projects"
 import { Metadata } from "next"
 
@@ -16,9 +15,7 @@ export const metadata: Metadata = {
 
 const ProjectsPage = async () => {
     return (
-        <BodyContainer>
-            <Projects />
-        </BodyContainer>
+        <Projects />
     )
 }
 

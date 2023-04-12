@@ -7,8 +7,6 @@ import { useState } from 'react'
 import Pagination from '../pagination/pagination'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
-import { SanityImageSource } from '@sanity/image-url/lib/types/types';
-import imageUrlBuilder from '@sanity/image-url'
 import { client } from '../../../sanity/lib/client'
 import { urlForImage } from '../../../sanity/lib/image'
 
@@ -88,7 +86,7 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
     /* if there are articles, then we show them */
     /* show filter options and pagination */
     return (
-        <div className={styles.articles}>
+        <section>
             <div className={styles.filters}>
                {/*  <div className={styles.categories}>
                     <label htmlFor="category">Category</label>
@@ -129,7 +127,7 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
                     </button>
                 </div>
             </div>
-            <div className={styles.list}>
+            <div className="grid">
                 {articles.map((article) => (
                     <ArticleCard
                         key={article.slug.current}
@@ -137,7 +135,6 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
                         description={article.description}
                         link={`/blog/${article.slug.current}`}  
                         image={article.imageUrl}
-                        className={styles.article_card}
                     />
                 ))}
             </div>
@@ -152,7 +149,7 @@ const Articles = ({ categories, articlesByPage }: ArticlesContainerProps) => {
                     setLoading(true);
                 }}
             />
-        </div>
+        </section>
     )
 }
 

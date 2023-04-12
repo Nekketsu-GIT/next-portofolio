@@ -7,22 +7,10 @@
     justify-content: space-between;
     box-shadow: 0 0 5px 0 $color4;
     border-radius: 0.5rem;
+    flex: initial;
     overflow: hidden;
-    margin: 1rem;
-    width: 400px;
+    width: 325px;
 
-
-
-    // on mobile, make the card full width
-    @media only screen and (max-width: 600px) {
-        width: 100%;
-    }
-
-    // on tablet, and small desktop, make the cardbe 50% of the width
-
-    @media only screen and (min-width: 600px) and (max-width: 1024px) {
-        width: 75%;
-    }
 
 
 

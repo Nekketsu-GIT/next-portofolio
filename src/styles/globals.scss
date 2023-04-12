@@ -26,6 +26,18 @@ body {
     margin-right: 0.5rem;
   }
 
+  h1{
+    font-size: 1.5rem;
+  }
+
+  h2{
+    font-size: 1.25rem;
+  }
+
+  h3{
+    font-size: 1rem;
+  }
+
   .iconTitle{
     color: $color3;
     margin-right: 0.5rem;
@@ -80,12 +92,10 @@ body {
     top: 0;
     width: 100%;
     z-index: 100;
-    
   }
 
   main {
     position: relative;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -121,17 +131,22 @@ body {
 
     
     section{
-      // center the content
       display: flex;
       flex-direction: column;
-      padding: 1rem;
       width: 100%;
+      margin-bottom: 1rem;
+      
 
-      .row{
+      .grid{
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         width: 100%;
+
+        & > *{
+          margin: 0.5rem;
+        }
+
       }
     }
     
@@ -142,11 +157,10 @@ body {
   footer {
     position: sticky;
     bottom: 0;
-    margin-top: 2rem;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-  
   }
 }
 

@@ -4,8 +4,6 @@ import { ProjectModel } from "@/lib/model";
 import { useState } from "react";
 import ProjectCard from "./project-card/project-card"
 import styles from './projects.module.scss'
-import imageUrlBuilder from '@sanity/image-url'
-import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "../../../sanity/lib/client";
 import { urlForImage } from "../../../sanity/lib/image";
 
@@ -40,22 +38,22 @@ const Projects = () => {
 
   
     return (
-        <main>
-            <div className={styles.projects}>
-                {projects.map((project) => (
-                    <ProjectCard
-                        key={project.slug.current}
-                        title={project.title}
-                        tags={project.tags}
-                        image={project.imageURL}
-                        links={{
-                            sourceCode: project.sourceUrl,
-                            liveDemo: project.previewUrl,
-                        }}
-                    />
-                ))}
+        <section>
+            <div className="grid">
+            {projects.map((project) => (
+                <ProjectCard
+                    key={project.slug.current}
+                    title={project.title}
+                    tags={project.tags}
+                    image={project.imageURL}
+                    links={{
+                        sourceCode: project.sourceUrl,
+                        liveDemo: project.previewUrl,
+                    }}
+                />
+            ))}
             </div>
-        </main>
+        </section>
     )
 }
 
