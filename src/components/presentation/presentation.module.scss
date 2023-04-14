@@ -19,10 +19,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-left: 2rem;
 
         @media screen and (max-width: 768px){
             margin: 1rem;
         }
+
 
         .circle{
             width: 300px;
@@ -61,7 +63,6 @@
         }
     }
     .description{
-        width: 50%;
         float: left;
         display: flex;
         flex-direction: column;
