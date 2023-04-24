@@ -6,6 +6,8 @@
     <a href="https://github.com/Nekketsu-GIT/next-portofolio/issues">Report Bug</a>
     ·
     <a href="https://github.com/Nekketsu-GIT/next-portofolio/issues">Request Feature</a>
+    ·
+    <a href="http://jose-pascal.vercel.app">Live preview</a>
   </p>
 </div>
 
