@@ -66,7 +66,7 @@ const components = {
       </h3>
     ),
     normal: (props: PortableTextComponentProps<unknown>) => (
-      <p className="text-base leading-7 text-gray-800">{props.children}</p>
+      <p className="text-base leading-7">{props.children}</p>
     ),
   },
   list: {
@@ -75,14 +75,6 @@ const components = {
     ),
     number: (props: PortableTextComponentProps<unknown>) => (
       <ol className="list-decimal ml-6 space-y-2">{props.children}</ol>
-    ),
-  },
-  listItem: {
-    bullet: (props: PortableTextComponentProps<unknown>) => (
-      <li className="text-gray-700">{props.children}</li>
-    ),
-    number: (props: PortableTextComponentProps<unknown>) => (
-      <li className="text-gray-700">{props.children}</li>
     ),
   },
 };
