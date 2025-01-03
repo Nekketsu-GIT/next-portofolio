@@ -13,7 +13,11 @@ export default function Title({ title, icon, link }: Props) {
       {icon}
       <h3 className="text-lg font-bold text-yaleblue ">{title}</h3>
       {link && (
-        <Link href={link} aria-label={`See all ${title}`}>
+        <Link
+          href={link}
+          aria-label={`See all ${title}`}
+          className="flex items-center"
+        >
           <Image
             src="/images/arrow.svg"
             alt="arrow"
