@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Quantico } from "next/font/google";
 import "./globals.css";
 import Menu from "@/components/menu";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const quantico = Quantico({
   variable: "--font-quantico",
@@ -49,6 +50,7 @@ export default function RootLayout({
             Made with ❤️ by José
           </footer>
         </div>
+        <SpeedInsights />
       </body>
     </html>
   );
