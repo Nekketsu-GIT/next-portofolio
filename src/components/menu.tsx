@@ -15,16 +15,14 @@ export default function Menu({ menuItems }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow-md w-full">
+    <nav className="sticky top-0 z-50 shadow-md w-full bg-background">
       <div className="flex flex-row justify-between items-center py-4 px-6">
-        {/* Logo */}
         <div className="text-lg font-bold">
           <Link href="/">
             J&lt;/&gt;se <span className="text-yaleblue">Dacosta</span>
           </Link>
         </div>
 
-        {/* Desktop Menu */}
         <div className="hidden md:flex flex-row items-center space-x-6">
           {menuItems.map((item, index) => (
             <Link
@@ -37,7 +35,6 @@ export default function Menu({ menuItems }: Props) {
           ))}
         </div>
 
-        {/* Mobile Menu Toggle */}
         <div className="md:hidden flex items-center space-x-4">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -61,7 +58,7 @@ export default function Menu({ menuItems }: Props) {
               <Link
                 key={index}
                 href={item.link}
-                className="text-white text-lg hover:text-yaleblue transition-colors"
+                className="text-lg hover:text-yaleblue transition-colors"
                 onClick={() => setMenuOpen(false)}
               >
                 {item.name}
