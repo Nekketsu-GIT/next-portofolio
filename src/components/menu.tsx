@@ -52,7 +52,7 @@ export default function Menu({ menuItems }: Props) {
 
       {/* Mobile Menu Overlay */}
       {menuOpen && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-90 flex flex-col items-center justify-center z-50">
+        <div className="fixed inset-0 bg-background bg-opacity-90 flex flex-col items-center justify-center z-50">
           <div className="flex flex-col items-center space-y-6">
             {menuItems.map((item, index) => (
               <Link
