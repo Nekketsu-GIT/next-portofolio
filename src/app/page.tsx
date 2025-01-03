@@ -35,19 +35,34 @@ export default async function Home() {
       <Services
         services={[
           {
-            title: "Web Development",
-            description: "I build web applications using modern technologies.",
-            image: "/images/avatar-jose.png",
+            title: "Full-Stack Web Development",
+            description:
+              "I specialize in creating scalable, responsive, and high-performance web applications using modern technologies like React, Node.js, and more. From front-end design to back-end architecture, I handle the entire development lifecycle.",
           },
           {
-            title: "Mobile Development",
-            description: "I build mobile applications using React Native.",
-            image: "/images/avatar-jose.png",
+            title: "Mobile Application Development",
+            description:
+              "I develop cross-platform mobile applications using React Native, delivering seamless performance and a consistent user experience across iOS and Android devices.",
           },
           {
-            title: "UI/UX Design",
-            description: "I design user interfaces and user experiences.",
-            image: "/images/avatar-jose.png",
+            title: "UI/UX Design & Prototyping",
+            description:
+              "I craft intuitive user interfaces and user experiences that enhance usability and engagement. By focusing on design principles and user-centered strategies, I ensure your digital products resonate with users.",
+          },
+          {
+            title: "Technical Consulting & Training",
+            description:
+              "I offer tailored consulting and training services to help teams master modern web development practices. Whether it's improving workflows or adopting the latest technologies, I guide teams toward success.",
+          },
+          {
+            title: "SEO Optimization & Digital Marketing",
+            description:
+              "With expertise in SEO and marketing strategies, I help businesses improve search rankings, drive traffic, and boost conversions. My approach combines technical SEO with content optimization to maximize visibility.",
+          },
+          {
+            title: "DevOps, Cloud Deployment & CI/CD",
+            description:
+              "I streamline application deployment on cloud platforms like AWS and Azure, ensuring reliability and scalability. I also set up CI/CD pipelines and testing workflows to accelerate development cycles and maintain code quality.",
           },
         ]}
       />

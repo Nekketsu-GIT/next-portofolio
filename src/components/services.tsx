@@ -1,11 +1,7 @@
 import Title from "./title";
 import Image from "next/legacy/image";
 
-const ServiceCard = (service: {
-  title: string;
-  description: string;
-  image?: string;
-}) => (
+const ServiceCard = (service: { title: string; description: string }) => (
   <div
     className="relative flex items-end p-4 rounded-lg shadow-lg overflow-hidden group bg-gradient-to-r from-yaleblue to-darkgoldenrod hover:from-darkgoldenrod hover:to-yaleblue"
     style={{
@@ -31,7 +27,6 @@ export default function Services({
   services: {
     title: string;
     description: string;
-    image?: string;
   }[];
 }) {
   return (
