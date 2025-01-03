@@ -2,7 +2,7 @@ import Presentation from "@/components/presentation";
 import Kpis from "@/components/kpis";
 import Services from "@/components/services";
 import Title from "@/components/title";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import ProjectCard from "@/components/project-card";
 import BlogCard from "@/components/blog-card";
 import { urlFor } from "@/sanity/lib/image";

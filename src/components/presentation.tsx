@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useEffect, useState } from "react";
 import { SocialIcon } from "react-social-icons";
 
@@ -55,7 +55,7 @@ const Presentation = ({
           <Image
             src={image ?? "/images/avatar-jose.png"}
             alt="avatar of the author"
-            fill
+            layout="fill"
             className="rounded-full object-cover"
           />
         </div>

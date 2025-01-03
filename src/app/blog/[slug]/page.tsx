@@ -2,7 +2,7 @@ import { Category } from "@/lib/model";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { PortableText, PortableTextComponentProps } from "next-sanity";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 const getArticle = async (slug: string) => {
   const query = `*[_type == "article" && slug.current == $slug][0]{
@@ -20,7 +20,7 @@ const getArticle = async (slug: string) => {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
   const article = await getArticle(slug);
@@ -87,7 +87,11 @@ const components = {
   },
 };
 
-const SingleArticle = async ({ params }: { params: { slug: string } }) => {
+const SingleArticle = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) => {
   const { slug } = await params;
   const article = await getArticle(slug);
 
