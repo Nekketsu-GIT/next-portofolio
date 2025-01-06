@@ -88,6 +88,7 @@ function ArticlesWrapper({
           onChange={(newValue) => {
             toggleCategory(newValue.values());
           }}
+          className="text-black"
         />
         <button
           className="none underline"
