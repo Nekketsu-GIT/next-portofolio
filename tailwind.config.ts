@@ -11,8 +11,8 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        yaleblue: "#063672",
-        darkgoldenrod: "#9C824A",
+        yaleblue: "var(--yaleblue)",
+        darkgoldenrod: "var(--darkgoldenrod)",
       },
     },
   },

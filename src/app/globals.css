@@ -5,12 +5,16 @@
 :root {
   --background: #fcfcfc;
   --foreground: #0a0a0a;
+  --yaleblue: #063672; /* Default light mode yale blue */
+  --darkgoldenrod: #9C824A; /* Default light mode dark goldenrod */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #fcfcfc;
+    --yaleblue: #8bb1d8; /* Lighter yale blue for better contrast in dark mode */
+    --darkgoldenrod: #C6A763; /* Brighter goldenrod for dark mode */
   }
 }
 

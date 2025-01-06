@@ -8,6 +8,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { Suspense, use, useEffect } from "react";
 import { useState } from "react";
 import { getArticles } from "@/lib/api";
+import Select from "react-select";
 
 export default function Blog({
   query,
@@ -62,12 +63,11 @@ function ArticlesWrapper({
   const [total, setTotal] = useState(0);
   const limit = 3;
 
-  const toggleCategory = (category: string) => {
-    setSelectedCategories((prev) =>
-      prev.includes(category)
-        ? prev.filter((c) => c !== category)
-        : [...prev, category]
-    );
+  const toggleCategory = (
+    iterator: ArrayIterator<{ value: string; label: string }>
+  ) => {
+    const values = Array.from(iterator).map((item) => item.value);
+    setSelectedCategories(values);
   };
 
   const handleNextPage = () => setOffset((prev) => prev + limit);
@@ -76,29 +76,27 @@ function ArticlesWrapper({
   return (
     <>
       <div className="flex flex-col md:flex-row gap-4">
-        <div className="flex flex-col md:flex-row gap-2">
-          {categories.map((category) => (
-            <button
-              key={category.slug.current}
-              className={`py-1 px-3 rounded ${
-                selectedCategories.includes(category.slug.current)
-                  ? "bg-darkgoldenrod"
-                  : "bg-gray-200"
-              }`}
-              onClick={() => toggleCategory(category.slug.current)}
-            >
-              {category.title}
-            </button>
-          ))}
-        </div>
-        <select
-          value={order}
-          onChange={(e) => setOrder(e.target.value as "desc" | "asc")}
-          className="border rounded py-1 px-4"
+        <Select
+          options={categories.map((category) => {
+            return {
+              value: category.slug.current,
+              label: category.title,
+            };
+          })}
+          placeholder="Filter by categories"
+          isMulti
+          onChange={(newValue) => {
+            toggleCategory(newValue.values());
+          }}
+        />
+        <button
+          className="none underline"
+          onClick={() => {
+            setOrder(order == "desc" ? "asc" : "desc");
+          }}
         >
-          <option value="desc">Newest</option>
-          <option value="asc">Oldest</option>
-        </select>
+          {order == "desc" ? "Newest" : "Oldest"}
+        </button>
       </div>
       <Suspense fallback={<div>Loading...</div>}>
         <Articles
