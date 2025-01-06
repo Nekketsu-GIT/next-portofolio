@@ -75,7 +75,7 @@ function ArticlesWrapper({
 
   return (
     <>
-      <div className="flex flex-col md:flex-row gap-4">
+      <div className="flex flex-col md:flex-row gap-8">
         <Select
           options={categories.map((category) => {
             return {
@@ -90,14 +90,17 @@ function ArticlesWrapper({
           }}
           className="text-black"
         />
-        <button
-          className="none underline"
-          onClick={() => {
-            setOrder(order == "desc" ? "asc" : "desc");
-          }}
-        >
-          {order == "desc" ? "Newest" : "Oldest"}
-        </button>
+        <div className="flex items-center gap-2">
+          sort by:
+          <button
+            className="none underline"
+            onClick={() => {
+              setOrder(order == "desc" ? "asc" : "desc");
+            }}
+          >
+            {order == "desc" ? "Newest" : "Oldest"}
+          </button>
+        </div>
       </div>
       <Suspense fallback={<div>Loading...</div>}>
         <Articles
