@@ -22,4 +22,61 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.6; /* Slightly more spacing for readability */
+  -webkit-font-smoothing: antialiased; /* Smoother fonts */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #f5f5f5; /* Slightly lighter for better readability */
+    --yaleblue: #8bb1d8;
+    --darkgoldenrod: #C6A763;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--yaleblue);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+
+a:focus, button:focus {
+  outline: 2px solid var(--yaleblue);
+  outline-offset: 2px;
+}
+
+a {
+  color: var(--darkgoldenrod);
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--yaleblue); /* Change color on hover */
 }

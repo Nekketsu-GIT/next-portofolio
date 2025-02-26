@@ -11,7 +11,7 @@ export default function Title({ title, icon, link }: Props) {
   return (
     <div className="flex items-center gap-2">
       {icon}
-      <h3 className="text-lg font-bold text-yaleblue ">{title}</h3>
+      <h2>{title}</h2>
       {link && (
         <Link
           href={link}

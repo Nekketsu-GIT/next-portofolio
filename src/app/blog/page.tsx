@@ -1,6 +1,7 @@
-import { Suspense } from "react";
-import { getCategories } from "@/lib/api";
-import Blog from "@/components/blog";
+import { allPosts } from 'contentlayer/generated'
+import Title from "@/components/title";
+import Image from "next/legacy/image";
+import BlogCard from "@/components/blog-card";
 
 export async function generateMetadata() {
   return {
@@ -12,10 +13,33 @@ export async function generateMetadata() {
   };
 }
 
-export default function BlogWrapper() {
+export default function Blog() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Blog query={getCategories()} />
-    </Suspense>
+    <section className="py-8 w-full flex flex-col gap-8">
+      <Title
+        title="Welcome to my blog"
+        icon={
+          <Image
+            src="/images/bag.svg"
+            alt="arrow"
+            width={24}
+            height={24}
+            className="animate-pulse"
+          />
+        }
+      />
+
+      <div className="flex flex-col gap-8">
+        {allPosts.map((post) => (
+          <BlogCard
+            key={post.title}
+            title={post.title}
+            description={post.description}
+            image={post.image_cover}
+            slug={post.url}
+          />
+        ))}
+      </div>
+    </section>
   );
 }

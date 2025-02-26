@@ -18,40 +18,44 @@ export default function ProjectCard({
   image?: string;
 }) {
   return (
-    <div className="flex flex-col md:flex-row w-full shadow-lg rounded-lg">
+    <div className="flex flex-col md:flex-row w-full shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 bg-white dark:bg-gray-800">
       {image && (
-        <div className="w-full md:w-1/3 h-48 overflow-hidden items-center justify-center flex">
+        <div className="w-full md:w-1/3 h-48 relative overflow-hidden">
           <Image
             src={image}
             alt={title}
-            width={300}
-            height={200}
-            className="rounded-lg"
+            layout="fill"
+            objectFit="cover"
+            className="rounded-t-lg md:rounded-l-lg md:rounded-tr-none"
           />
         </div>
       )}
-      <div className="flex flex-col gap-2 p-4 w-full md:w-2/3">
-        <h3 className="text-lg font-bold">{title}</h3>
-        <div className="flex flex-wrap gap-2">
-          {tags?.map((tag) => (
-            <span
-              key={tag}
-              className="px-2 py-1 border border-yaleblue text-yaleblue rounded"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-        <p>{summary}</p>
-        <div className="flex gap-2">
+      <div className="flex flex-col gap-4 p-6 w-full md:w-2/3">
+        <h3 className="text-xl font-bold text-yaleblue dark:text-darkgoldenrod">
+          {title}
+        </h3>
+        {tags && (
+          <div className="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="px-3 py-1 text-sm bg-yaleblue/10 text-yaleblue dark:bg-darkgoldenrod/10 dark:text-darkgoldenrod rounded-full"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+        <p className="text-gray-600 dark:text-gray-300">{summary}</p>
+        <div className="flex gap-3 mt-auto">
           {sourceCode && (
             <a
               href={sourceCode}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 bg-yaleblue text-white rounded hover:bg-darkgoldenrod hover:text-black"
+              className="px-4 py-2 bg-yaleblue text-white rounded-lg hover:bg-darkgoldenrod hover:text-black transition-colors duration-300 text-sm"
             >
-              Source code
+              Source Code
             </a>
           )}
           {preview && (
@@ -59,9 +63,9 @@ export default function ProjectCard({
               href={preview}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 bg-yaleblue text-white rounded hover:bg-darkgoldenrod hover:text-black"
+              className="px-4 py-2 bg-yaleblue text-white rounded-lg hover:bg-darkgoldenrod hover:text-black transition-colors duration-300 text-sm"
             >
-              Preview
+              Live Preview
             </a>
           )}
           {tutorial && (
@@ -69,7 +73,7 @@ export default function ProjectCard({
               href={tutorial}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 bg-yaleblue text-white rounded hover:bg-darkgoldenrod hover:text-black"
+              className="px-4 py-2 bg-yaleblue text-white rounded-lg hover:bg-darkgoldenrod hover:text-black transition-colors duration-300 text-sm"
             >
               Tutorial
             </a>
