@@ -19,7 +19,6 @@
     "next-contentlayer": "latest",
     "next-pwa": "^5.6.0",
     "react": "^19.0.0",
-    "react-countup": "^6.5.3",
     "react-dom": "^19.0.0",
     "react-select": "^5.9.0",
     "react-social-icons": "^6.18.0",
