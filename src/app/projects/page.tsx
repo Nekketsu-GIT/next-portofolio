@@ -1,9 +1,9 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import Title from "@/components/title";
 import Image from "next/legacy/image";
 import AnimatedSection from "@/components/animated-section";
 import ProjectFilter from "@/components/project-filter";
-import StructuredData from "@/components/structured-data";
 
 export const metadata: Metadata = {
   title: "Projects - José DACOSTA",
@@ -174,15 +174,15 @@ export default function ProjectsPage() {
               Interested in Working Together?
             </h2>
             <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
-              I'm always excited to take on new challenges and create amazing digital experiences. 
-              Let's discuss your next project!
+              I&apos;m always excited to take on new challenges and create amazing digital experiences.
+              Let&apos;s discuss your next project!
             </p>
-            <a
+            <Link
               href="/#contact"
               className="inline-flex items-center px-8 py-4 bg-yaleblue text-white rounded-lg font-semibold hover:bg-yaleblue/90 transition-colors duration-200"
             >
               Get In Touch
-            </a>
+            </Link>
           </div>
         </AnimatedSection>
       </div>

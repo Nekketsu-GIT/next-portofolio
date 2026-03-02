@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Presentation from "@/components/presentation";
 import ServiceCard from "@/components/service-card";
 import Title from "@/components/title";
@@ -215,7 +216,7 @@ export default async function Home() {
           }
         />
         <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl text-center mx-auto">
-          Don't just take my word for it. Here's what clients and colleagues have to say about working with me.
+          Don&apos;t just take my word for it. Here&apos;s what clients and colleagues have to say about working with me.
         </p>
         <Testimonials />
       </AnimatedSection>
@@ -253,7 +254,7 @@ export default async function Home() {
 
         {/* View All Articles Button */}
         <div className="text-center mt-12">
-          <a
+          <Link
             href="/blog"
             className="inline-flex items-center px-8 py-4 border-2 border-yaleblue text-yaleblue rounded-lg font-semibold text-lg hover:bg-yaleblue hover:text-white transition-colors duration-200"
           >
@@ -261,7 +262,7 @@ export default async function Home() {
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </a>
+          </Link>
         </div>
       </AnimatedSection>
 
@@ -279,7 +280,7 @@ export default async function Home() {
           }
         />
         <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl text-center mx-auto">
-          Have a project in mind? I'd love to hear about it. Let's discuss how we can bring your ideas to life.
+          Have a project in mind? I&apos;d love to hear about it. Let&apos;s discuss how we can bring your ideas to life.
         </p>
         <ContactForm />
       </AnimatedSection>

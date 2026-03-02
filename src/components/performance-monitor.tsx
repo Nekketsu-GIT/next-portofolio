@@ -8,13 +8,14 @@ export default function PerformanceMonitor() {
     if (process.env.NODE_ENV !== 'production') return;
 
     // Web Vitals monitoring
-    const reportWebVitals = (metric: any) => {
+    const reportWebVitals = (metric: { name: string; id: string; value: number }) => {
       // You can send these metrics to your analytics service
       console.log(metric);
-      
+
       // Example: Send to Google Analytics
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', metric.name, {
+      type WindowWithGtag = typeof window & { gtag?: (...args: unknown[]) => void };
+      if (typeof window !== 'undefined' && (window as WindowWithGtag).gtag) {
+        (window as WindowWithGtag).gtag!('event', metric.name, {
           event_category: 'Web Vitals',
           event_label: metric.id,
           value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
@@ -24,12 +25,12 @@ export default function PerformanceMonitor() {
     };
 
     // Import and use web-vitals library if available
-    import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-      getCLS(reportWebVitals);
-      getFID(reportWebVitals);
-      getFCP(reportWebVitals);
-      getLCP(reportWebVitals);
-      getTTFB(reportWebVitals);
+    import('web-vitals').then(({ onCLS, onINP, onFCP, onLCP, onTTFB }) => {
+      onCLS(reportWebVitals);
+      onINP(reportWebVitals);
+      onFCP(reportWebVitals);
+      onLCP(reportWebVitals);
+      onTTFB(reportWebVitals);
     }).catch(() => {
       // web-vitals not available, use basic performance monitoring
       if ('performance' in window && 'PerformanceObserver' in window) {
@@ -45,7 +46,8 @@ export default function PerformanceMonitor() {
         const fidObserver = new PerformanceObserver((list) => {
           const entries = list.getEntries();
           entries.forEach((entry) => {
-            console.log('FID:', entry.processingStart - entry.startTime);
+            const eventEntry = entry as PerformanceEventTiming;
+            console.log('FID:', eventEntry.processingStart - eventEntry.startTime);
           });
         });
         fidObserver.observe({ entryTypes: ['first-input'] });
@@ -54,9 +56,9 @@ export default function PerformanceMonitor() {
         const clsObserver = new PerformanceObserver((list) => {
           let clsValue = 0;
           const entries = list.getEntries();
-          entries.forEach((entry: any) => {
+          entries.forEach((entry: PerformanceEntry & { hadRecentInput?: boolean; value?: number }) => {
             if (!entry.hadRecentInput) {
-              clsValue += entry.value;
+              clsValue += entry.value ?? 0;
             }
           });
           console.log('CLS:', clsValue);
@@ -75,9 +77,9 @@ export default function PerformanceMonitor() {
           tcp: navigation.connectEnd - navigation.connectStart,
           ttfb: navigation.responseStart - navigation.requestStart,
           download: navigation.responseEnd - navigation.responseStart,
-          domInteractive: navigation.domInteractive - navigation.navigationStart,
-          domComplete: navigation.domComplete - navigation.navigationStart,
-          loadComplete: navigation.loadEventEnd - navigation.navigationStart,
+          domInteractive: navigation.domInteractive - navigation.fetchStart,
+          domComplete: navigation.domComplete - navigation.fetchStart,
+          loadComplete: navigation.loadEventEnd - navigation.fetchStart,
         };
 
         console.log('Page Load Metrics:', metrics);

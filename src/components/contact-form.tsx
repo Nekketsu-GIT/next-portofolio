@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { useState } from "react";
 import { Send, Mail, User, MessageSquare } from "lucide-react";
 
@@ -43,27 +43,27 @@ export default function ContactForm() {
     }, 3000);
   };
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
         duration: 0.4,
-        ease: "easeOut",
+        ease: "easeOut" as const,
         staggerChildren: 0.05,
       },
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
         duration: 0.3,
-        ease: "easeOut"
+        ease: "easeOut" as const,
       }
     },
   };
@@ -88,7 +88,7 @@ export default function ContactForm() {
           Message Sent Successfully!
         </h3>
         <p className="text-green-600 dark:text-green-300">
-          Thank you for reaching out. I'll get back to you soon!
+          Thank you for reaching out. I&apos;ll get back to you soon!
         </p>
       </motion.div>
     );

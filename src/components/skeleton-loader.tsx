@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 
 interface SkeletonLoaderProps {
   type: "blog" | "project" | "card";
@@ -8,14 +8,14 @@ interface SkeletonLoaderProps {
 }
 
 const SkeletonCard = ({ type }: { type: "blog" | "project" | "card" }) => {
-  const shimmerVariants = {
+  const shimmerVariants: Variants = {
     initial: { x: "-100%" },
     animate: {
       x: "100%",
       transition: {
         duration: 1.5,
         repeat: Infinity,
-        ease: "easeInOut",
+        ease: "easeInOut" as const,
       },
     },
   };

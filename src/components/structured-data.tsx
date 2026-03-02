@@ -1,6 +1,9 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type StructuredDataInput = Record<string, any>;
+
 interface StructuredDataProps {
   type: 'person' | 'article' | 'website';
-  data: any;
+  data: StructuredDataInput;
 }
 
 export default function StructuredData({ type, data }: StructuredDataProps) {

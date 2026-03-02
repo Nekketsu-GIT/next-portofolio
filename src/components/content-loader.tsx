@@ -47,7 +47,7 @@ export default function ContentLoader({
             animate={{ opacity: 1, y: 0 }}
             transition={{ 
               duration: 0.6,
-              ease: "easeOut",
+              ease: "easeOut" as const,
               staggerChildren: 0.1 
             }}
           >
