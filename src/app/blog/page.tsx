@@ -1,45 +1,41 @@
 import { allPosts } from 'contentlayer/generated'
-import Title from "@/components/title";
-import Image from "next/legacy/image";
-import BlogCard from "@/components/blog-card";
-
-export async function generateMetadata() {
-  return {
-    title: "José DACOSTA - IT Engineer & Fullstack Developer - Blog",
-    description: "Welcome to my blog",
-    keywords:
-      "web development, mobile development, fullstack, software engineer",
-    manifest: "/manifest.json",
-  };
-}
+import { compareDesc } from 'date-fns'
+import BlogSearch from '@/components/blog-search'
+import Title from '@/components/title'
+import Image from 'next/image'
 
 export default function Blog() {
-  return (
-    <section className="py-8 w-full flex flex-col gap-8">
-      <Title
-        title="Welcome to my blog"
-        icon={
-          <Image
-            src="/images/bag.svg"
-            alt="arrow"
-            width={24}
-            height={24}
-            className="animate-pulse"
-          />
-        }
-      />
+  const posts = allPosts.sort((a, b) =>
+    compareDesc(new Date(a.date), new Date(b.date))
+  );
 
-      <div className="flex flex-col gap-8">
-        {allPosts.map((post) => (
-          <BlogCard
-            key={post.title}
-            title={post.title}
-            description={post.description}
-            image={post.image_cover}
-            slug={post.url}
-          />
-        ))}
-      </div>
-    </section>
+  return (
+    <div className="max-w-6xl mx-auto">
+      <section className="py-12 text-center mb-16">
+        <Title
+          title="Welcome to my blog"
+          icon={
+            <Image
+              src="/images/bag.svg"
+              alt="blog icon"
+              width={32}
+              height={32}
+              className="animate-pulse"
+            />
+          }
+        />
+        <p className="text-xl text-gray-600 dark:text-gray-300 mt-6 max-w-2xl mx-auto">
+          Thoughts, tutorials, and insights about web development, technology, and more.
+        </p>
+      </section>
+
+      <BlogSearch posts={posts} />
+
+      {posts.length === 0 && (
+        <div className="text-center py-16">
+          <p className="text-gray-500 text-lg">No blog posts yet. Check back soon!</p>
+        </div>
+      )}
+    </div>
   );
 }
