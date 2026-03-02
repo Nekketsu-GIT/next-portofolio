@@ -3,6 +3,8 @@
 import Image from "next/legacy/image";
 import { useEffect, useState } from "react";
 import { SocialIcon } from "react-social-icons";
+import { motion } from "framer-motion";
+import { ChevronDown, Download } from "lucide-react";
 
 type Props = {
   image?: string;
@@ -34,64 +36,213 @@ export default function Presentation({
     }
   }, [textIndex, title]);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  const imageVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1 },
+  };
+
+  const socialVariants = {
+    hidden: { opacity: 0, x: 50 },
+    visible: { opacity: 1, x: 0 },
+  };
+
   return (
-    <section className="flex flex-col-reverse md:flex-row items-center justify-between min-h-[70vh] w-full relative overflow-hidden p-8 md:p-12 bg-[url('/images/10.jpg')] dark:bg-none  border-b-4 border-yaleblue bg-cover bg-center bg-no-repeat">
-      {/* Text Content */}
-      <div className="flex flex-col gap-6 items-start max-w-2xl">
-        <h2 className="text-4xl md:text-5xl font-bold text-yaleblue">
-          {currentText}
-          <span className="text-darkgoldenrod animate-pulse">_</span>
-        </h2>
-        <p className="text-lg text-gray-700 dark:text-gray-300">
-          {description ?? "I am a software engineer."}
-        </p>
-        <a
-          href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}
-          className="px-6 py-3 rounded-md bg-yaleblue text-white hover:bg-darkgoldenrod hover:text-black transition-colors duration-300 text-lg"
-        >
-          Contact me
-        </a>
+    <motion.section
+      className="flex flex-col-reverse md:flex-row items-center justify-between min-h-[80vh] w-full relative overflow-hidden p-8 md:p-12 bg-gradient-to-br from-blue-50 via-white to-blue-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 border-b-4 border-yaleblue"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute -top-40 -right-40 w-80 h-80 bg-yaleblue/10 rounded-full"
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+        <motion.div
+          className="absolute -bottom-40 -left-40 w-60 h-60 bg-darkgoldenrod/10 rounded-full"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            rotate: [360, 180, 0],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
       </div>
 
+      {/* Text Content */}
+      <motion.div
+        className="flex flex-col gap-6 items-start max-w-2xl z-10"
+        variants={itemVariants}
+      >
+        <motion.h1
+          className="text-4xl md:text-6xl font-bold text-yaleblue leading-tight"
+          variants={itemVariants}
+        >
+          {currentText}
+          <motion.span
+            className="text-darkgoldenrod"
+            animate={{ opacity: [1, 0, 1] }}
+            transition={{ duration: 1, repeat: Infinity }}
+          >
+            _
+          </motion.span>
+        </motion.h1>
+
+        <motion.p
+          className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed"
+          variants={itemVariants}
+        >
+          {description ?? "I am a software engineer."}
+        </motion.p>
+
+        <motion.div
+          className="flex flex-col sm:flex-row gap-4"
+          variants={itemVariants}
+        >
+          <motion.button
+            className="px-8 py-4 rounded-lg bg-yaleblue text-white font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            whileHover={{
+              scale: 1.05,
+              backgroundColor: "var(--darkgoldenrod)",
+              color: "#000",
+            }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              const contactSection = document.getElementById('contact');
+              if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+          >
+            Get In Touch
+          </motion.button>
+
+          <motion.a
+            href="/projects"
+            className="px-8 py-4 rounded-lg border-2 border-yaleblue text-yaleblue font-semibold text-lg hover:bg-yaleblue hover:text-white transition-all duration-300"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            View Projects
+          </motion.a>
+
+          <motion.a
+            href="/cv.pdf"
+            download
+            className="px-8 py-4 rounded-lg border-2 border-gray-400 dark:border-gray-500 text-gray-700 dark:text-gray-300 font-semibold text-lg hover:border-darkgoldenrod hover:text-darkgoldenrod transition-all duration-300 flex items-center gap-2"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Download className="w-5 h-5" />
+            Download CV
+          </motion.a>
+        </motion.div>
+      </motion.div>
+
       {/* Image and Social Icons */}
-      <div className="flex flex-col md:flex-row justify-center items-center gap-8">
+      <motion.div
+        className="flex flex-col md:flex-row justify-center items-center gap-8 z-10"
+        variants={itemVariants}
+      >
         {/* Avatar Image */}
-        <div className="relative w-64 h-64 md:w-80 md:h-80 bg-yaleblue rounded-full overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300">
-          <Image
-            src={image ?? "/images/avatar-jose.png"}
-            alt="avatar of the author"
-            layout="fill"
-            className="rounded-full object-cover"
-          />
-        </div>
+        <motion.div
+          className="relative w-64 h-64 md:w-80 md:h-80 bg-gradient-to-br from-yaleblue to-darkgoldenrod rounded-full p-2 shadow-2xl"
+          variants={imageVariants}
+          whileHover={{ scale: 1.05, rotate: 5 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <div className="w-full h-full rounded-full overflow-hidden bg-white">
+            <Image
+              src={image ?? "/images/avatar-jose.png"}
+              alt="avatar of the author"
+              layout="fill"
+              className="rounded-full object-cover"
+            />
+          </div>
+        </motion.div>
 
         {/* Social Icons */}
         {socialMediaLinks && (
-          <div className="flex flex-row md:flex-col justify-center items-center space-x-4 md:space-x-0 md:space-y-4">
+          <motion.div
+            className="flex flex-row md:flex-col justify-center items-center space-x-4 md:space-x-0 md:space-y-4"
+            variants={socialVariants}
+          >
             {socialMediaLinks.github && (
-              <SocialIcon
-                url={socialMediaLinks.github}
-                bgColor="#063672"
-                className="hover:opacity-80 transition-opacity duration-300"
-              />
+              <motion.div
+                whileHover={{ scale: 1.2, rotate: 10 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <SocialIcon
+                  url={socialMediaLinks.github}
+                  bgColor="#063672"
+                  className="transition-all duration-300"
+                />
+              </motion.div>
             )}
             {socialMediaLinks.linkedin && (
-              <SocialIcon
-                url={socialMediaLinks.linkedin}
-                bgColor="#0077B5"
-                className="hover:opacity-80 transition-opacity duration-300"
-              />
+              <motion.div
+                whileHover={{ scale: 1.2, rotate: -10 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <SocialIcon
+                  url={socialMediaLinks.linkedin}
+                  bgColor="#0077B5"
+                  className="transition-all duration-300"
+                />
+              </motion.div>
             )}
             {socialMediaLinks.twitter && (
-              <SocialIcon
-                url={socialMediaLinks.twitter}
-                bgColor="#1DA1F2"
-                className="hover:opacity-80 transition-opacity duration-300"
-              />
+              <motion.div
+                whileHover={{ scale: 1.2, rotate: 10 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <SocialIcon
+                  url={socialMediaLinks.twitter}
+                  bgColor="#1DA1F2"
+                  className="transition-all duration-300"
+                />
+              </motion.div>
             )}
-          </div>
+          </motion.div>
         )}
-      </div>
-    </section>
+      </motion.div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <ChevronDown className="w-8 h-8 text-yaleblue" />
+      </motion.div>
+    </motion.section>
   );
 }

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Presentation from "@/components/presentation";
 import ServiceCard from "@/components/service-card";
 import Title from "@/components/title";
@@ -5,49 +6,48 @@ import Image from "next/legacy/image";
 import BlogCard from "@/components/blog-card";
 import { compareDesc } from "date-fns";
 import { allPosts } from "contentlayer/generated";
-import ProjectCard from "@/components/project-card";
-import KPI from "@/components/kpi";
 
-const projects = [
+import AnimatedSection from "@/components/animated-section";
+import SimpleSkills from "@/components/simple-skills";
+import ProjectCard from "@/components/project-card";
+import ContactForm from "@/components/contact-form";
+import StructuredData from "@/components/structured-data";
+import Testimonials from "@/components/testimonials";
+import ContentLoader from "@/components/content-loader";
+
+// Featured projects for homepage - show only top 3
+const featuredProjects = [
   {
     title: "Jaay",
     summary:
-      "This project showcases a fully functional e-commerce website designed for selling clothing. Built with a focus on user experience and responsiveness, the platform features an intuitive interface that ensures seamless navigation across devices. Key functionalities include:",
+      "A fully functional e-commerce website for selling clothing with responsive design and intuitive navigation.",
     tags: ["React", "Next.js"],
     preview: "http://jaay.vercel.app/",
     image: "/images/jaay.webp",
   },
   {
-    title: "This awesome portofolio",
+    title: "This awesome portfolio",
     summary:
-      "This project is a personal portfolio website designed to showcase skills, projects, and achievements in a visually appealing and interactive format. The website serves as a digital resume, providing potential clients, employers, and collaborators with easy access to information about my work, expertise, and professional background. The layout is crafted to highlight key projects and skills, while also offering a personal touch that reflects my unique style and approach.",
+      "A personal portfolio website showcasing skills, projects, and achievements in an interactive format.",
     tags: ["Node.js", "Express"],
     sourceCode: "https://github.com/Nekketsu-GIT/next-portofolio",
     image: "/images/portfolio.webp",
   },
   {
-    title: "Travel agency homepage design",
+    title: "Travel agency homepage",
     summary:
-      "This project features a visually appealing and user-friendly homepage design for a travel agency website. The design focuses on delivering an engaging experience to potential customers, highlighting key services such as travel packages, flight bookings, and customer support. The layout prioritizes intuitive navigation and encourages user interaction, leading to increased conversions and customer engagement.",
+      "A visually appealing homepage design for a travel agency with focus on user engagement and conversions.",
     tags: ["UI/UX", "HTML", "CSS"],
     sourceCode: "https://github.com/Nekketsu-GIT/Travel-Agency-Udemy",
     preview: "https://jose-voyage.netlify.app/",
     image: "/images/travel.webp",
   },
-  {
-    title: "Sentiment analysis with Python",
-    summary:
-      "This project is a Python-based sentiment analysis tool designed to determine the emotional tone behind text data. It leverages Natural Language Processing (NLP) techniques to classify sentiments as positive, negative, or neutral. The application can be used for various tasks such as analyzing customer feedback, social media posts, or reviews.",
-    tags: ["Python", "NLP"],
-    sourceCode: "https://github.com/Nekketsu-GIT/django_sentiment_analysis",
-    image: "/images/sentiments.webp",
-  },
 ];
 
 export default async function Home() {
-  const posts = allPosts.sort((a, b) =>
-    compareDesc(new Date(a.date), new Date(b.date))
-  );
+  const posts = allPosts
+    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
+    .slice(0, 2); // Show only 2 latest posts on homepage
 
   const services = [
     {
@@ -82,8 +82,35 @@ export default async function Home() {
     },
   ];
 
+  const personData = {
+    name: "José DACOSTA",
+    jobTitle: process.env.NEXT_PUBLIC_JOB_TITLE || "IT Engineer & Fullstack Developer",
+    description: process.env.NEXT_PUBLIC_DESCRIPTION || "IT Engineer & Fullstack Developer with expertise in modern web technologies",
+    url: process.env.NEXT_PUBLIC_SITE_URL,
+    image: process.env.NEXT_PUBLIC_AVATAR,
+    socialLinks: [
+      process.env.NEXT_PUBLIC_GITHUB,
+      process.env.NEXT_PUBLIC_LINKEDIN,
+      process.env.NEXT_PUBLIC_TWITTER,
+    ].filter(Boolean),
+    skills: ["React", "Next.js", "TypeScript", "Node.js", "Python", "Web Development"],
+  };
+
+  const websiteData = {
+    name: "José DACOSTA Portfolio",
+    description: "Portfolio website of José DACOSTA, IT Engineer & Fullstack Developer",
+    url: process.env.NEXT_PUBLIC_SITE_URL,
+    author: {
+      name: "José DACOSTA",
+      url: process.env.NEXT_PUBLIC_SITE_URL,
+    },
+  };
+
   return (
     <>
+      <StructuredData type="person" data={personData} />
+      <StructuredData type="website" data={websiteData} />
+
       <Presentation
         image={process.env.NEXT_PUBLIC_AVATAR}
         title={process.env.NEXT_PUBLIC_JOB_TITLE}
@@ -95,20 +122,9 @@ export default async function Home() {
         }}
       />
 
-      <section className="flex flex-col md:flex-row gap-8 w-full items-center justify-around bg-yaleblue text-white py-8">
-        <KPI
-          text="Years of experience"
-          value={process.env.NEXT_PUBLIC_YEARS_OF_EXPERIENCE}
-        />
-        <KPI
-          text="Projects completed"
-          value={process.env.NEXT_PUBLIC_PROJECTS_COMPLETED}
-        />
-        <KPI text="Clients" value={process.env.NEXT_PUBLIC_CLIENTS} />
-        <KPI text="Reviews" value={process.env.NEXT_PUBLIC_REVIEWS} />
-      </section>
 
-      <section className="py-8 w-full flex flex-col gap-8">
+
+      <AnimatedSection id="services">
         <Title
           title="What I do"
           icon={
@@ -121,15 +137,36 @@ export default async function Home() {
             />
           }
         />
-        <p>I provide various services to my clients. Here are some of them:</p>
+        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl">
+          I provide various services to my clients. Here are some of them:
+        </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service) => (
             <ServiceCard key={service.title} {...service} />
           ))}
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="py-8 w-full flex flex-col gap-8">
+      <AnimatedSection delay={0.1}>
+        <Title
+          title="My Skills & Expertise"
+          icon={
+            <Image
+              src="/images/services.svg"
+              alt="skills icon"
+              width={24}
+              height={24}
+              className="animate-pulse"
+            />
+          }
+        />
+        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl">
+          Here are the main technologies I work with to build modern web applications.
+        </p>
+        <SimpleSkills />
+      </AnimatedSection>
+
+      <AnimatedSection delay={0.2}>
         <Title
           title="Some of my projects"
           icon={
@@ -143,14 +180,50 @@ export default async function Home() {
           }
           link="/projects"
         />
-        <div className="flex flex-col gap-8">
-          {projects.map((project) => (
-            <ProjectCard key={project.title} {...project} />
-          ))}
-        </div>
-      </section>
+        <ContentLoader type="project" itemCount={3} loadingDuration={1000}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredProjects.map((project) => (
+              <ProjectCard key={project.title} {...project} />
+            ))}
+          </div>
+        </ContentLoader>
 
-      <section className="py-8 w-full flex flex-col gap-8">
+        {/* View All Projects Button */}
+        <div className="text-center mt-12">
+          <a
+            href="/projects"
+            className="inline-flex items-center px-8 py-4 bg-yaleblue text-white rounded-lg font-semibold text-lg hover:bg-yaleblue/90 transition-colors duration-200"
+          >
+            View All Projects
+            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+      </AnimatedSection>
+
+      <AnimatedSection delay={0.3}>
+        <Title
+          title="What Clients Say"
+          icon={
+            <Image
+              src="/images/services.svg"
+              alt="testimonials icon"
+              width={24}
+              height={24}
+              className="animate-pulse"
+            />
+          }
+        />
+        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl text-center mx-auto">
+          Don&apos;t just take my word for it. Here&apos;s what clients and colleagues have to say about working with me.
+        </p>
+        <Testimonials />
+      </AnimatedSection>
+
+
+
+      <AnimatedSection delay={0.5}>
         <Title
           title="Let's have a look at some of my articles"
           icon={
@@ -165,18 +238,52 @@ export default async function Home() {
           link="/blog"
         />
 
-        <div className="flex flex-col gap-8">
-          {posts.map((post) => (
-            <BlogCard
-              key={post.title}
-              title={post.title}
-              description={post.description}
-              image={post.image_cover}
-              slug={post.url}
-            />
-          ))}
+        <ContentLoader type="blog" itemCount={2} loadingDuration={800}>
+          <div className="flex flex-col gap-8">
+            {posts.map((post) => (
+              <BlogCard
+                key={post.title}
+                title={post.title}
+                description={post.description}
+                image={post.image_cover}
+                slug={post.url}
+              />
+            ))}
+          </div>
+        </ContentLoader>
+
+        {/* View All Articles Button */}
+        <div className="text-center mt-12">
+          <Link
+            href="/blog"
+            className="inline-flex items-center px-8 py-4 border-2 border-yaleblue text-yaleblue rounded-lg font-semibold text-lg hover:bg-yaleblue hover:text-white transition-colors duration-200"
+          >
+            View All Articles
+            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
         </div>
-      </section>
+      </AnimatedSection>
+
+      <AnimatedSection delay={0.6} id="contact">
+        <Title
+          title="Let's Work Together"
+          icon={
+            <Image
+              src="/images/services.svg"
+              alt="contact icon"
+              width={24}
+              height={24}
+              className="animate-pulse"
+            />
+          }
+        />
+        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl text-center mx-auto">
+          Have a project in mind? I&apos;d love to hear about it. Let&apos;s discuss how we can bring your ideas to life.
+        </p>
+        <ContactForm />
+      </AnimatedSection>
     </>
   );
 }

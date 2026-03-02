@@ -16,27 +16,67 @@ export default {
       },
       keyframes: {
         fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        slideUp: {
+          "0%": { transform: "translateY(20px)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
+        pulse: {
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.05)" },
         },
       },
       animation: {
-        fadeIn: 'fadeIn 0.5s ease-in-out',
+        fadeIn: "fadeIn 0.5s ease-in-out",
+        slideUp: "slideUp 0.6s ease-out",
+        pulse: "pulse 2s infinite",
       },
       spacing: {
-        '72': '18rem',
-        '84': '21rem',
-        '96': '24rem',
+        "72": "18rem",
+        "84": "21rem",
+        "96": "24rem",
       },
       screens: {
-        'xs': '480px', // Add extra small breakpoint
-        '3xl': '1920px', // Add extra large breakpoint
+        xs: "480px",
+        "3xl": "1920px",
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+            color: 'inherit',
+            a: {
+              color: 'var(--yaleblue)',
+              '&:hover': {
+                color: 'var(--darkgoldenrod)',
+              },
+            },
+          },
+        },
       },
     },
   },
   plugins: [
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/aspect-ratio'),
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/aspect-ratio"),
+    function({ addUtilities }: { addUtilities: (utilities: Record<string, Record<string, string>>) => void }) {
+      addUtilities({
+        '.line-clamp-3': {
+          overflow: 'hidden',
+          display: '-webkit-box',
+          '-webkit-box-orient': 'vertical',
+          '-webkit-line-clamp': '3',
+        },
+        '.line-clamp-4': {
+          overflow: 'hidden',
+          display: '-webkit-box',
+          '-webkit-box-orient': 'vertical',
+          '-webkit-line-clamp': '4',
+        },
+      })
+    }
   ],
 } satisfies Config;
