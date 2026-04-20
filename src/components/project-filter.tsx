@@ -144,7 +144,7 @@ export default function ProjectFilter({ projects }: ProjectFilterProps) {
                 onClick={() => setSelectedTag(tag)}
                 className={`px-4 py-2 rounded-full font-medium transition-all duration-300 ${
                   selectedTag === tag
-                    ? "bg-yaleblue text-white shadow-lg"
+                    ? "bg-yaleblue dark:bg-[#063672] text-white shadow-lg"
                     : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                 }`}
                 whileHover={{ scale: 1.05 }}
@@ -220,7 +220,7 @@ export default function ProjectFilter({ projects }: ProjectFilterProps) {
               </p>
               <button
                 onClick={clearSearch}
-                className="px-6 py-2 bg-yaleblue text-white rounded-lg hover:bg-yaleblue/90 transition-colors"
+                className="px-6 py-2 bg-yaleblue dark:bg-[#063672] text-white rounded-lg hover:opacity-90 transition-colors"
               >
                 Clear all filters
               </button>

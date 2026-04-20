@@ -3,16 +3,19 @@
 import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu as MenuIcon, X, Download } from "lucide-react";
+import { Menu as MenuIcon, X } from "lucide-react";
+import LanguageSwitcher from "@/components/language-switcher";
+import ThemeSwitcher from "@/components/theme-switcher";
 
 type Props = {
   menuItems: {
     name: string;
     link: string;
   }[];
+  contactLabel?: string;
 };
 
-export default function Menu({ menuItems }: Props) {
+export default function Menu({ menuItems, contactLabel = "Me contacter" }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -32,8 +35,8 @@ export default function Menu({ menuItems }: Props) {
             whileTap={{ scale: 0.95 }}
           >
             <Link href="/" className="flex items-center gap-2">
-              <span className="text-2xl">👨‍💻</span>
-              J&lt;/&gt;se <span className="text-yaleblue">Dacosta</span>
+              J<span className="text-darkgoldenrod">&lt;/&gt;</span>sé{" "}
+              <span className="text-yaleblue">Dacosta</span>
             </Link>
           </motion.div>
 
@@ -47,7 +50,7 @@ export default function Menu({ menuItems }: Props) {
               >
                 <Link
                   href={item.link}
-                  className="relative px-3 py-2 rounded-lg hover:text-yaleblue transition-colors group"
+                  className="relative px-3 py-2 rounded-lg hover:text-yaleblue transition-colors"
                 >
                   {item.name}
                   <motion.div
@@ -60,34 +63,23 @@ export default function Menu({ menuItems }: Props) {
               </motion.div>
             ))}
 
-            {/* Download CV Button */}
-            <motion.a
-              href="/cv.pdf"
-              download
-              className="ml-2 px-4 py-2 border-2 border-gray-400 dark:border-gray-500 text-gray-700 dark:text-gray-300 rounded-lg font-semibold hover:border-darkgoldenrod hover:text-darkgoldenrod transition-colors flex items-center gap-1.5 text-sm"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Download className="w-4 h-4" />
-              CV
-            </motion.a>
+            <LanguageSwitcher />
+            <ThemeSwitcher />
 
-            {/* CTA Button */}
             <motion.button
-              className="ml-2 px-6 py-2 bg-yaleblue text-white rounded-lg font-semibold hover:bg-yaleblue/90 transition-colors shadow-lg"
+              className="ml-2 px-6 py-2 bg-yaleblue dark:bg-[#063672] text-white rounded-lg font-semibold hover:opacity-90 transition-colors shadow-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-                const contactSection = document.getElementById('contact');
+                const contactSection = document.getElementById("contact");
                 if (contactSection) {
-                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                  contactSection.scrollIntoView({ behavior: "smooth" });
                 } else {
-                  // If not on homepage, navigate to homepage with hash
-                  window.location.href = '/#contact';
+                  window.location.href = "/#contact";
                 }
               }}
             >
-              Hire Me
+              {contactLabel}
             </motion.button>
           </div>
 
@@ -113,7 +105,6 @@ export default function Menu({ menuItems }: Props) {
       <AnimatePresence>
         {menuOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               className="fixed inset-0 bg-black/50 z-40"
               initial={{ opacity: 0 }}
@@ -122,7 +113,6 @@ export default function Menu({ menuItems }: Props) {
               onClick={toggleMenu}
             />
 
-            {/* Menu Panel */}
             <motion.div
               className="fixed top-0 right-0 h-full w-80 max-w-[80vw] bg-white dark:bg-gray-900 shadow-2xl z-50 flex flex-col"
               initial={{ x: "100%" }}
@@ -130,7 +120,6 @@ export default function Menu({ menuItems }: Props) {
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
             >
-              {/* Header */}
               <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
                 <h2 className="text-lg font-semibold">Menu</h2>
                 <motion.button
@@ -143,7 +132,6 @@ export default function Menu({ menuItems }: Props) {
                 </motion.button>
               </div>
 
-              {/* Menu Items */}
               <div className="flex-1 p-6">
                 <motion.div
                   className="space-y-4"
@@ -151,9 +139,7 @@ export default function Menu({ menuItems }: Props) {
                     hidden: { opacity: 0 },
                     visible: {
                       opacity: 1,
-                      transition: {
-                        staggerChildren: 0.1,
-                      },
+                      transition: { staggerChildren: 0.1 },
                     },
                   }}
                   initial="hidden"
@@ -177,46 +163,28 @@ export default function Menu({ menuItems }: Props) {
                     </motion.div>
                   ))}
 
-                  {/* Mobile CV Download Button */}
                   <motion.div
                     variants={{
                       hidden: { opacity: 0, x: 20 },
                       visible: { opacity: 1, x: 0 },
                     }}
-                    className="pt-4"
+                    className="flex items-center gap-3 pt-2"
                   >
-                    <a
-                      href="/cv.pdf"
-                      download
-                      className="w-full px-4 py-3 border-2 border-gray-400 dark:border-gray-500 text-gray-700 dark:text-gray-300 rounded-lg font-semibold hover:border-darkgoldenrod hover:text-darkgoldenrod transition-colors flex items-center justify-center gap-2"
-                      onClick={toggleMenu}
-                    >
-                      <Download className="w-4 h-4" />
-                      Download CV
-                    </a>
-                  </motion.div>
-
-                  {/* Mobile CTA Button */}
-                  <motion.div
-                    variants={{
-                      hidden: { opacity: 0, x: 20 },
-                      visible: { opacity: 1, x: 0 },
-                    }}
-                    className="pt-2 border-t border-gray-200 dark:border-gray-700"
-                  >
+                    <LanguageSwitcher />
+                    <ThemeSwitcher />
                     <button
-                      className="w-full px-4 py-3 bg-yaleblue text-white rounded-lg font-semibold hover:bg-yaleblue/90 transition-colors"
+                      className="flex-1 px-4 py-3 bg-yaleblue dark:bg-[#063672] text-white rounded-lg font-semibold hover:opacity-90 transition-colors"
                       onClick={() => {
                         toggleMenu();
-                        const contactSection = document.getElementById('contact');
+                        const contactSection = document.getElementById("contact");
                         if (contactSection) {
-                          contactSection.scrollIntoView({ behavior: 'smooth' });
+                          contactSection.scrollIntoView({ behavior: "smooth" });
                         } else {
-                          window.location.href = '/#contact';
+                          window.location.href = "/#contact";
                         }
                       }}
                     >
-                      Hire Me
+                      {contactLabel}
                     </button>
                   </motion.div>
                 </motion.div>

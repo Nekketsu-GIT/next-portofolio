@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
+import { useParams } from "next/navigation";
 
 export default function BlogCard({
   title,
@@ -22,6 +23,10 @@ export default function BlogCard({
   readingTime?: number;
   tags?: string[];
 }) {
+  const params = useParams();
+  const locale = (params?.locale as string) ?? "fr";
+  const dateLocale = locale === "fr" ? "fr-FR" : "en-US";
+
   const cardVariants = {
     hidden: {
       opacity: 0,
@@ -61,10 +66,10 @@ export default function BlogCard({
         transition={{ duration: 0.3 }}
       />
 
-      <div className="flex flex-col md:flex-row relative z-10">
+      <div className="flex flex-col relative z-10">
         {image && (
           <motion.div
-            className="md:w-1/3 h-48 md:h-auto relative overflow-hidden"
+            className="relative h-64 overflow-hidden flex-shrink-0"
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
           >
@@ -72,7 +77,8 @@ export default function BlogCard({
               src={image}
               alt={title}
               fill
-              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 80vw"
+              className="object-cover object-left-top"
             />
             <motion.div
               className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"
@@ -94,7 +100,7 @@ export default function BlogCard({
               {date && (
                 <div className="flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
-                  <time>{new Date(date).toLocaleDateString()}</time>
+                  <time dateTime={date}>{new Date(date).toLocaleDateString(dateLocale)}</time>
                 </div>
               )}
               {readingTime && (

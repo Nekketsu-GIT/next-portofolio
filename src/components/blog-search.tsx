@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { useState, useMemo } from "react";
 import { Search, X, Filter } from "lucide-react";
 import BlogCard from "./blog-card";
-import ContentLoader from "./content-loader";
 
 interface BlogPost {
   title: string;
@@ -130,7 +129,7 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
                 onClick={() => setSelectedTag(tag)}
                 className={`px-4 py-2 rounded-full font-medium transition-all duration-300 ${
                   selectedTag === tag
-                    ? "bg-yaleblue text-white shadow-lg"
+                    ? "bg-yaleblue dark:bg-[#063672] text-white shadow-lg"
                     : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                 }`}
                 whileHover={{ scale: 1.05 }}
@@ -176,66 +175,56 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
       </motion.div>
 
       {/* Blog Posts Grid */}
-      <ContentLoader type="blog" itemCount={filteredPosts.length || 3}>
-        <motion.div
-          className="grid gap-8"
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.1,
-              },
-            },
-          }}
-          key={`${searchQuery}-${selectedTag}`} // Re-animate when filters change
-        >
-          {filteredPosts.length > 0 ? (
-            filteredPosts.map((post) => (
-              <motion.div
-                key={post.url}
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-              >
-                <BlogCard
-                  title={post.title}
-                  description={post.description}
-                  image={post.image_cover}
-                  slug={post.url}
-                  date={post.date}
-                  readingTime={Math.ceil(post.body.raw.split(/\s+/).length / 200)}
-                  tags={post.tags}
-                />
-              </motion.div>
-            ))
-          ) : (
+      <motion.div
+        className="grid gap-8"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0 },
+          visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+        }}
+        key={`${searchQuery}-${selectedTag}`}
+      >
+        {filteredPosts.length > 0 ? (
+          filteredPosts.map((post) => (
             <motion.div
-              className="text-center py-16"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
+              key={post.url}
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
             >
-              <div className="text-6xl mb-4">📝</div>
-              <h3 className="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-2">
-                No articles found
-              </h3>
-              <p className="text-gray-500 dark:text-gray-500 mb-4">
-                Try adjusting your search terms or filters
-              </p>
-              <button
-                onClick={clearSearch}
-                className="px-6 py-2 bg-yaleblue text-white rounded-lg hover:bg-yaleblue/90 transition-colors"
-              >
-                Clear all filters
-              </button>
+              <BlogCard
+                title={post.title}
+                description={post.description}
+                image={post.image_cover}
+                slug={post.url}
+                date={post.date}
+                readingTime={Math.ceil(post.body.raw.split(/\s+/).length / 200)}
+                tags={post.tags}
+              />
             </motion.div>
-          )}
-        </motion.div>
-      </ContentLoader>
+          ))
+        ) : (
+          <motion.div
+            className="text-center py-16"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="text-6xl mb-4">📝</div>
+            <h3 className="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-2">
+              No articles found
+            </h3>
+            <p className="text-gray-500 dark:text-gray-500 mb-4">
+              Try adjusting your search terms or filters
+            </p>
+            <button
+              onClick={clearSearch}
+              className="px-6 py-2 bg-yaleblue dark:bg-[#063672] text-white rounded-lg hover:opacity-90 transition-colors"
+            >
+              Clear all filters
+            </button>
+          </motion.div>
+        )}
+      </motion.div>
     </div>
   );
 }

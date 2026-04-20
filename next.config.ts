@@ -1,17 +1,22 @@
 import type { NextConfig } from "next";
-const { withContentlayer } = require('next-contentlayer')
+import createNextIntlPlugin from "next-intl/plugin";
 
+const { withContentlayer } = require("next-contentlayer");
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-    reactStrictMode: true, images: {
-        remotePatterns: [
-            {
-                protocol: "https",
-                hostname: "cdn.sanity.io",
-            },
-        ],
-    },
-}
+const nextConfig: NextConfig = {
+  reactStrictMode: true,
+  images: {
+    dangerouslyAllowSVG: true,
+    contentDispositionType: "attachment",
+    contentSecurityPolicy: "default-src 'none'; img-src 'self' data:; script-src 'none'",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
+    ],
+  },
+};
 
-export default withContentlayer(nextConfig)
+export default withContentlayer(withNextIntl(nextConfig));

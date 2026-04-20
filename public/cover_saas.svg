@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#063672"/>
+      <stop offset="100%" stop-color="#0a2a5e"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.04" stroke="#8bb1d8" stroke-width="1">
+    <line x1="0" y1="105" x2="1200" y2="105"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="525" x2="1200" y2="525"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Right decorative — rising bars chart -->
+  <g opacity="0.15">
+    <rect x="820" y="380" width="40" height="180" rx="4" fill="#063672"/>
+    <rect x="880" y="300" width="40" height="260" rx="4" fill="#063672"/>
+    <rect x="940" y="220" width="40" height="340" rx="4" fill="#9C824A"/>
+    <rect x="1000" y="150" width="40" height="410" rx="4" fill="#9C824A"/>
+    <rect x="1060" y="80" width="40" height="480" rx="4" fill="#063672"/>
+  </g>
+
+  <!-- Left accent bar -->
+  <rect x="0" y="0" width="8" height="630" fill="url(#accentGrad)"/>
+
+  <!-- Tag pill -->
+  <rect x="80" y="90" width="180" height="34" rx="17" fill="#063672" opacity="0.7"/>
+  <text x="170" y="113" fill="#8bb1d8" font-size="13" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" font-weight="600" letter-spacing="1">SAAS · SOLO</text>
+
+  <!-- Main title -->
+  <text x="80" y="220" fill="#ffffff" font-size="68" font-family="Arial, Helvetica, sans-serif" font-weight="700">Créer un SaaS</text>
+  <text x="80" y="304" fill="#ffffff" font-size="68" font-family="Arial, Helvetica, sans-serif" font-weight="700">minimaliste en solo</text>
+
+  <!-- Gold accent line -->
+  <rect x="80" y="332" width="120" height="4" rx="2" fill="#9C824A"/>
+
+  <!-- Subtitle -->
+  <text x="80" y="395" fill="#94a3b8" font-size="26" font-family="Arial, Helvetica, sans-serif">Tech stack et stratégie pour lancer vite</text>
+
+  <!-- Arrow icon (abstract up-right arrow) -->
+  <g transform="translate(1050, 130)" opacity="0.6">
+    <circle cx="0" cy="0" r="50" fill="none" stroke="#9C824A" stroke-width="2"/>
+    <polyline points="-16,16 16,-16" stroke="#9C824A" stroke-width="3" stroke-linecap="round"/>
+    <polyline points="-4,-16 16,-16 16,4" stroke="#9C824A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+
+  <!-- Author -->
+  <text x="80" y="575" fill="#4b5563" font-size="16" font-family="Arial, Helvetica, sans-serif">jose-pascal.vercel.app</text>
+  <text x="1120" y="575" fill="#4b5563" font-size="16" font-family="Arial, Helvetica, sans-serif" text-anchor="end">José DACOSTA</text>
+</svg>

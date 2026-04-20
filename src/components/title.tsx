@@ -23,7 +23,7 @@ export default function Title({ title, icon, link }: Props) {
             alt="arrow"
             width={24}
             height={24}
-            className="animate-pulse"
+            className=""
           />
         </Link>
       )}

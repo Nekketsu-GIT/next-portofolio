@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="800" y2="450" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+
+  <!-- Subtle hexagon grid -->
+  <g opacity="0.05" stroke="#8bb1d8" stroke-width="1" fill="none">
+    <polygon points="580,80 620,60 660,80 660,120 620,140 580,120"/>
+    <polygon points="640,120 680,100 720,120 720,160 680,180 640,160"/>
+    <polygon points="580,160 620,140 660,160 660,200 620,220 580,200"/>
+    <polygon points="700,60 740,40 780,60 780,100 740,120 700,100"/>
+    <polygon points="640,200 680,180 720,200 720,240 680,260 640,240"/>
+    <polygon points="700,140 740,120 780,140 780,180 740,200 700,180"/>
+  </g>
+
+  <!-- Progress/heatmap decoration -->
+  <g opacity="0.2" transform="translate(530, 60)">
+    <rect x="0" y="0" width="22" height="22" rx="3" fill="#063672"/>
+    <rect x="28" y="0" width="22" height="22" rx="3" fill="#1e4d9e"/>
+    <rect x="56" y="0" width="22" height="22" rx="3" fill="#9C824A"/>
+    <rect x="84" y="0" width="22" height="22" rx="3" fill="#063672"/>
+    <rect x="112" y="0" width="22" height="22" rx="3" fill="#1e4d9e"/>
+    <rect x="140" y="0" width="22" height="22" rx="3" fill="#063672"/>
+    <rect x="0" y="28" width="22" height="22" rx="3" fill="#9C824A"/>
+    <rect x="28" y="28" width="22" height="22" rx="3" fill="#063672"/>
+    <rect x="56" y="28" width="22" height="22" rx="3" fill="#1e4d9e"/>
+    <rect x="84" y="28" width="22" height="22" rx="3" fill="#9C824A"/>
+    <rect x="112" y="28" width="22" height="22" rx="3" fill="#1e4d9e"/>
+    <rect x="140" y="28" width="22" height="22" rx="3" fill="#9C824A"/>
+    <rect x="0" y="56" width="22" height="22" rx="3" fill="#1e4d9e"/>
+    <rect x="28" y="56" width="22" height="22" rx="3" fill="#9C824A"/>
+    <rect x="56" y="56" width="22" height="22" rx="3" fill="#063672"/>
+    <rect x="84" y="56" width="22" height="22" rx="3" fill="#1e4d9e"/>
+    <rect x="112" y="56" width="22" height="22" rx="3" fill="#063672"/>
+    <rect x="140" y="56" width="22" height="22" rx="3" fill="#9C824A"/>
+    <rect x="28" y="84" width="22" height="22" rx="3" fill="#9C824A"/>
+    <rect x="56" y="84" width="22" height="22" rx="3" fill="#1e4d9e"/>
+    <rect x="84" y="84" width="22" height="22" rx="3" fill="#9C824A"/>
+    <rect x="112" y="84" width="22" height="22" rx="3" fill="#063672"/>
+  </g>
+
+  <!-- Left accent -->
+  <rect x="0" y="0" width="6" height="450" fill="#063672"/>
+
+  <!-- Project name -->
+  <text x="60" y="155" fill="#ffffff" font-size="80" font-family="Arial, Helvetica, sans-serif" font-weight="900" opacity="0.1">PAI</text>
+  <text x="60" y="150" fill="#8bb1d8" font-size="72" font-family="Arial, Helvetica, sans-serif" font-weight="900">PAI</text>
+
+  <!-- Full name -->
+  <text x="60" y="188" fill="#94a3b8" font-size="18" font-family="Arial, Helvetica, sans-serif">Plateforme Académique Intelligente</text>
+
+  <!-- Accent line -->
+  <rect x="60" y="208" width="80" height="3" rx="1.5" fill="#9C824A"/>
+
+  <!-- Description -->
+  <text x="60" y="255" fill="#6b7280" font-size="16" font-family="Arial, Helvetica, sans-serif">LMS multi-tenant avec IA — flashcards,</text>
+  <text x="60" y="278" fill="#6b7280" font-size="16" font-family="Arial, Helvetica, sans-serif">quiz, résumés et Q&amp;A en streaming</text>
+
+  <!-- Tags -->
+  <rect x="60" y="310" width="86" height="26" rx="5" fill="#063672" opacity="0.6"/>
+  <text x="103" y="328" fill="#8bb1d8" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle">FastAPI</text>
+
+  <rect x="158" y="310" width="76" height="26" rx="5" fill="#063672" opacity="0.6"/>
+  <text x="196" y="328" fill="#8bb1d8" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle">Next.js</text>
+
+  <rect x="246" y="310" width="90" height="26" rx="5" fill="#063672" opacity="0.6"/>
+  <text x="291" y="328" fill="#8bb1d8" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle">Keycloak</text>
+
+  <rect x="348" y="310" width="130" height="26" rx="5" fill="#9C824A" opacity="0.4"/>
+  <text x="413" y="328" fill="#C6A763" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle">Anthropic SDK</text>
+
+  <!-- Status badge -->
+  <rect x="60" y="360" width="130" height="28" rx="14" fill="#14532d" opacity="0.7"/>
+  <circle cx="83" cy="374" r="5" fill="#22c55e"/>
+  <text x="170" y="379" fill="#86efac" font-size="13" font-family="Arial, Helvetica, sans-serif" text-anchor="middle">Pré-production</text>
+</svg>

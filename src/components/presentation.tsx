@@ -4,23 +4,32 @@ import Image from "next/legacy/image";
 import { useEffect, useState } from "react";
 import { SocialIcon } from "react-social-icons";
 import { motion } from "framer-motion";
-import { ChevronDown, Download } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 type Props = {
   image?: string;
   title?: string;
   description?: string;
+  availableLabel?: string;
+  ctaContact?: string;
+  ctaProjects?: string;
+  ctaMalt?: string;
   socialMediaLinks?: {
     github?: string;
     linkedin?: string;
     twitter?: string;
+    malt?: string;
   };
 };
 
 export default function Presentation({
   image,
-  title = "Welcome!",
+  title = "Développeur Full Stack & Builder",
   description,
+  availableLabel = "Disponible pour des missions freelance",
+  ctaContact = "Me contacter",
+  ctaProjects = "Mes projets",
+  ctaMalt = "Profil Malt",
   socialMediaLinks,
 }: Props) {
   const [textIndex, setTextIndex] = useState(0);
@@ -69,39 +78,19 @@ export default function Presentation({
       initial="hidden"
       animate="visible"
     >
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute -top-40 -right-40 w-80 h-80 bg-yaleblue/10 rounded-full"
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-        <motion.div
-          className="absolute -bottom-40 -left-40 w-60 h-60 bg-darkgoldenrod/10 rounded-full"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            rotate: [360, 180, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-      </div>
-
       {/* Text Content */}
       <motion.div
         className="flex flex-col gap-6 items-start max-w-2xl z-10"
         variants={itemVariants}
       >
+        {/* Availability badge */}
+        <motion.div variants={itemVariants}>
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-green-400/40 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 text-sm font-medium">
+            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            {availableLabel}
+          </span>
+        </motion.div>
+
         <motion.h1
           className="text-4xl md:text-6xl font-bold text-yaleblue leading-tight"
           variants={itemVariants}
@@ -120,7 +109,7 @@ export default function Presentation({
           className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed"
           variants={itemVariants}
         >
-          {description ?? "I am a software engineer."}
+          {description ?? "Je conçois et déploie des produits web et mobile — de l'API à la mise en production. Spécialisé dans les applications IA et les architectures backend complexes."}
         </motion.p>
 
         <motion.div
@@ -128,12 +117,8 @@ export default function Presentation({
           variants={itemVariants}
         >
           <motion.button
-            className="px-8 py-4 rounded-lg bg-yaleblue text-white font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
-            whileHover={{
-              scale: 1.05,
-              backgroundColor: "var(--darkgoldenrod)",
-              color: "#000",
-            }}
+            className="px-8 py-4 rounded-lg bg-yaleblue dark:bg-[#063672] text-white font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
               const contactSection = document.getElementById('contact');
@@ -142,28 +127,30 @@ export default function Presentation({
               }
             }}
           >
-            Get In Touch
+            {ctaContact}
           </motion.button>
 
           <motion.a
             href="/projects"
-            className="px-8 py-4 rounded-lg border-2 border-yaleblue text-yaleblue font-semibold text-lg hover:bg-yaleblue hover:text-white transition-all duration-300"
+            className="px-8 py-4 rounded-lg border-2 border-yaleblue text-yaleblue font-semibold text-lg hover:bg-yaleblue dark:hover:bg-[#063672] hover:text-white transition-all duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            View Projects
+            {ctaProjects}
           </motion.a>
 
-          <motion.a
-            href="/cv.pdf"
-            download
-            className="px-8 py-4 rounded-lg border-2 border-gray-400 dark:border-gray-500 text-gray-700 dark:text-gray-300 font-semibold text-lg hover:border-darkgoldenrod hover:text-darkgoldenrod transition-all duration-300 flex items-center gap-2"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Download className="w-5 h-5" />
-            Download CV
-          </motion.a>
+          {socialMediaLinks?.malt && (
+            <motion.a
+              href={socialMediaLinks.malt}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 rounded-lg border-2 border-darkgoldenrod text-darkgoldenrod font-semibold text-lg hover:bg-darkgoldenrod hover:text-white transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {ctaMalt}
+            </motion.a>
+          )}
         </motion.div>
       </motion.div>
 

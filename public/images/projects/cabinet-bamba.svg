@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="800" y2="450" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0f0e0a"/>
+      <stop offset="100%" stop-color="#1a170e"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+
+  <!-- Scale of justice icon (right side) -->
+  <g transform="translate(490, 60)" opacity="0.22">
+    <!-- Pillar -->
+    <rect x="115" y="0" width="8" height="280" fill="#9C824A"/>
+    <!-- Top crossbar -->
+    <rect x="40" y="30" width="160" height="6" rx="3" fill="#9C824A"/>
+    <!-- Left chain -->
+    <line x1="80" y1="36" x2="60" y2="120" stroke="#9C824A" stroke-width="2.5"/>
+    <!-- Right chain -->
+    <line x1="160" y1="36" x2="180" y2="120" stroke="#9C824A" stroke-width="2.5"/>
+    <!-- Left plate -->
+    <ellipse cx="60" cy="130" rx="40" ry="12" fill="#C6A763" opacity="0.7"/>
+    <!-- Right plate -->
+    <ellipse cx="180" cy="130" rx="40" ry="12" fill="#C6A763" opacity="0.7"/>
+    <!-- Base -->
+    <rect x="90" y="278" width="60" height="10" rx="5" fill="#9C824A"/>
+    <rect x="70" y="285" width="100" height="6" rx="3" fill="#7a6238"/>
+  </g>
+
+  <!-- Subtle diagonal lines -->
+  <g opacity="0.03" stroke="#9C824A" stroke-width="1">
+    <line x1="0" y1="100" x2="800" y2="100"/>
+    <line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="400" x2="800" y2="400"/>
+  </g>
+
+  <!-- Left accent (golden/legal) -->
+  <rect x="0" y="0" width="6" height="450" fill="#9C824A"/>
+
+  <!-- Monogram / initials -->
+  <text x="60" y="150" fill="#9C824A" font-size="72" font-family="Georgia, serif" font-weight="700">TB</text>
+
+  <!-- Project name -->
+  <text x="60" y="195" fill="#e5e7eb" font-size="22" font-family="Georgia, serif" font-weight="700">Cabinet Ténin BAMBA</text>
+  <text x="60" y="225" fill="#94a3b8" font-size="16" font-family="Georgia, serif" font-style="italic">Avocate au Barreau de Paris</text>
+
+  <!-- Accent line -->
+  <rect x="60" y="245" width="80" height="2" rx="1" fill="#9C824A"/>
+
+  <!-- Description -->
+  <text x="60" y="288" fill="#6b7280" font-size="15" font-family="Arial, Helvetica, sans-serif">Portfolio professionnel pour cabinet d'avocat.</text>
+  <text x="60" y="311" fill="#6b7280" font-size="15" font-family="Arial, Helvetica, sans-serif">Formulaire de contact RGPD-compliant, SEO.</text>
+
+  <!-- Tags -->
+  <rect x="60" y="343" width="90" height="26" rx="5" fill="#1a170e" stroke="#9C824A" stroke-width="1"/>
+  <text x="105" y="361" fill="#C6A763" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle">Next.js 14</text>
+
+  <rect x="162" y="343" width="100" height="26" rx="5" fill="#1a170e" stroke="#9C824A" stroke-width="1"/>
+  <text x="212" y="361" fill="#C6A763" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle">Tailwind CSS</text>
+
+  <rect x="274" y="343" width="66" height="26" rx="5" fill="#1a170e" stroke="#9C824A" stroke-width="1"/>
+  <text x="307" y="361" fill="#C6A763" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle">RGPD</text>
+
+  <!-- Delivered badge -->
+  <rect x="60" y="390" width="120" height="28" rx="14" fill="#1e3a5f" opacity="0.8"/>
+  <text x="120" y="409" fill="#93c5fd" font-size="13" font-family="Arial, Helvetica, sans-serif" text-anchor="middle">Livré au client</text>
+</svg>

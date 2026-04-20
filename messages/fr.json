@@ -1,0 +1,66 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "projects": "Projets",
+    "blog": "Blog",
+    "contact": "Me contacter"
+  },
+  "hero": {
+    "available": "Disponible pour des missions freelance",
+    "cta_contact": "Me contacter",
+    "cta_projects": "Mes projets",
+    "cta_malt": "Profil Malt"
+  },
+  "currently": {
+    "label": "En ce moment",
+    "live": "En production",
+    "pre": "Pré-production",
+    "store": "Store-ready",
+    "talespark_detail": "Générateur d'histoires IA pour enfants — Stripe, Auth0, multilingue",
+    "pai_detail": "LMS multi-tenant avec IA embarquée — FastAPI, Keycloak, CI/CD",
+    "invitee_detail": "App mobile RSVP — Expo, Firebase, iOS & Android"
+  },
+  "services": {
+    "title": "Ce que je fais",
+    "subtitle": "Services que je propose à mes clients et aux équipes avec lesquelles je travaille."
+  },
+  "skills": {
+    "title": "Stack & Expertise",
+    "subtitle": "Technologies avec lesquelles je construis des produits en production."
+  },
+  "projects_home": {
+    "title": "Projets récents",
+    "cta": "Voir tous les projets"
+  },
+  "contact_section": {
+    "title": "Travaillons ensemble",
+    "subtitle": "Un projet en tête ? Discutons-en."
+  },
+  "projects_page": {
+    "title": "Mes projets",
+    "desc": "Produits réels — conçus, construits et livrés. Du LMS multi-tenant à l'agent IA, en passant par les apps mobiles et les missions client.",
+    "stat_projects": "Projets",
+    "stat_tech": "Technologies",
+    "stat_live": "En ligne",
+    "cta_title": "Un projet en tête ?",
+    "cta_desc": "Je suis disponible pour des missions freelance. Discutons de votre projet.",
+    "cta_btn": "Me contacter"
+  },
+  "blog_page": {
+    "title": "Articles",
+    "subtitle": "Réflexions et insights sur le développement web et l'IA.",
+    "empty": "Aucun article pour l'instant. Revenez bientôt !"
+  },
+  "blog_post": {
+    "back": "← Retour au blog",
+    "min_read": "min de lecture"
+  },
+  "footer": {
+    "tagline": "Je construis des produits web, mobile et IA — de l'idée à la mise en production.",
+    "available": "Disponible pour missions freelance",
+    "nav_label": "Navigation",
+    "find_me": "Me trouver",
+    "copyright": "Tous droits réservés",
+    "built_with": "Fait avec Next.js & Tailwind CSS"
+  }
+}

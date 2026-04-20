@@ -1,0 +1,80 @@
+---
+title: "Claude Code in Production: 3 Months of AI-Native Development"
+date: "2026-04-18"
+description: "I have been using Claude Code as my primary development environment for three months across multiple real projects — a multi-tenant LMS, an AI story generator, and this portfolio. Here is what actually changed, what didn't, and what I would tell someone starting today."
+image_cover: "/cover_claude_code.svg"
+tags: ["Claude Code", "IA", "Productivité", "Outils"]
+---
+
+## What Claude Code actually is
+
+Claude Code is a CLI-based AI coding agent from Anthropic. It runs in your terminal, reads your codebase, edits files, runs commands, and can execute multi-step tasks autonomously. It is not a chat interface with a code block you copy-paste — it acts directly on your repository.
+
+The difference matters. Copilot and similar tools complete your next line. Claude Code plans and executes a sequence of changes across multiple files, runs the build to check if it worked, and fixes what broke.
+
+---
+
+## What changed in practice
+
+### The "what is in this codebase" problem is solved
+
+Every developer knows the feeling of returning to a project after two weeks and spending 30 minutes re-orienting. With Claude Code, I describe what I want and it reads the relevant files before acting. Context recovery is instant.
+
+On PAI, a FastAPI + Next.js monorepo with 40+ database models, I can ask "where does the flashcard generation happen and what model does it use?" and get a precise answer with file and line references in seconds. The alternative is `grep` chains or IDE search and mental stitching.
+
+### Boilerplate is no longer a cost
+
+Adding a new endpoint in FastAPI follows a pattern: schema, service, router, migration, test skeleton. I used to copy-paste and adapt. Now I describe the endpoint and Claude Code generates all four files respecting the existing conventions it found in the codebase.
+
+The quality is proportional to the quality of your existing code. It mirrors what is there. If your codebase has consistent naming, type annotations, and error handling patterns, the generated code will too.
+
+### Debugging improved, not because of magic
+
+Claude Code does not have some oracle ability to find bugs. What it does is read the error, locate all relevant code paths, and surface hypotheses in order of likelihood. It is a structured rubber duck that can also run the fix.
+
+The real gain: I stopped debugging in circles. The process is now — error message, ask Claude Code, read the diagnosis, approve the fix, run the test. Faster and more systematic.
+
+---
+
+## What did not change
+
+### You still need to understand the code
+
+Claude Code generates plausible-looking code that can be wrong. The bugs it introduces tend to be subtle: a missing await, a wrong foreign key reference, a security assumption that does not hold in a multi-tenant context.
+
+Reviewing what it produces requires understanding the domain. If you do not know what a Keycloak realm mapper does, you cannot evaluate whether the generated token validation is correct. The tool amplifies your knowledge, it does not replace it.
+
+### Architecture decisions remain yours
+
+I asked Claude Code to "design the multi-tenant isolation strategy" on PAI once. It gave a reasonable answer but it was generic — it did not know our deployment constraints, our team size, or our decision to use Keycloak for RBAC. Architecture requires context that lives in conversations and documents, not just code.
+
+Where Claude Code excels: implementing a decision you have already made. Where it falls short: making the decision for you.
+
+---
+
+## Three practical observations
+
+**1. CLAUDE.md files are worth writing.**
+Claude Code reads a `CLAUDE.md` in the project root as persistent instructions. Writing one forces you to articulate the conventions, stack, and constraints of your project. The resulting code generation is noticeably more consistent. Treat it like documentation that actually gets read.
+
+**2. Parallel tool calls change the pace.**
+When Claude Code can read multiple files at once, the turnaround on "understand, then act" tasks is fast enough that it feels interactive. Tasks that used to take 20 minutes of manual file navigation and editing happen in 2-3 minutes.
+
+**3. The trust gradient matters.**
+I give Claude Code full autonomy on test files, boilerplate, and styling. I review carefully for service layer logic, database migrations, and anything touching auth. Calibrating this by risk level makes the workflow sustainable — you are not second-guessing every line, and you are not blindly accepting changes to production-critical code.
+
+---
+
+## The honest trade-off
+
+Claude Code is fast but it generates volume. A task that produces 300 lines needs 300 lines reviewed. On net this is still faster, but it shifts the bottleneck from writing to reviewing. If you are a slow reviewer or skip reviews, the quality guarantee disappears.
+
+There is also a focus cost. It is easy to let Claude Code drive while you drift. The sessions where I stay engaged — asking "why did you do it this way?", reading the diffs before approving — produce better outcomes than the sessions where I approve on autopilot.
+
+---
+
+## Worth it?
+
+Yes, unambiguously. The productivity gain on implementation tasks is real and consistent. The ability to maintain context across a complex codebase reduces the mental load that makes large projects slow. And the workflow itself — describe intent, review output, iterate — is a better loop than write-everything-manually.
+
+The developers who will get the most out of it are not the ones who want to write less code. They are the ones who want to build more things.

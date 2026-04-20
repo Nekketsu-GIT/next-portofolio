@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="800" y2="450" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+
+  <!-- Terminal on right -->
+  <g transform="translate(460, 60)" opacity="0.3">
+    <rect width="300" height="310" rx="8" fill="#1a1f2e" stroke="#374151" stroke-width="1"/>
+    <rect width="300" height="30" rx="8" fill="#252d3d"/>
+    <rect y="16" width="300" height="14" fill="#252d3d"/>
+    <circle cx="16" cy="15" r="5" fill="#ef4444" opacity="0.7"/>
+    <circle cx="34" cy="15" r="5" fill="#f59e0b" opacity="0.7"/>
+    <circle cx="52" cy="15" r="5" fill="#22c55e" opacity="0.7"/>
+    <text x="150" y="19" fill="#6b7280" font-size="10" font-family="monospace" text-anchor="middle">notion-agent</text>
+
+    <text x="14" y="60" fill="#22c55e" font-size="11" font-family="monospace">$ python agent.py</text>
+    <text x="14" y="82" fill="#6b7280" font-size="11" font-family="monospace">&gt; Résume PAI ce mois-ci</text>
+    <text x="14" y="104" fill="#8bb1d8" font-size="11" font-family="monospace">Searching Notion...</text>
+    <text x="14" y="126" fill="#8bb1d8" font-size="11" font-family="monospace">RAG query: ChromaDB</text>
+    <text x="14" y="148" fill="#8bb1d8" font-size="11" font-family="monospace">Calling Claude...</text>
+    <text x="14" y="188" fill="#e5e7eb" font-size="10" font-family="monospace">En avril, PAI a progressé</text>
+    <text x="14" y="208" fill="#e5e7eb" font-size="10" font-family="monospace">sur les phases 4b et 4c.</text>
+    <text x="14" y="228" fill="#e5e7eb" font-size="10" font-family="monospace">Les features IA sont</text>
+    <text x="14" y="248" fill="#e5e7eb" font-size="10" font-family="monospace">complètes...</text>
+    <text x="14" y="280" fill="#22c55e" font-size="11" font-family="monospace">Done in 3.2s</text>
+    <rect x="14" y="296" width="7" height="12" fill="#22c55e" opacity="0.8"/>
+  </g>
+
+  <!-- Graph nodes -->
+  <g opacity="0.12">
+    <circle cx="640" cy="390" r="18" fill="none" stroke="#9C824A" stroke-width="1.5"/>
+    <circle cx="700" cy="370" r="12" fill="none" stroke="#9C824A" stroke-width="1"/>
+    <circle cx="730" cy="400" r="10" fill="none" stroke="#9C824A" stroke-width="1"/>
+    <line x1="640" y1="390" x2="700" y2="370" stroke="#9C824A" stroke-width="1"/>
+    <line x1="700" y1="370" x2="730" y2="400" stroke="#9C824A" stroke-width="1"/>
+  </g>
+
+  <!-- Left accent -->
+  <rect x="0" y="0" width="6" height="450" fill="#9C824A"/>
+
+  <!-- Tag -->
+  <rect x="60" y="70" width="200" height="28" rx="14" fill="#1a1f2e" stroke="#9C824A" stroke-width="1"/>
+  <text x="160" y="89" fill="#C6A763" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" letter-spacing="0.5">MCP · RAG · AGENTS</text>
+
+  <!-- Project name -->
+  <text x="60" y="185" fill="#ffffff" font-size="44" font-family="Arial, Helvetica, sans-serif" font-weight="700">Notion</text>
+  <text x="60" y="238" fill="#9C824A" font-size="44" font-family="Arial, Helvetica, sans-serif" font-weight="700">Intelligence Layer</text>
+
+  <!-- Accent line -->
+  <rect x="60" y="260" width="80" height="3" rx="1.5" fill="#9C824A"/>
+
+  <!-- Description -->
+  <text x="60" y="305" fill="#6b7280" font-size="15" font-family="Arial, Helvetica, sans-serif">CLI Python qui transforme un workspace Notion</text>
+  <text x="60" y="328" fill="#6b7280" font-size="15" font-family="Arial, Helvetica, sans-serif">en agent interrogeable via RAG + MCP + Claude.</text>
+
+  <!-- Tags -->
+  <rect x="60" y="360" width="76" height="26" rx="5" fill="#1a1f2e" stroke="#374151" stroke-width="1"/>
+  <text x="98" y="378" fill="#94a3b8" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle">Python</text>
+
+  <rect x="148" y="360" width="96" height="26" rx="5" fill="#1a1f2e" stroke="#374151" stroke-width="1"/>
+  <text x="196" y="378" fill="#94a3b8" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle">ChromaDB</text>
+
+  <rect x="256" y="360" width="66" height="26" rx="5" fill="#1a1f2e" stroke="#9C824A" stroke-width="1"/>
+  <text x="289" y="378" fill="#C6A763" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle">MCP</text>
+
+  <rect x="334" y="360" width="130" height="26" rx="5" fill="#1a1f2e" stroke="#9C824A" stroke-width="1"/>
+  <text x="399" y="378" fill="#C6A763" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle">Anthropic SDK</text>
+</svg>

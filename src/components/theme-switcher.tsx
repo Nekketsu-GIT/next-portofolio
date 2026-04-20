@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -10,10 +9,9 @@ export default function ThemeSwitcher() {
 
   useEffect(() => {
     setMounted(true);
-    // Check if user has a theme preference
     const savedTheme = localStorage.getItem("theme");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    
+
     if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
       setIsDark(true);
       document.documentElement.classList.add("dark");
@@ -26,7 +24,7 @@ export default function ThemeSwitcher() {
   const toggleTheme = () => {
     const newTheme = !isDark;
     setIsDark(newTheme);
-    
+
     if (newTheme) {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
@@ -37,32 +35,20 @@ export default function ThemeSwitcher() {
   };
 
   if (!mounted) {
-    return null; // Avoid hydration mismatch
+    return <div className="w-9 h-9" />;
   }
 
   return (
-    <motion.button
+    <button
       onClick={toggleTheme}
-      className="fixed top-4 right-4 z-50 p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow"
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.3 }}
+      className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+      aria-label="Toggle theme"
     >
-      <motion.div
-        key={isDark ? "moon" : "sun"}
-        initial={{ rotate: -180, opacity: 0 }}
-        animate={{ rotate: 0, opacity: 1 }}
-        exit={{ rotate: 180, opacity: 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        {isDark ? (
-          <Moon className="w-5 h-5 text-yellow-500" />
-        ) : (
-          <Sun className="w-5 h-5 text-orange-500" />
-        )}
-      </motion.div>
-    </motion.button>
+      {isDark ? (
+        <Sun className="w-5 h-5 text-yellow-500" />
+      ) : (
+        <Moon className="w-5 h-5 text-gray-600" />
+      )}
+    </button>
   );
 }

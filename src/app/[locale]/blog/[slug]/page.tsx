@@ -1,5 +1,5 @@
-import { allPosts } from 'contentlayer/generated'
-import { getMDXComponent } from 'next-contentlayer/hooks'
+import { allPosts } from "contentlayer/generated";
+import { getMDXComponent } from "next-contentlayer/hooks";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -7,62 +7,58 @@ import Link from "next/link";
 import ReadingProgress from "@/components/reading-progress";
 import AnimatedSection from "@/components/animated-section";
 import StructuredData from "@/components/structured-data";
+import { getTranslations } from "next-intl/server";
+import { routing } from "@/i18n/routing";
 
-// Add reading time calculation
 function calculateReadingTime(content: string): number {
   const wordsPerMinute = 200;
   const words = content.split(/\s+/).length;
   return Math.ceil(words / wordsPerMinute);
 }
 
+export async function generateStaticParams() {
+  return routing.locales.flatMap((locale) =>
+    allPosts.map((post) => ({ locale, slug: post._raw.flattenedPath }))
+  );
+}
+
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = allPosts.find((post) => post.url === `${slug}`);
+  const post = allPosts.find((post) => post._raw.flattenedPath === slug);
 
   if (!post) {
-    return {
-      title: "Blog Post Not Found - José DACOSTA",
-      description: "This blog post could not be found.",
-    };
+    return { title: "Article introuvable — José DACOSTA" };
   }
 
-  // Generate metadata for the post
   return {
-    title: `${post.title} - José DACOSTA`,
+    title: `${post.title} — José DACOSTA`,
     description: post.description,
     openGraph: {
-      title: `${post.title} - José DACOSTA`,
+      title: `${post.title} — José DACOSTA`,
       description: post.description,
       type: "article",
       publishedTime: post.date,
       authors: ["José DACOSTA"],
-      images: [
-        {
-          url: post.image_cover || "/images/default-blog-image.jpg", // Fallback image if none is provided
-          alt: post.title,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${post.title} - José DACOSTA`,
-      description: post.description,
-      images: [post.image_cover || "/images/default-blog-image.jpg"],
+      images: [{ url: post.image_cover || "/images/og-image.jpg", alt: post.title }],
     },
   };
 }
 
+export default async function SingleArticle({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale, slug } = await params;
+  const t = await getTranslations("blog_post");
+  const post = allPosts.find((post) => post._raw.flattenedPath === slug);
+  if (!post) notFound();
 
-export default async function SingleArticle({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const post = allPosts.find((post) => post._raw.flattenedPath === slug)
-  if (!post) notFound()
-
-  const Content = getMDXComponent(post.body.code)
+  const Content = getMDXComponent(post.body.code);
   const readingTime = calculateReadingTime(post.body.raw);
 
   const articleData = {
@@ -77,22 +73,25 @@ export default async function SingleArticle({ params }: { params: Promise<{ slug
     },
   };
 
+  const dateLocale = locale === "fr" ? "fr-FR" : "en-US";
+
   return (
     <>
       <StructuredData type="article" data={articleData} />
       <ReadingProgress />
 
       <div className="max-w-4xl mx-auto">
-        {/* Breadcrumb */}
         <AnimatedSection>
           <nav className="mb-8 text-sm">
-            <Link href="/blog" className="text-yaleblue hover:text-darkgoldenrod transition-colors">
-              ← Back to Blog
+            <Link
+              href="/blog"
+              className="text-yaleblue hover:text-darkgoldenrod transition-colors"
+            >
+              {t("back")}
             </Link>
           </nav>
         </AnimatedSection>
 
-        {/* Article Header */}
         <AnimatedSection delay={0.1}>
           <header className="mb-12 text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
@@ -104,10 +103,10 @@ export default async function SingleArticle({ params }: { params: Promise<{ slug
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                {new Date(post.date).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
+                {new Date(post.date).toLocaleDateString(dateLocale, {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
                 })}
               </time>
 
@@ -115,7 +114,7 @@ export default async function SingleArticle({ params }: { params: Promise<{ slug
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                {readingTime} min read
+                {readingTime} {t("min_read")}
               </span>
             </div>
 
@@ -137,14 +136,8 @@ export default async function SingleArticle({ params }: { params: Promise<{ slug
           </header>
         </AnimatedSection>
 
-        {/* Article Content */}
         <AnimatedSection delay={0.2}>
-          <article className="prose prose-lg prose-gray dark:prose-invert max-w-none
-            prose-headings:text-gray-900 dark:prose-headings:text-white
-            prose-p:text-gray-700 dark:prose-p:text-gray-300
-            prose-a:text-yaleblue hover:prose-a:text-darkgoldenrod
-            prose-code:text-yaleblue prose-code:bg-gray-100 dark:prose-code:bg-gray-800
-            prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-700">
+          <article className="prose prose-lg prose-gray dark:prose-invert max-w-none prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-yaleblue hover:prose-a:text-darkgoldenrod prose-code:text-yaleblue prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-700">
             <Content />
           </article>
         </AnimatedSection>
@@ -152,4 +145,3 @@ export default async function SingleArticle({ params }: { params: Promise<{ slug
     </>
   );
 }
-

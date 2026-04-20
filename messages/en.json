@@ -1,0 +1,66 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "blog": "Blog",
+    "contact": "Contact me"
+  },
+  "hero": {
+    "available": "Available for freelance missions",
+    "cta_contact": "Contact me",
+    "cta_projects": "My projects",
+    "cta_malt": "Malt profile"
+  },
+  "currently": {
+    "label": "Currently building",
+    "live": "Live",
+    "pre": "Pre-production",
+    "store": "Store-ready",
+    "talespark_detail": "AI story generator for children — Stripe, Auth0, multilingual",
+    "pai_detail": "Multi-tenant LMS with embedded AI — FastAPI, Keycloak, CI/CD",
+    "invitee_detail": "RSVP mobile app — Expo, Firebase, iOS & Android"
+  },
+  "services": {
+    "title": "What I do",
+    "subtitle": "Services I offer to clients and teams I work with."
+  },
+  "skills": {
+    "title": "Stack & Expertise",
+    "subtitle": "Technologies I use to build products in production."
+  },
+  "projects_home": {
+    "title": "Recent projects",
+    "cta": "View all projects"
+  },
+  "contact_section": {
+    "title": "Let's work together",
+    "subtitle": "Have a project in mind? Let's talk."
+  },
+  "projects_page": {
+    "title": "My projects",
+    "desc": "Real products — designed, built and shipped. From multi-tenant LMS to AI agents, mobile apps and client work.",
+    "stat_projects": "Projects",
+    "stat_tech": "Technologies",
+    "stat_live": "Live",
+    "cta_title": "Have a project in mind?",
+    "cta_desc": "I'm available for freelance missions. Let's discuss your project.",
+    "cta_btn": "Contact me"
+  },
+  "blog_page": {
+    "title": "Articles",
+    "subtitle": "Thoughts and insights on web development and AI.",
+    "empty": "No posts yet. Check back soon!"
+  },
+  "blog_post": {
+    "back": "← Back to blog",
+    "min_read": "min read"
+  },
+  "footer": {
+    "tagline": "I build web, mobile and AI products — from idea to production.",
+    "available": "Available for freelance missions",
+    "nav_label": "Navigation",
+    "find_me": "Find me",
+    "copyright": "All rights reserved",
+    "built_with": "Built with Next.js & Tailwind CSS"
+  }
+}

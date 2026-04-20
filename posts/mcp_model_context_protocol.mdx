@@ -1,0 +1,106 @@
+---
+title: "MCP : le protocole qui change l'intégration IA dans vos apps"
+date: "2026-04-15"
+description: "Le Model Context Protocol (MCP) est en train de devenir le standard de facto pour connecter des LLMs à des outils externes. Ce que c'est, pourquoi ça change tout, et comment je l'utilise concrètement pour transformer un workspace Notion en agent interrogeable."
+image_cover: "/cover_mcp.svg"
+tags: ["IA", "MCP", "Architecture", "Agents", "Claude"]
+---
+
+## Le problème que MCP résout
+
+Depuis l'émergence des LLMs, l'intégration dans des applications réelles posait toujours la même question : comment donner au modèle accès à des données externes de façon propre, sécurisée et réutilisable ?
+
+Les solutions historiques : des appels API codés en dur dans les prompts, des outils custom par application, des pipelines fragiles. Chaque intégration était un silo.
+
+MCP (Model Context Protocol), introduit par Anthropic fin 2024, propose une réponse standardisée : un protocole client-serveur qui permet à n'importe quel LLM de découvrir et d'utiliser des outils externes de façon uniforme.
+
+---
+
+## Comment fonctionne MCP
+
+MCP définit trois composants :
+
+- **MCP Server** : expose des ressources (données) et des tools (actions) via le protocole.
+- **MCP Client** : le LLM (ou l'app qui l'encapsule) qui découvre et invoque les tools.
+- **Transport** : stdio (processus local) ou HTTP+SSE (distant).
+
+Le serveur déclare ses capacités au démarrage. Le client (Claude, dans mon cas) lit cette liste et peut appeler les outils à la demande pendant une conversation. C'est une forme de plugin system standardisé pour les LLMs.
+
+```json
+{
+  "tools": [
+    {
+      "name": "search_pages",
+      "description": "Search Notion pages by keyword",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": { "type": "string" }
+        },
+        "required": ["query"]
+      }
+    }
+  ]
+}
+```
+
+Le LLM appelle `search_pages` si et seulement si le contexte de la conversation le justifie. Pas de plumbing manuel.
+
+---
+
+## Ce que j'ai construit avec MCP
+
+Dans mon projet **Notion Intelligence Layer**, l'objectif était simple : pouvoir interroger l'ensemble de mon workspace Notion avec un prompt en langage naturel, et obtenir une réponse synthétisée en quelques secondes.
+
+L'architecture :
+
+1. **Notion MCP Server** : serveur MCP open source qui expose les pages Notion comme ressources et les recherches comme tools.
+2. **ChromaDB** : base vectorielle locale qui indexe le contenu des pages pour la recherche sémantique (RAG).
+3. **Claude** comme client MCP : orchestre l'ensemble — décide quand chercher dans Notion, quand faire du RAG, quand synthétiser.
+
+Un prompt comme *"Résume ce que j'ai noté sur PAI ce mois-ci"* déclenche automatiquement une recherche MCP dans Notion, une récupération sémantique dans ChromaDB, et une synthèse finale. Zéro plumbing visible pour l'utilisateur.
+
+---
+
+## MCP vs Function Calling classique
+
+La question revient souvent : quelle différence avec le function calling de l'API Anthropic ou OpenAI ?
+
+| | Function Calling | MCP |
+|---|---|---|
+| Portée | App-specific | Protocole standard |
+| Réutilisation | Chaque app réimplante | Un serveur, N clients |
+| Découverte | Statique (défini au départ) | Dynamique (déclaré par le serveur) |
+| Déploiement | Couplé à l'app | Serveur indépendant |
+
+MCP ne remplace pas le function calling — il le standardise. Un serveur MCP peut être utilisé par Claude Desktop, par une app Next.js, par un CLI Python, sans modification.
+
+---
+
+## Pourquoi ça va devenir incontournable
+
+Fin 2025, le nombre de serveurs MCP publics a explosé : Notion, GitHub, Slack, Linear, Postgres, Brave Search, et des dizaines d'outils métier spécialisés. La communauté construit l'écosystème.
+
+Pour les développeurs, l'implication est directe : **construire un serveur MCP une seule fois suffit pour intégrer l'outil dans n'importe quel environnement IA**. Votre base de données interne, votre CRM, votre système de fichiers — tous peuvent devenir des sources de contexte pour un LLM sans dupliquer l'intégration.
+
+Pour les équipes produit : MCP pousse vers une architecture où les données sont exposées proprement, avec des interfaces explicites. C'est une contrainte saine.
+
+---
+
+## Pour commencer
+
+Si vous voulez expérimenter MCP :
+
+- **Claude Desktop** est le client MCP le plus simple à configurer — il lit un fichier `claude_desktop_config.json` qui liste les serveurs à activer.
+- **MCP Python SDK** ou **TypeScript SDK** permettent de créer un serveur en quelques dizaines de lignes.
+- Les serveurs officiels (Notion, GitHub, filesystem) sont open source sur le GitHub d'Anthropic.
+
+Le protocole est encore jeune. Certaines parties de la spec évoluent. Mais la direction est claire : MCP est en train de devenir la couche d'intégration standard entre les LLMs et le reste du monde logiciel.
+
+---
+
+## Conclusion
+
+MCP résout un problème réel : la fragmentation des intégrations LLM. Il impose une interface standard, favorise la réutilisation, et rend les agents plus composables. Ce n'est pas une abstraction de confort — c'est une pièce d'infrastructure pour les applications IA sérieuses.
+
+Si vous construisez un produit avec de l'IA en 2026, la question n'est plus "est-ce que j'intègre MCP ?" mais "à quel moment ?"

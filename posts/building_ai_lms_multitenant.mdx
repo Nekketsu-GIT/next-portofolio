@@ -1,0 +1,112 @@
+---
+title: "Construire un LMS multi-tenant avec IA : retour d'expérience"
+date: "2026-04-10"
+description: "Concevoir une plateforme LMS multi-tenant avec des fonctionnalités IA intégrées est un défi technique complexe. Voici ce que j'ai appris en construisant PAI, une plateforme académique avec Keycloak, FastAPI et l'Anthropic SDK — de l'architecture d'isolation des données à la génération de flashcards en streaming."
+image_cover: "/cover_lms_ai.svg"
+tags: ["Architecture", "IA", "SaaS", "FastAPI", "Backend"]
+---
+
+## Le contexte
+
+PAI (Plateforme Académique Intelligente) est un LMS multi-tenant que je co-développe depuis plusieurs mois. L'objectif : permettre à des écoles et organismes de formation d'héberger leurs cours, suivre la progression de leurs apprenants et bénéficier de fonctionnalités IA — flashcards, quiz générés automatiquement, résumés, Q&A en streaming.
+
+Voici les choix d'architecture que nous avons faits et les leçons apprises.
+
+---
+
+## Pourquoi le multi-tenant est difficile
+
+Le multi-tenant, c'est faire cohabiter plusieurs "locataires" (ici des écoles) dans la même infrastructure, tout en garantissant une isolation stricte des données. Pas de fuite de données entre écoles, pas d'accès croisé — même accidentel.
+
+Trois stratégies existent :
+
+- **Base de données par tenant** : isolation maximale, coûts infrastructure élevés.
+- **Schéma par tenant** : bonne isolation, complexité de migration.
+- **Ligne par tenant** : simple, mais chaque requête doit filtrer sur `school_id`.
+
+Nous avons choisi la troisième approche pour sa simplicité opérationnelle. Le risque principal : oublier un filtre. La mitigation : encapsuler toutes les requêtes dans des services qui injectent systématiquement le `school_id` issu du token JWT.
+
+```python
+# Chaque endpoint FastAPI récupère l'école depuis le token Keycloak
+async def get_current_school(token: dict = Depends(verify_token)) -> School:
+    school_id = token.get("school_id")
+    if not school_id:
+        raise HTTPException(status_code=403, detail="No school context")
+    return await school_service.get_by_id(school_id)
+```
+
+---
+
+## Keycloak pour l'authentification et les rôles
+
+Gérer l'authentification en solo ou en petite équipe est tentant de faire soi-même avec JWT. Mauvaise idée à l'échelle. Nous avons opté pour Keycloak, un serveur OIDC open source qui gère :
+
+- L'authentification (password, OAuth, SSO)
+- Les rôles et permissions (RBAC)
+- L'isolation par realm ou par attribut personnalisé
+
+Chaque token JWT émis par Keycloak contient les rôles de l'utilisateur et son `school_id` injecté via un mapper de claims. FastAPI valide le token à chaque requête — pas de base de données supplémentaire à interroger pour vérifier les droits.
+
+La difficulté de Keycloak : la courbe d'apprentissage initiale. La configuration des realms, clients, mappers et flows prend du temps. Mais une fois en place, ça tient à l'échelle sans effort.
+
+---
+
+## Intégrer l'IA sans exploser la facture
+
+L'IA est le différenciateur de PAI. Mais générer des flashcards ou des quiz à la demande via l'Anthropic SDK peut vite devenir coûteux si c'est mal conçu.
+
+Nos règles :
+
+**1. La génération est explicite, jamais automatique.**
+L'IA est déclenchée par une action utilisateur. On ne génère pas en arrière-plan au moindre upload.
+
+**2. On cache les résultats.**
+Une fois un quiz généré pour un contenu de cours, on le stocke en base. La même requête ne relance pas Claude.
+
+**3. Le streaming pour l'UX.**
+Pour la Q&A et les résumés, on utilise le streaming de l'Anthropic SDK. L'utilisateur voit la réponse apparaître token par token — l'attente perçue est bien moindre.
+
+```python
+async def generate_flashcards(content: str, school_id: str):
+    stream = anthropic_client.messages.stream(
+        model="claude-sonnet-4-6",
+        max_tokens=2048,
+        messages=[{
+            "role": "user",
+            "content": f"Génère 10 flashcards à partir de ce contenu :\n\n{content}"
+        }]
+    )
+    async with stream as s:
+        async for text in s.text_stream:
+            yield text
+```
+
+**4. Prompt engineering sérieux.**
+Le prompt contient le contexte métier (niveau scolaire, discipline, langue) pour des résultats adaptés. Un prompt générique donne des flashcards génériques.
+
+---
+
+## Ce que je referais différemment
+
+**Séparer les exceptions du domaine et HTTP dès le départ.**
+Nos services FastAPI lèvent directement des `HTTPException`. C'est pratique mais couplé. Mieux : lever des exceptions métier dans le service, les convertir en HTTP à la couche contrôleur.
+
+**Ajouter une couche de cache Redis plus tôt.**
+On a anticipé le besoin mais pas implémenté. Résultat : la base de données absorbe toutes les lectures. Pour un LMS avec des centaines d'apprenants actifs simultanément, ça deviendra un goulot.
+
+**Écrire les tests d'intégration au fur et à mesure.**
+On a avancé vite sans tests E2E. Refactorer maintenant est plus coûteux.
+
+---
+
+## Ce que l'architecture a bien tenu
+
+L'isolation par `school_id` dans chaque service est rigoureuse — aucun incident de fuite de données en test. Les migrations Alembic sont propres et versionnées. Le CI/CD GitHub Actions déploie automatiquement sur VPS à chaque merge sur `main`. Le pipeline prend 4 minutes.
+
+---
+
+## Conclusion
+
+Construire un LMS multi-tenant avec des fonctionnalités IA est ambitieux pour une petite équipe. Les clés : choisir une stratégie d'isolation simple et la respecter sans exception, externaliser l'authentification à un outil éprouvé comme Keycloak, et concevoir l'intégration IA de façon frugale — déclenchée explicitement, résultats mis en cache, streaming pour l'UX.
+
+Le reste — performance, GDPR, zéro downtime — vient en phase de production readiness. Ne pas sur-optimiser avant d'avoir de vrais utilisateurs.

@@ -2,42 +2,64 @@
 
 import { motion } from "framer-motion";
 
-const skills = [
-  { name: "React", icon: "⚛️" },
-  { name: "Next.js", icon: "▲" },
-  { name: "TypeScript", icon: "📘" },
-  { name: "Node.js", icon: "🟢" },
-  { name: "Python", icon: "🐍" },
-  { name: "PostgreSQL", icon: "🐘" },
+const skillGroups = [
+  {
+    label: "Frontend",
+    skills: ["Next.js", "React", "Expo", "TypeScript", "Tailwind CSS"],
+  },
+  {
+    label: "Backend",
+    skills: ["FastAPI", "Node.js", "Elixir / Phoenix"],
+  },
+  {
+    label: "AI & Agents",
+    skills: ["Anthropic SDK", "RAG", "MCP", "Claude Code"],
+  },
+  {
+    label: "Auth & Identity",
+    skills: ["Keycloak", "Auth0", "Auth.js"],
+  },
+  {
+    label: "Data",
+    skills: ["PostgreSQL", "MongoDB", "Prisma", "Alembic", "DuckDB"],
+  },
+  {
+    label: "Infra",
+    skills: ["Docker", "GitHub Actions", "Traefik", "MinIO"],
+  },
 ];
 
 export default function SimpleSkills() {
   return (
     <motion.div
-      className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-4xl mx-auto"
+      className="flex flex-col gap-6 w-full max-w-5xl mx-auto"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, staggerChildren: 0.1 }}
+      transition={{ duration: 0.5 }}
     >
-      {skills.map((skill, index) => (
+      {skillGroups.map((group, gi) => (
         <motion.div
-          key={skill.name}
-          className="flex flex-col items-center p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-shadow"
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          key={group.label}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
-          whileHover={{ 
-            scale: 1.05,
-            y: -4,
-            transition: { duration: 0.2 }
-          }}
+          transition={{ duration: 0.4, delay: gi * 0.08 }}
+          className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4"
         >
-          <div className="text-2xl mb-2">{skill.icon}</div>
-          <span className="text-sm font-medium text-gray-700 dark:text-gray-300 text-center">
-            {skill.name}
+          <span className="w-36 shrink-0 text-xs font-bold uppercase tracking-widest text-darkgoldenrod pt-1">
+            {group.label}
           </span>
+          <div className="flex flex-wrap gap-2">
+            {group.skills.map((skill) => (
+              <span
+                key={skill}
+                className="px-3 py-1 text-sm font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
         </motion.div>
       ))}
     </motion.div>
