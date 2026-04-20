@@ -9,15 +9,6 @@
   --darkgoldenrod: #9C824A; /* Default light mode dark goldenrod */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #fcfcfc;
-    --yaleblue: #8bb1d8;
-    --darkgoldenrod: #C6A763;
-  }
-}
-
 .dark {
   --background: #0f1117;
   --foreground: #f0f0f0;
