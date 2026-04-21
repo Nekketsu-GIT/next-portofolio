@@ -11,6 +11,14 @@ import { getTranslations } from "next-intl/server";
 
 const featuredProjects = [
   {
+    title: "ContextBound AI — AI Temporal Engine",
+    summary:
+      "Plateforme analytique immobilière : 6 sources open data fusionnées dans une gold layer DuckDB, API FastAPI avec Text-to-SQL en langage naturel, serveur MCP pour agents IA. Pipeline multi-villes automatisé, déployé en production.",
+    tags: ["Python", "DuckDB", "FastAPI", "Next.js", "Anthropic SDK", "MCP", "Docker"],
+    preview: "https://contextbound.dokidokidev.com",
+    image: "/images/projects/contextbound.svg",
+  },
+  {
     title: "PAI — Plateforme Académique Intelligente",
     summary:
       "LMS multi-tenant avec flashcards, quiz et résumés générés par IA. Architecture rôle-based, isolation par école, pipeline CI/CD complet.",
@@ -26,16 +34,17 @@ const featuredProjects = [
     preview: "https://talesspark.dokidokidev.com",
     image: "/images/projects/talespark.svg",
   },
-  {
-    title: "Notion Intelligence Layer",
-    summary:
-      "CLI Python qui transforme un workspace Notion en agent interrogeable — RAG + MCP + Claude. Workflow autonome multi-étapes depuis un seul prompt.",
-    tags: ["Python", "ChromaDB", "Anthropic SDK", "MCP"],
-    image: "/images/projects/notion-agent.svg",
-  },
 ];
 
 const featuredProjectsEn = [
+  {
+    title: "ContextBound AI — AI Temporal Engine",
+    summary:
+      "French real estate analytics platform: 6 open data sources fused into a DuckDB gold layer, FastAPI with natural language Text-to-SQL, MCP server for AI agents. Automated multi-city pipeline, deployed in production.",
+    tags: ["Python", "DuckDB", "FastAPI", "Next.js", "Anthropic SDK", "MCP", "Docker"],
+    preview: "https://contextbound.dokidokidev.com",
+    image: "/images/projects/contextbound.svg",
+  },
   {
     title: "PAI — Academic Intelligence Platform",
     summary:
@@ -51,13 +60,6 @@ const featuredProjectsEn = [
     tags: ["Next.js", "FastAPI", "PostgreSQL", "Auth0", "Stripe"],
     preview: "https://talesspark.dokidokidev.com",
     image: "/images/projects/talespark.svg",
-  },
-  {
-    title: "Notion Intelligence Layer",
-    summary:
-      "Python CLI that turns a Notion workspace into a queryable agent — RAG + MCP + Claude. Autonomous multi-step workflow from a single prompt.",
-    tags: ["Python", "ChromaDB", "Anthropic SDK", "MCP"],
-    image: "/images/projects/notion-agent.svg",
   },
 ];
 
@@ -146,6 +148,12 @@ export default async function Home({
     {
       status: tCurrently("live"),
       color: "green",
+      label: "ContextBound AI",
+      detail: tCurrently("contextbound_detail"),
+    },
+    {
+      status: tCurrently("live"),
+      color: "green",
       label: "Talespark",
       detail: tCurrently("talespark_detail"),
     },
@@ -154,12 +162,6 @@ export default async function Home({
       color: "blue",
       label: "PAI",
       detail: tCurrently("pai_detail"),
-    },
-    {
-      status: tCurrently("store"),
-      color: "amber",
-      label: "Invitee",
-      detail: tCurrently("invitee_detail"),
     },
   ];
 
@@ -280,7 +282,7 @@ export default async function Home({
         <div className="text-center mt-12">
           <Link
             href="/projects"
-            className="inline-flex items-center px-8 py-4 bg-yaleblue dark:bg-[#063672] text-white rounded-lg font-semibold text-lg hover:opacity-90 transition-colors duration-200"
+            className="inline-flex items-center px-8 py-4 bg-yaleblue dark:bg-[#063672] text-white hover:!text-white rounded-lg font-semibold text-lg hover:opacity-90 transition-colors duration-200"
           >
             {tProjectsHome("cta")}
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

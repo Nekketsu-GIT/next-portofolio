@@ -16,6 +16,7 @@
     "live": "Live",
     "pre": "Pre-production",
     "store": "Store-ready",
+    "contextbound_detail": "Real estate analytics platform — DuckDB, FastAPI, Text-to-SQL, MCP",
     "talespark_detail": "AI story generator for children — Stripe, Auth0, multilingual",
     "pai_detail": "Multi-tenant LMS with embedded AI — FastAPI, Keycloak, CI/CD",
     "invitee_detail": "RSVP mobile app — Expo, Firebase, iOS & Android"

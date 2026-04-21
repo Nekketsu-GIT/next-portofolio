@@ -1,0 +1,156 @@
+---
+title: "DuckDB comme gold layer : construire une plateforme analytique sur données ouvertes"
+date: "2026-04-21"
+description: "Comment j'ai fusionné 6 sources de données publiques françaises (DVF, DPE, Météo, Euribor, Eco2mix, Loyers) dans une gold layer DuckDB pour enrichir chaque transaction immobilière avec son contexte temporel complet — et pourquoi DuckDB était le bon choix."
+image_cover: "/cover_duckdb_pipeline.svg"
+tags: ["Data", "DuckDB", "ETL", "Python", "Architecture"]
+---
+
+## Le projet
+
+ContextBound AI est une plateforme analytique immobilière que j'ai construite pour démontrer une idée simple : une vente immobilière ne se comprend pas sans son contexte temporel. Le prix au m² le jour de la signature est une chose. Ce qui se passait ce jour-là — le taux Euribor, la météo, l'étiquette DPE du quartier, le pourcentage d'énergie verte sur le réseau — c'est une autre.
+
+Le résultat : une table DuckDB de 24+ colonnes où chaque ligne est une transaction enrichie avec l'ensemble de ce contexte. On appelle ça une **gold layer**.
+
+---
+
+## Pourquoi DuckDB et pas PostgreSQL
+
+La question se pose toujours. PostgreSQL est la valeur sûre. Voici pourquoi DuckDB était le bon choix ici.
+
+**Workload analytique, pas transactionnel.** Les données immobilières sont historiques. On ne fait pas de transactions concurrentes — on fait des agrégations, des jointures temporelles, des médianes par mois et par département. DuckDB est un moteur OLAP conçu exactement pour ça. Sur ce type de requêtes, il est 10 à 100 fois plus rapide que PostgreSQL sans index.
+
+**Un seul fichier.** `temporal.duckdb` est un fichier. On peut le versionner, le déplacer, le monter comme volume Docker. Pas de service à maintenir, pas de connexion réseau. Pour un projet solo ou une petite équipe, c'est un avantage massif.
+
+**Parquet natif.** Le DPE (diagnostic de performance énergétique) est un fichier CSV de 108 Mo avec 9 millions de lignes. Le charger colonne par colonne en Parquet et le requêter directement depuis DuckDB — sans passer par Pandas — c'est la bonne architecture.
+
+---
+
+## Les 6 sources et leurs contraintes
+
+| Source | Format | Contrainte principale |
+|--------|--------|-----------------------|
+| DVF | CSV.gz par département par année | 108 Mo+ par fichier, auto-download depuis data.gouv.fr |
+| DPE | CSV 108 Mo national | latin-1, chunked → Parquet obligatoire |
+| Météo | API JSON par coordonnées | Un appel par ville par plage de dates |
+| Euribor | API ECB JSON | Banque de France a arrêté en juillet 2024 — fallback ECB |
+| Eco2mix | CSV bulk national | 50k appels/mois de quota → téléchargement bulk, pas API par transaction |
+| Loyers | CSV national | Structure prédictive app/maison stable depuis 2023 |
+
+Chaque source a ses pièges. Le DPE en latin-1 qui fait planter l'ingestion à la ligne 4 millions. L'Euribor qui disparaît d'une source officielle sans prévenir. L'Eco2mix qui tente de facturer l'accès API si on fait trop de requêtes.
+
+---
+
+## L'architecture du pipeline
+
+```
+config.yaml (8 départements, années DVF, dates météo)
+    ↓
+DataIngestor.run_all()
+    ├── fetch_dvf(dept, year)     → data/dvf-{dept}-{year}.csv
+    ├── fetch_weather(dept, lat, lon) → data/meteo-{dept}.csv
+    ├── fetch_euribor()           → data/euribor.csv
+    ├── fetch_eco2mix()           → data/eco2mix.csv
+    ├── fetch_dpe()               → data/dpe.parquet  (chunked)
+    └── fetch_loyers()            → data/loyers-*.parquet
+    ↓
+DataTransformer.process_gold_layer()
+    └── mart_context_immo (DuckDB)
+```
+
+Le principe de base : chaque source est **cachée par nom de fichier**. Si `data/dvf-75-2024.csv` existe, on ne re-télécharge pas. Ça rend le développement rapide et l'exécution idempotente.
+
+---
+
+## La transformation SQL : le cœur du projet
+
+Tout se passe dans une seule requête DuckDB avec des CTEs chaînées. Voici la logique :
+
+```sql
+WITH dvf AS (
+    SELECT * FROM read_csv_auto('data/dvf-*.csv')
+    WHERE type_local IN ('Appartement', 'Maison')
+    AND valeur_fonciere > 0
+),
+weather AS (
+    SELECT dept_code, date, temp_avg, heating_degree_days
+    FROM read_csv_auto('data/meteo-*.csv')
+),
+euribor AS (
+    SELECT month, rate AS euribor_12m
+    FROM read_csv_auto('data/euribor.csv')
+),
+dpe_quartier AS (
+    SELECT
+        SUBSTR(code_postal_ban, 1, 2) AS dept_code,
+        MODE(classe_consommation_energie) AS dominant_dpe,
+        AVG(consommation_energie) AS avg_conso_ep
+    FROM parquet_scan('data/dpe.parquet')
+    GROUP BY dept_code
+),
+loyers AS (
+    SELECT commune, loypredm2, lwr_ipm2, upr_ipm2
+    FROM parquet_scan('data/loyers-app.parquet')
+),
+mart AS (
+    SELECT
+        dvf.*,
+        weather.temp_avg,
+        weather.heating_degree_days,
+        euribor.euribor_12m,
+        dpe_quartier.dominant_dpe,
+        dpe_quartier.avg_conso_ep,
+        loyers.loypredm2 AS rental_potential_m2,
+        -- Calculs dérivés
+        (loyers.loypredm2 * 12) / (dvf.valeur_fonciere / dvf.surface_totale) * 100
+            AS rendement_brut,
+        -- Labels intelligence
+        CASE
+            WHEN euribor.euribor_12m > 3.5 THEN 'Crédit Cher'
+            ELSE 'Crédit Accessible'
+        END AS financial_context,
+        CASE
+            WHEN rendement_brut > euribor.euribor_12m + 1.5
+                AND dominant_dpe NOT IN ('F', 'G')
+            THEN 'Opportunité'
+            WHEN rendement_brut < euribor.euribor_12m
+            THEN 'Risque Élevé'
+            ELSE 'Standard'
+        END AS investment_signal
+    FROM dvf
+    LEFT JOIN weather ON dvf.dept_code = weather.dept_code
+        AND dvf.date_iso = weather.date
+    LEFT JOIN euribor ON DATE_TRUNC('month', dvf.date_iso) = euribor.month
+    LEFT JOIN dpe_quartier ON dvf.dept_code = dpe_quartier.dept_code
+    LEFT JOIN loyers ON dvf.code_postal = loyers.commune
+)
+INSERT INTO mart_context_immo SELECT * FROM mart;
+```
+
+La jointure météo se fait sur `dept_code + date`. La jointure Euribor se fait sur le mois tronqué (les taux sont mensuels). La jointure DPE se fait sur le département (agrégat quartier). La jointure loyers se fait sur le code postal.
+
+---
+
+## Ce que ça donne
+
+Après le pipeline : `mart_context_immo` contient plusieurs centaines de milliers de ventes enrichies, couvrant 8 départements sur 3 ans (2022-2024). Chaque ligne a :
+
+- Le prix, la surface, le prix/m², le type de bien
+- La météo du jour de la vente (température, degrés-jours de chauffage, label)
+- Le taux Euribor du mois de la vente
+- Le % d'énergie verte régionale
+- L'étiquette DPE dominante du quartier
+- Le loyer de référence prédit et le rendement brut
+- Les labels d'intelligence : `investment_signal`, `financial_context`, `weather_label`
+
+C'est cette richesse qui rend le Text-to-SQL intéressant — mais ça, c'est le sujet d'un autre article.
+
+---
+
+## Ce que j'aurais fait différemment
+
+**DBT pour la transformation.** La requête SQL imbriquée fonctionne, mais DBT aurait rendu chaque CTE testable et documentée séparément. À envisager si le projet grandit.
+
+**Validation des données à l'ingestion.** J'ai découvert des codes postaux mal formatés et des surfaces aberrantes (0.01 m²) après coup. Un schéma de validation avec Pydantic ou Great Expectations au niveau de l'ingestion aurait économisé du debug.
+
+**Incrémental plutôt que full rebuild.** Le pipeline reconstruit tout à chaque exécution. Avec DuckDB, on peut faire de l'ingestion incrémentale sur les nouvelles ventes DVF. Pas critique à cette échelle, mais nécessaire pour passer à 50+ départements.

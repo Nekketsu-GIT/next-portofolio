@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#0e0e1a"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="0" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#9C824A"/>
+      <stop offset="100%" stop-color="#6b5835"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Right side diagram: NL → LLM → SQL → DB → Answer -->
+  <g opacity="0.22">
+    <!-- NL input bubble -->
+    <rect x="820" y="100" width="310" height="54" rx="27" fill="none" stroke="#8bb1d8" stroke-width="1.5"/>
+    <text x="975" y="132" fill="#8bb1d8" font-size="13" font-family="monospace, Courier New" text-anchor="middle">"Quel est le meilleur rendement ?"</text>
+
+    <!-- Arrow down -->
+    <line x1="975" y1="154" x2="975" y2="195" stroke="#8bb1d8" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <polygon points="969,195 975,207 981,195" fill="#8bb1d8" opacity="0.6"/>
+
+    <!-- LLM box -->
+    <rect x="895" y="207" width="160" height="54" rx="8" fill="#063672" opacity="0.85"/>
+    <text x="975" y="234" fill="#ffffff" font-size="13" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" font-weight="bold">Claude</text>
+    <text x="975" y="252" fill="#8bb1d8" font-size="11" font-family="Arial, Helvetica, sans-serif" text-anchor="middle">generate_sql()</text>
+
+    <!-- Arrow down -->
+    <line x1="975" y1="261" x2="975" y2="302" stroke="#9C824A" stroke-width="1.5"/>
+    <polygon points="969,302 975,314 981,302" fill="#9C824A" opacity="0.8"/>
+
+    <!-- SQL block -->
+    <rect x="820" y="314" width="310" height="80" rx="6" fill="none" stroke="#9C824A" stroke-width="1.5"/>
+    <text x="840" y="338" fill="#C6A763" font-size="11" font-family="monospace, Courier New">SELECT code_postal,</text>
+    <text x="840" y="355" fill="#C6A763" font-size="11" font-family="monospace, Courier New">  AVG(rendement_brut)</text>
+    <text x="840" y="372" fill="#C6A763" font-size="11" font-family="monospace, Courier New">FROM mart_context_immo</text>
+    <text x="840" y="389" fill="#C6A763" font-size="11" font-family="monospace, Courier New">GROUP BY dept_code</text>
+
+    <!-- Arrow down -->
+    <line x1="975" y1="394" x2="975" y2="430" stroke="#9C824A" stroke-width="1.5"/>
+    <polygon points="969,430 975,442 981,430" fill="#9C824A" opacity="0.8"/>
+
+    <!-- DuckDB -->
+    <rect x="895" y="442" width="160" height="50" rx="8" fill="#063672" opacity="0.75"/>
+    <text x="975" y="472" fill="#ffffff" font-size="13" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" font-weight="bold">DuckDB</text>
+
+    <!-- Arrow down -->
+    <line x1="975" y1="492" x2="975" y2="522" stroke="#8bb1d8" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+    <!-- Answer -->
+    <text x="975" y="542" fill="#8bb1d8" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle">→ Interprétation IA</text>
+  </g>
+
+  <!-- Left accent bar (gold) -->
+  <rect x="0" y="0" width="8" height="630" fill="url(#accentGrad)"/>
+
+  <!-- Tag -->
+  <rect x="80" y="90" width="290" height="34" rx="17" fill="#9C824A" opacity="0.45"/>
+  <text x="225" y="113" fill="#C6A763" font-size="13" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" font-weight="600" letter-spacing="1">IA · CLAUDE · TEXT-TO-SQL · DATA</text>
+
+  <!-- Big faded background text -->
+  <text x="72" y="245" fill="#9C824A" font-size="120" font-family="Arial, Helvetica, sans-serif" font-weight="900" opacity="0.12">SQL</text>
+  <text x="72" y="242" fill="#6b5835" font-size="120" font-family="Arial, Helvetica, sans-serif" font-weight="900" opacity="0.08">SQL</text>
+
+  <!-- Title -->
+  <text x="80" y="255" fill="#ffffff" font-size="52" font-family="Arial, Helvetica, sans-serif" font-weight="700">Text-to-SQL</text>
+  <text x="80" y="320" fill="#ffffff" font-size="52" font-family="Arial, Helvetica, sans-serif" font-weight="700">avec Claude</text>
+
+  <!-- Accent line -->
+  <rect x="80" y="346" width="120" height="4" rx="2" fill="#9C824A"/>
+
+  <!-- Subtitle -->
+  <text x="80" y="400" fill="#94a3b8" font-size="22" font-family="Arial, Helvetica, sans-serif">Du langage naturel à la requête SQL en une étape</text>
+
+  <!-- Footer -->
+  <text x="80" y="575" fill="#4b5563" font-size="16" font-family="Arial, Helvetica, sans-serif">jose-pascal.vercel.app</text>
+  <text x="1120" y="575" fill="#4b5563" font-size="16" font-family="Arial, Helvetica, sans-serif" text-anchor="end">José DACOSTA</text>
+</svg>

@@ -13,6 +13,14 @@ export const metadata: Metadata = {
 
 const projects = [
   {
+    title: "ContextBound AI — AI Temporal Engine",
+    summary:
+      "Plateforme analytique immobilière française. Fusionne 6 sources open data (DVF, DPE, Météo, Euribor, Eco2mix, Loyers) dans une gold layer DuckDB, expose une API FastAPI avec Text-to-SQL en langage naturel et un serveur MCP pour agents IA. Pipeline multi-villes automatisé, CI/CD GitHub Actions, déployé en production.",
+    tags: ["Python", "DuckDB", "FastAPI", "Next.js", "Anthropic SDK", "MCP", "Docker", "GitHub Actions"],
+    preview: "https://contextbound.dokidokidev.com",
+    image: "/images/projects/contextbound.svg",
+  },
+  {
     title: "PAI — Plateforme Académique Intelligente",
     summary:
       "LMS multi-tenant avec génération IA de flashcards, quiz, résumés et Q&A. Architecture rôle-based avec isolation par école, pipeline CI/CD complet (GitHub Actions + Docker). Phase 4c complète, pré-production.",

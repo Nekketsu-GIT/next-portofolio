@@ -1,0 +1,166 @@
+---
+title: "Text-to-SQL avec Claude : donner une voix naturelle à vos données"
+date: "2026-04-21"
+description: "Comment j'ai construit un moteur de requête en langage naturel sur une base DuckDB immobilière — de la génération SQL par LLM à l'interprétation des résultats, en passant par les pièges du prompt engineering et la gestion des erreurs SQL en production."
+image_cover: "/cover_text_to_sql.svg"
+tags: ["IA", "Claude", "Text-to-SQL", "FastAPI", "Python"]
+---
+
+## L'idée
+
+La gold layer DuckDB de ContextBound contient des centaines de milliers de ventes immobilières enrichies. Belle donnée. Mais pour qu'un utilisateur y accède, il faudrait qu'il connaisse SQL, le schéma de la table, et les noms exacts des colonnes.
+
+Text-to-SQL règle ce problème : l'utilisateur pose une question en français, le LLM génère la requête SQL, DuckDB l'exécute, et Claude interprète les résultats en prose. Zéro SQL côté utilisateur.
+
+---
+
+## L'architecture en 3 étapes
+
+```python
+def ask_database(question: str):
+    # 1. LLM → SQL
+    sql = generate_sql(question)
+
+    # 2. DuckDB → données
+    con = duckdb.connect("database/temporal.duckdb", read_only=True)
+    df = con.execute(sql).df()
+
+    # 3. LLM → interprétation
+    explanation = interpret_results(question, df.to_dict("records")[:50])
+
+    return sql, df, explanation
+```
+
+Simple. La puissance vient du prompt engineering à chaque étape.
+
+---
+
+## Étape 1 : générer le SQL
+
+Le prompt de génération est la pièce critique. Voici ce qui fonctionne :
+
+```python
+prompt = f"""
+Tu es un expert data analyst DuckDB.
+Génère UNIQUEMENT une requête SQL valide compatible DuckDB.
+Pas de bloc markdown, pas d'explication — juste la requête pure.
+
+Schéma :
+{DB_SCHEMA}
+
+Question : {question}
+"""
+```
+
+**Trois règles qui font la différence :**
+
+1. **"UNIQUEMENT une requête SQL"** — sans ça, Claude ajoute des explications avant le code, et le parser SQL plante.
+
+2. **Le schéma complet dans le prompt.** Pas juste les noms de colonnes — les types, les valeurs possibles, les significations métier. `investment_signal` peut valoir `'Opportunité'`, `'Risque Élevé'` ou `'Standard'`. Sans ça, Claude génère `WHERE signal = 'opportunity'`.
+
+3. **"compatible DuckDB"** — DuckDB a sa propre syntaxe pour certaines fonctions (`DATE_TRUNC`, `MEDIAN`, `MODE`). Préciser le dialecte évite les erreurs sur des fonctions MySQL ou PostgreSQL-only.
+
+Le schéma que j'injecte dans le prompt :
+
+```
+Table mart_context_immo:
+- id_mutation (VARCHAR): Identifiant unique de la mutation
+- date_iso (DATE): Date de la vente
+- code_postal (VARCHAR): Code postal
+- dept_code (VARCHAR): Code département (75, 69, 13, 33, 31, 06, 59, 44...)
+- type_local (VARCHAR): Type de bien (Appartement, Maison)
+- valeur_fonciere (DOUBLE): Prix de vente
+- price_per_m2 (DOUBLE): Prix au m2
+- rendement_brut (DOUBLE): Rendement locatif brut (%)
+- investment_signal (VARCHAR): Opportunité | Risque Élevé | Standard
+- dominant_dpe (VARCHAR): DPE (A, B, C, D, E, F, G)
+- euribor_12m (DOUBLE): Taux euribor 12 mois
+- financial_context (VARCHAR): Crédit Cher | Crédit Accessible
+...
+```
+
+---
+
+## Étape 2 : exécuter en read-only
+
+Une seule règle : **toujours `read_only=True`**.
+
+```python
+con = duckdb.connect(db_path, read_only=True)
+```
+
+Le LLM peut générer des requêtes malveillantes ou destructrices si l'input utilisateur est mal formé. `read_only` coupe court à tout `DROP TABLE`, `INSERT`, ou injection. C'est la seule protection nécessaire ici — DuckDB en read-only refuse physiquement toute écriture.
+
+---
+
+## Étape 3 : interpréter les résultats
+
+La génération SQL répond à la question de façon brute. L'interprétation est ce qui rend l'expérience utile.
+
+```python
+prompt = f"""
+Tu es ContextBound, conseiller en investissement immobilier PropTech.
+Un utilisateur a posé : "{question}"
+Données extraites :
+{records[:50]}
+
+Rédige une réponse claire et professionnelle. Interprète verbalement les chiffres.
+N'affiche pas le SQL. Agis comme le data scientist attitré de l'utilisateur.
+"""
+```
+
+La limite à 50 enregistrements est importante. Au-delà, le prompt devient trop long et l'interprétation perd en précision. Si la requête retourne 10 000 lignes, on envoie quand même 50 lignes représentatives — Claude travaille sur un échantillon, pas sur la masse.
+
+---
+
+## Les pièges rencontrés
+
+**Le SQL avec du markdown.** Claude encadre parfois la requête dans des backticks même quand on dit de ne pas le faire. Solution : un nettoyage systématique après génération.
+
+```python
+sql = response.content[0].text.strip()
+if sql.startswith("```sql"):
+    sql = sql[6:]
+if sql.endswith("```"):
+    sql = sql[:-3]
+return sql.strip()
+```
+
+**Les questions ambiguës.** "Quels sont les meilleurs biens ?" — meilleurs selon quel critère ? Claude fait un choix. Parfois c'est le bon (rendement), parfois non (prix le plus bas). Solution : des exemples de questions dans le prompt système pour orienter l'interprétation par défaut.
+
+**Les résultats vides.** Si la requête retourne zéro ligne, l'interprétation doit le dire clairement plutôt que d'halluciner des données. Le prompt doit explicitement demander : "Si les données sont vides, dis-le clairement."
+
+**La latence.** Deux appels LLM séquentiels (génération + interprétation) prennent 2 à 5 secondes. Acceptable pour une interface de démonstration. Pour de la production à volume, on peut paralléliser : lancer l'interprétation dès que les données arrivent, sans attendre la fin de la requête.
+
+---
+
+## Ce que ça donne côté utilisateur
+
+Une question comme "Quelles communes lyonnaises ont le meilleur rendement locatif en 2024 ?" donne :
+
+**SQL généré :**
+```sql
+SELECT code_postal, ROUND(AVG(rendement_brut), 2) AS rendement_moyen,
+       COUNT(*) AS nb_ventes, ROUND(MEDIAN(price_per_m2), 0) AS prix_median_m2
+FROM mart_context_immo
+WHERE dept_code = '69'
+  AND EXTRACT(YEAR FROM date_iso) = 2024
+GROUP BY code_postal
+ORDER BY rendement_moyen DESC
+LIMIT 10
+```
+
+**Interprétation :**
+> Les communes du Rhône avec le meilleur rendement locatif en 2024 sont concentrées dans les zones périphériques de Lyon. Le code postal 69120 (Vaulx-en-Velin) affiche un rendement moyen de 6.8%, bien au-dessus de la moyenne départementale de 4.2%. À noter que ces communes présentent des prix au m² inférieurs à 2 500 €, ce qui explique mécaniquement le rendement élevé. Le risque DPE est à surveiller : une part importante des biens dans ces zones sont classés E ou F.
+
+C'est ça la valeur du Text-to-SQL couplé à une interprétation LLM : pas juste des données — une analyse.
+
+---
+
+## Pour aller plus loin
+
+**Streaming.** L'interprétation peut être streamée mot par mot avec l'API Anthropic. L'utilisateur voit la réponse apparaître progressivement, ce qui améliore la perception de performance.
+
+**Validation du SQL.** Avant d'exécuter, on peut demander au LLM de vérifier sa propre requête. Un second appel court ("Cette requête SQL est-elle valide pour DuckDB ? Réponds OUI ou NON.") réduit les erreurs de 40% dans mes tests.
+
+**Historique de conversation.** En passant les messages précédents dans le contexte, on peut affiner les requêtes ("Montre-moi la même chose mais seulement pour les appartements"). Le moteur devient un vrai assistant de données.

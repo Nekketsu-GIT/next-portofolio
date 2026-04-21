@@ -220,7 +220,7 @@ export default function ProjectCard({
                 href={preview}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center w-full px-3 py-2 bg-yaleblue dark:bg-[#063672] text-white rounded-lg font-medium text-sm transition-all duration-200 hover:opacity-90"
+                className="inline-flex items-center justify-center w-full px-3 py-2 bg-yaleblue dark:bg-[#063672] text-white rounded-lg font-medium text-sm transition-all duration-200 hover:opacity-90 hover:!text-white"
               >
                 <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
                 Demo
