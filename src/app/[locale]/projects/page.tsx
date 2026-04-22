@@ -47,8 +47,9 @@ const projects = [
   {
     title: "Notion Intelligence Layer",
     summary:
-      "CLI Python qui transforme un workspace Notion en agent interrogeable via RAG + MCP + Claude. Un seul prompt déclenche un workflow autonome multi-étapes avec recherche sémantique sur toutes les pages.",
-    tags: ["Python", "ChromaDB", "Anthropic SDK", "MCP", "Notion API"],
+      "Agent autonome sur un workspace Notion : RAG + MCP + Claude. Un prompt déclenche un workflow multi-étapes avec recherche sémantique, lecture et écriture dans Notion. Web UI avec streaming SSE, historique des runs et rollback. Déployé en production.",
+    tags: ["Python", "FastAPI", "ChromaDB", "Anthropic SDK", "MCP", "Notion API", "Docker"],
+    preview: "https://notion-buddy.dokidokidev.com",
     image: "/images/projects/notion-agent.svg",
   },
   {
